@@ -14,6 +14,7 @@ export const project = defineType({
     { name: 'content', title: 'Content', default: true },
     { name: 'details', title: 'Details' },
     { name: 'media', title: 'Media' },
+    { name: 'seo', title: 'SEO' },
   ],
   fields: [
     defineField({
@@ -73,6 +74,21 @@ export const project = defineType({
       title: 'Location',
       type: 'string',
       group: 'details',
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured (начална страница)',
+      type: 'boolean',
+      group: 'details',
+      initialValue: false,
+      description: 'Ако е включено, проектът се появява в "Проекти · Избрани" на началната страница.',
+    }),
+    defineField({
+      name: 'featuredOrder',
+      title: 'Ред в Featured (1 = пръв, fluid карта)',
+      type: 'number',
+      group: 'details',
+      description: 'По-малкото число = по-напред. Проектът с ред 1 се показва като широка fluid карта.',
     }),
     defineField({
       name: 'classified',
@@ -234,18 +250,27 @@ export const project = defineType({
         },
       ],
     }),
+    defineField({
+      name: 'seo',
+      title: 'SEO & Social',
+      type: 'seo',
+      group: 'seo',
+    }),
   ],
   preview: {
     select: {
       title: 'title',
-      sector: 'sectorLabel',
+      sector: 'category.title',
       media: 'heroImage',
       slug: 'slug',
+      featured: 'featured',
+      featuredOrder: 'featuredOrder',
     },
-    prepare({ title, sector, media, slug }) {
+    prepare({ title, sector, media, slug, featured, featuredOrder }) {
       const path = slug?.current ? `/bg/proekti/${slug.current}` : ''
+      const star = featured ? `★${featuredOrder ? ` #${featuredOrder}` : ''} ` : ''
       return {
-        title: title ?? 'Project',
+        title: `${star}${title ?? 'Project'}`,
         subtitle: [sector, path].filter(Boolean).join(' · '),
         media,
       }

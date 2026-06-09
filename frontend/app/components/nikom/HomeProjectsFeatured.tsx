@@ -14,9 +14,11 @@ type KpiItem = {
 };
 
 type Project = {
+  _id?: string;
   _key?: string;
   title?: string;
   sector?: string;
+  sectorLabel?: string;
   year?: string;
   image?: { asset?: { _ref?: string; url?: string }; hotspot?: unknown };
   imageFallback?: string;
@@ -60,25 +62,21 @@ export default function HomeProjectsFeatured({ block, index, pageId, pageType }:
             <h2 className="h2" data-sanity={path('heading')}>
               <StreamText text={heading} />
             </h2>
-          </div>
-          <div className="proj-filters">
-            <span className="chip solid">Всички</span>
-            <span className="chip">Здравеопазване</span>
-            <span className="chip">Ритейл</span>
-            <span className="chip">Държавни</span>
-            <span className="chip">Индустрия</span>
-            <a className="btn btn-ghost btn-sm" href="#">Виж всички 80+ <Icons.Arrow /></a>
+            <a href="/bg/proekti" className="btn btn-primary btn-lg" style={{ marginTop: '32px' }}>
+              Виж всички проекти <Icons.Arrow />
+            </a>
           </div>
         </div>
 
         <div className="proj-grid" data-sanity={projArrayPath}>
           {projects.map((p, i) => {
-            const itemKey = p._key ?? String(i);
+            const itemKey = p._id ?? p._key ?? String(i);
             const imgSrc = imageUrl(p.image, p.imageFallback ? `/nikom/${p.imageFallback}` : '/nikom/proj-tokuda.jpg');
 
             return (
-              <article
-                className={'proj-card ' + (p.featured ? 'featured' : '')}
+              <a
+                href={p.href ?? '#'}
+                className={'proj-card ' + (i === 0 ? 'featured' : '')}
                 key={itemKey}
                 data-sanity={
                   pageId && pageType && blockKey
@@ -87,10 +85,10 @@ export default function HomeProjectsFeatured({ block, index, pageId, pageType }:
                 }
               >
                 <div className="proj-img">
-                  <img src={imgSrc} alt={p.title ?? ''} className="proj-photo" loading="lazy" />
+                  <img src={imgSrc} alt={p.title ?? ''} className="proj-photo" />
                   <div className="proj-overlay">
                     <span className="chip dark">{p.year ?? ''}</span>
-                    <span className="chip solid">{p.sector ?? ''}</span>
+                    <span className="chip solid">{p.sectorLabel ?? p.sector ?? ''}</span>
                   </div>
                   <span className="proj-meta-stamp">PROJECT · {String(i + 1).padStart(3, '0')}</span>
                 </div>
@@ -111,9 +109,9 @@ export default function HomeProjectsFeatured({ block, index, pageId, pageType }:
                       </div>
                     ))}
                   </div>
-                  <a className="card-link" href={p.href ?? '#'}>Виж проекта <Icons.Arrow /></a>
+                  <div className="card-link">Виж проекта <Icons.Arrow /></div>
                 </div>
-              </article>
+              </a>
             );
           })}
         </div>

@@ -53,6 +53,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }))
   )
 
+  const projects = (data as any)?.projects ?? []
+  const projectEntries: MetadataRoute.Sitemap = projects.map(
+    (project: { pathname: string; _updatedAt?: string }) => ({
+      url: `${domain}/bg${project.pathname}`,
+      lastModified: project._updatedAt ? new Date(project._updatedAt) : now,
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+      alternates: { languages: { bg: `${domain}/bg${project.pathname}` } },
+    })
+  )
+
   // Plugin's translation.metadata document type isn't part of the static schema, so
   // typegen narrows post.translations to null. The GROQ result is a real array at
   // runtime — we cast to access it.
@@ -89,5 +100,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       }
     })
 
-  return [...staticEntries, ...pageEntries, ...postEntries]
+  return [...staticEntries, ...pageEntries, ...projectEntries, ...postEntries]
 }

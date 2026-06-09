@@ -11,7 +11,7 @@ export const projectsMasonry = defineType({
       name: 'eyebrow',
       title: 'Eyebrow',
       type: 'string',
-      initialValue: 'Архив · 11+ реализации',
+      initialValue: 'Архив',
     }),
     defineField({
       name: 'heading',

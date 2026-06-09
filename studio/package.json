@@ -18,6 +18,9 @@
   },
   "dependencies": {
     "@sanity/assist": "^5.0.2",
+    "@sanity/code-input": "^7.1.2",
+    "@sanity/color-input": "^6.0.6",
+    "@sanity/dashboard": "^5.0.1",
     "@sanity/icons": "^3.7.4",
     "@sanity/vision": "^5.30.0",
     "@tinloof/sanity-document-i18n": "^2.0.2",
@@ -30,6 +33,7 @@
     "rxjs": "^7.8.2",
     "sanity": "^5.30.0",
     "sanity-plugin-asset-source-unsplash": "^7.0.0",
+    "sanity-plugin-media": "^4.3.1",
     "styled-components": "^6.1.19"
   },
   "devDependencies": {

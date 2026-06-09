@@ -137,7 +137,8 @@
 @media (max-width: 720px) { .bl-grid { grid-template-columns: 1fr; } }
 
 .bl-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--bg-elev);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
@@ -150,6 +151,9 @@
 
 /* Scan reveal — content hides until scan completes */
 .bl-card-inner {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   clip-path: inset(0 0 100% 0);
   transition: clip-path .95s cubic-bezier(.3, .75, .25, 1);
 }
@@ -212,7 +216,7 @@
   border-width: 1.5px;
 }
 
-.bl-card-body { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; }
+.bl-card-body { flex: 1; padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 8px; }
 .bl-card-meta { display: flex; gap: 6px; align-items: center; }
 .bl-card-title { line-height: 1.25; margin: 0; }
 .bl-card-excerpt { color: var(--fg-muted); font-size: 14px; margin: 6px 0 8px; line-height: 1.5; }
@@ -220,6 +224,7 @@
   display: flex; justify-content: space-between; align-items: center;
   padding-top: 10px; border-top: 1px solid var(--border);
   font-size: 13px;
+  margin-top: auto;
 }
 .bl-author { color: var(--fg-muted); font-family: 'Geologica'; font-weight: 500; }
 .bl-arrow {

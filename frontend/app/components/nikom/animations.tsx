@@ -153,6 +153,14 @@ export function LazyImg({ src, alt, className = "", onLoad, ...rest }: {
 }) {
   const [loaded, setLoaded] = useState(false);
   const ref = useRef<HTMLImageElement>(null);
+
+  // Cached images load synchronously before onLoad is attached — check after mount.
+  useEffect(() => {
+    if (ref.current?.complete && ref.current.naturalWidth > 0) {
+      setLoaded(true);
+    }
+  }, [src]);
+
   return (
     <span className={"lazy-img-wrap " + (loaded ? "is-loaded " : "is-loading ") + className}>
       <span className="lazy-shimmer" aria-hidden="true">
@@ -162,7 +170,6 @@ export function LazyImg({ src, alt, className = "", onLoad, ...rest }: {
         ref={ref}
         src={src}
         alt={alt}
-        loading="lazy"
         decoding="async"
         onLoad={(e) => { setLoaded(true); if (onLoad) onLoad(e); }}
         {...(rest as React.ImgHTMLAttributes<HTMLImageElement>)}

@@ -15,6 +15,7 @@ export const post = defineType({
   groups: [
     { name: 'content', title: 'Content', default: true },
     { name: 'meta', title: 'Meta' },
+    { name: 'seo', title: 'SEO' },
     { name: 'settings', title: 'Settings' },
   ],
   fields: [
@@ -150,24 +151,9 @@ export const post = defineType({
     defineField({
       name: 'category',
       title: 'Category',
-      type: 'string',
+      type: 'reference',
       group: 'meta',
-      options: {
-        list: [
-          { title: 'Стандарти', value: 'standards' },
-          { title: 'Технологии', value: 'tech' },
-          { title: 'Case Study', value: 'case' },
-          { title: 'Поддръжка', value: 'maintenance' },
-          { title: 'Новини', value: 'news' },
-        ],
-      },
-    }),
-    defineField({
-      name: 'categoryLabel',
-      title: 'Category label (display)',
-      type: 'string',
-      group: 'meta',
-      description: 'Display name shown in UI, e.g. "Стандарти"',
+      to: [{ type: 'postCategory' }],
     }),
     defineField({
       name: 'tags',
@@ -195,6 +181,12 @@ export const post = defineType({
       title: 'Body content',
       type: 'blockContent',
       group: 'content',
+    }),
+    defineField({
+      name: 'seo',
+      title: 'SEO & Social',
+      type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {

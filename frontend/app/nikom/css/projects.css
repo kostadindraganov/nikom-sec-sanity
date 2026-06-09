@@ -371,14 +371,19 @@
   letter-spacing: .14em;
 }
 .prj-corners {
-  position: absolute; inset: 0; pointer-events: none;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  aspect-ratio: 16/10;
+  pointer-events: none;
+  z-index: 4;
 }
 .prj-corners .corn {
-  width: 12px; height: 12px;
-  border-color: rgba(255,255,255,.4);
+  width: 14px; height: 14px;
+  border-color: var(--accent);
+  opacity: .85;
 }
 .prj-corners .corn.tl, .prj-corners .corn.tr,
-.prj-corners .corn.bl, .prj-corners .corn.br { border-width: 1.5px; }
+.prj-corners .corn.bl, .prj-corners .corn.br { border-width: 2px; }
 
 .prj-body {
   padding: 20px;

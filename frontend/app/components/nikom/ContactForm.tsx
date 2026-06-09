@@ -43,12 +43,13 @@ interface FieldProps {
   required?: boolean
   type?: string
   placeholder?: string
+  name?: string
 }
-function CFormField({ label, required, type, placeholder }: FieldProps) {
+function CFormField({ label, required, type, placeholder, name }: FieldProps) {
   return (
     <div className="ctc-field">
       <label>{label}{required && <span className="ctc-req">*</span>}</label>
-      <input type={type ?? 'text'} placeholder={placeholder} required={required} />
+      <input name={name} type={type ?? 'text'} placeholder={placeholder} required={required} />
     </div>
   )
 }
@@ -56,18 +57,21 @@ function CFormField({ label, required, type, placeholder }: FieldProps) {
 interface TextareaProps {
   label?: string
   placeholder?: string
+  name?: string
 }
-function CFormTextarea({ label, placeholder }: TextareaProps) {
+function CFormTextarea({ label, placeholder, name }: TextareaProps) {
   return (
     <div className="ctc-field">
       <label>{label} <span className="ctc-opt">опционално</span></label>
-      <textarea rows={4} placeholder={placeholder} />
+      <textarea name={name} rows={4} placeholder={placeholder} />
     </div>
   )
 }
 
 export default function ContactForm({ block, index, pageId, pageType }: Props) {
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const [type, setType] = useState('consultation')
 
   const path = (field: string) =>
@@ -130,7 +134,38 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
           </div>
 
           {/* Form */}
-          <form className="ctc-form" onSubmit={(e) => { e.preventDefault(); setSent(true) }}>
+          <form
+            className="ctc-form"
+            onSubmit={async (e) => {
+              e.preventDefault()
+              setSending(true)
+              setError(null)
+              const form = e.currentTarget
+              const data = {
+                type,
+                name: (form.elements.namedItem('name') as HTMLInputElement)?.value,
+                surname: (form.elements.namedItem('surname') as HTMLInputElement)?.value,
+                email: (form.elements.namedItem('email') as HTMLInputElement)?.value,
+                phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value,
+                company: (form.elements.namedItem('company') as HTMLInputElement)?.value,
+                address: (form.elements.namedItem('address') as HTMLInputElement)?.value,
+                message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value,
+              }
+              try {
+                const res = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(data),
+                })
+                if (!res.ok) throw new Error()
+                setSent(true)
+              } catch {
+                setError('Грешка при изпращане. Моля опитайте отново.')
+              } finally {
+                setSending(false)
+              }
+            }}
+          >
             <div className="ctc-form-head">
               <span className="chip solid">FORM · 07 полета</span>
               <span className="meta">ENCRYPTED · TLS</span>
@@ -155,11 +190,13 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
                   <CFormField
                     label={block?.fieldLabelName}
                     required
+                    name="name"
                     placeholder="Иван"
                   />
                   <CFormField
                     label={block?.fieldLabelSurname}
                     required
+                    name="surname"
                     placeholder="Иванов"
                   />
                 </div>
@@ -167,28 +204,34 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
                   <CFormField
                     label={block?.fieldLabelEmail}
                     required
+                    name="email"
                     type="email"
                     placeholder="email@example.com"
                   />
                   <CFormField
                     label={block?.fieldLabelPhone}
+                    name="phone"
                     placeholder="+359 ..."
                   />
                 </div>
                 <CFormField
                   label={block?.fieldLabelCompany}
+                  name="company"
                   placeholder="Опционално"
                 />
                 <CFormField
                   label={block?.fieldLabelAddress}
+                  name="address"
                   placeholder="Опционално"
                 />
                 <CFormTextarea
                   label={block?.fieldLabelMessage}
+                  name="message"
                   placeholder="Брой етажи, площ, системи от интерес, срокове..."
                 />
-                <button className="btn btn-primary btn-lg" type="submit" data-sanity={path('submitText')}>
-                  {block?.submitText} <Icons.Arrow />
+                {error && <p style={{ color: 'red', marginBottom: 8 }}>{error}</p>}
+                <button className="btn btn-primary btn-lg" type="submit" disabled={sending} data-sanity={path('submitText')}>
+                  {sending ? 'Изпращане...' : <>{block?.submitText} <Icons.Arrow /></>}
                 </button>
                 <div className="ctc-form-foot">
                   <span className="meta">Средно време за отговор:</span>

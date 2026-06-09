@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation'
 import type { Metadata } from 'next'
-import { Inter, IBM_Plex_Mono } from 'next/font/google'
+import { Inter, IBM_Plex_Mono, Geologica, Source_Sans_3, JetBrains_Mono } from 'next/font/google'
 import { draftMode } from 'next/headers'
 import { hasLocale, NextIntlClientProvider } from 'next-intl'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
@@ -30,6 +30,27 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: 'swap',
 })
 
+const geologica = Geologica({
+  variable: '--font-geologica',
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+})
+
+const sourceSans3 = Source_Sans_3({
+  variable: '--font-source-sans-3',
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '500', '600', '700'],
+  display: 'swap',
+})
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-jetbrains-mono',
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  display: 'swap',
+})
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }))
 }
@@ -44,17 +65,10 @@ export async function generateMetadata({
   const { data: settings } = await sanityFetch({ query: settingsQuery, stega: false })
 
   const ogImage = resolveOpenGraphImage(settings?.ogImage)
-  let metadataBase: URL | undefined = undefined
-  try {
-    metadataBase = settings?.ogImage?.metadataBase
-      ? new URL(settings.ogImage.metadataBase)
-      : undefined
-  } catch {
-    // ignore
-  }
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nikomsecurity.bg'
 
   return {
-    metadataBase,
+    metadataBase: new URL(siteUrl),
     title: { template: `%s | ${t('siteTitle')}`, default: t('siteTitle') },
     description: t('siteDescription'),
     openGraph: {
@@ -64,6 +78,7 @@ export async function generateMetadata({
     },
     alternates: {
       languages: Object.fromEntries(routing.locales.map((l) => [l, `/${l}`])),
+      types: { 'application/rss+xml': `${siteUrl}/feed.xml` },
     },
   }
 }
@@ -93,18 +108,28 @@ export default async function LocaleLayout({ children, params }: Props) {
   const social: { label: string; href: string }[] | undefined =
     settings?.social?.map((sl) => ({ label: sl.label ?? '', href: sl.href ?? '#' })) ?? undefined
 
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://nikomsecurity.bg'
+  const organizationJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'NIKOM Security',
+    url: siteUrl,
+    ...(settings?.phone ? { telephone: settings.phone } : {}),
+    ...(settings?.social?.length
+      ? { sameAs: settings.social.map((s) => s.href).filter(Boolean) }
+      : {}),
+  }
+
   return (
     <html
       lang={locale}
       data-theme="light"
-      className={`${inter.variable} ${ibmPlexMono.variable} antialiased`}
+      className={`${inter.variable} ${ibmPlexMono.variable} ${geologica.variable} ${sourceSans3.variable} ${jetbrainsMono.variable} antialiased`}
     >
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap&subset=cyrillic"
-          rel="stylesheet"
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
         />
       </head>
       <body>

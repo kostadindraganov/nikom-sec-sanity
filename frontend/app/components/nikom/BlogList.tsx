@@ -21,33 +21,21 @@ type Post = {
   featured?: boolean
 }
 
+type Category = { id: string; label: string }
+
 type Props = {
   block?: {
     _key?: string
     eyebrow?: string
     heading?: string
     initialCount?: number
+    categories?: Category[]
   }
   index?: number
   pageId?: string
   pageType?: string
   posts?: Post[]
 }
-
-const BLOG_CATEGORIES = [
-  { id: 'all', label: 'Всички' },
-  { id: 'standards', label: 'Стандарти' },
-  { id: 'tech', label: 'Технологии' },
-  { id: 'case', label: 'Case Study' },
-  { id: 'maintenance', label: 'Поддръжка' },
-  { id: 'news', label: 'Новини' },
-]
-
-const BLOG_TAGS = [
-  'EN 54','Пожароизвестяване','CCTV','PSIM','ANPR',
-  'Биометрия','Спринклери','FM-200','Интеграция','Сертификати',
-  'Esser','BMS','Видеоанализ',
-]
 
 function formatDate(iso: string) {
   const d = new Date(iso)
@@ -124,6 +112,58 @@ function BlogCard({ p, index }: { p: Post; index: number }) {
   )
 }
 
+function NewsletterWidget() {
+  const [email, setEmail] = React.useState('')
+  const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'duplicate' | 'error'>('idle')
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault()
+    if (!email) return
+    setStatus('loading')
+    try {
+      const res = await fetch('/api/newsletter', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json()
+      if (!res.ok) { setStatus('error'); return }
+      setStatus(data.duplicate ? 'duplicate' : 'success')
+      if (!data.duplicate) setEmail('')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  return (
+    <div className="bl-side-card bl-newsletter">
+      <div className="eyebrow">Нюзлетър</div>
+      <h4 className="h4">Получавайте нови статии</h4>
+      <p>Веднъж месечно, без spam. Може да се отпишете по всяко време.</p>
+      {status === 'success' ? (
+        <div className="bl-nl-success meta">Успешно се абонирахте!</div>
+      ) : status === 'duplicate' ? (
+        <div className="bl-nl-success meta">Вече сте абонирани с този имейл.</div>
+      ) : (
+        <form className="bl-nl-form" onSubmit={handleSubmit}>
+          <input
+            type="email"
+            placeholder="Вашият имейл"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+            required
+            disabled={status === 'loading'}
+          />
+          <button className="btn btn-primary btn-sm" type="submit" disabled={status === 'loading'}>
+            {status === 'loading' ? '…' : 'Запиши'}
+          </button>
+          {status === 'error' && <p className="bl-nl-error meta">Грешка. Опитайте отново.</p>}
+        </form>
+      )}
+    </div>
+  )
+}
+
 export default function BlogList({ block, index, pageId, pageType, posts: postsProp = [] }: Props) {
   // Posts come from the dedicated /blog route (prop) or, when rendered generically,
   // from data injected onto the block. Either way BlogList stays fully editable.
@@ -131,6 +171,21 @@ export default function BlogList({ block, index, pageId, pageType, posts: postsP
   const eyebrow = block?.eyebrow
   const heading = block?.heading
   const initialCount = block?.initialCount ?? 4
+
+  const blockCategories: Category[] = (block as any)?.categories ?? []
+  const categories: Category[] = [
+    { id: 'all', label: 'Всички' },
+    ...blockCategories,
+  ]
+
+  const topTags = React.useMemo(() => {
+    const freq: Record<string, number> = {}
+    posts.forEach(p => (p.tags ?? []).forEach(t => { freq[t] = (freq[t] || 0) + 1 }))
+    return Object.entries(freq)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 15)
+      .map(([t]) => t)
+  }, [posts])
 
   const [filter, setFilter] = React.useState('all')
   const [tagFilter, setTagFilter] = React.useState<string | null>(null)
@@ -194,7 +249,7 @@ export default function BlogList({ block, index, pageId, pageType, posts: postsP
           </div>
           <div className="bl-filter-bar">
             <div className="bl-filter-rail">
-              {BLOG_CATEGORIES.map(cat => (
+              {categories.map(cat => (
                 <button
                   key={cat.id}
                   className={'prj-filter-btn ' + (filter === cat.id ? 'active' : '')}
@@ -259,7 +314,7 @@ export default function BlogList({ block, index, pageId, pageType, posts: postsP
             <div className="bl-side-card">
               <div className="eyebrow">Топ тагове</div>
               <div className="bl-tags-cloud">
-                {BLOG_TAGS.map(t => (
+                {topTags.map(t => (
                   <button
                     key={t}
                     className={'chip ' + (tagFilter === t ? 'solid' : '')}
@@ -274,15 +329,7 @@ export default function BlogList({ block, index, pageId, pageType, posts: postsP
               )}
             </div>
 
-            <div className="bl-side-card bl-newsletter">
-              <div className="eyebrow">Нюзлетър</div>
-              <h4 className="h4">Получавайте нови статии</h4>
-              <p>Веднъж месечно, без spam. Може да се отпишете по всяко време.</p>
-              <form className="bl-nl-form" onSubmit={e => e.preventDefault()}>
-                <input type="email" placeholder="Вашият имейл" />
-                <button className="btn btn-primary btn-sm" type="submit">Запиши</button>
-              </form>
-            </div>
+            <NewsletterWidget />
 
             <div className="bl-side-card bl-recent">
               <div className="eyebrow">Последни</div>

@@ -87,17 +87,17 @@ function ProjectCard({ p, cardIndex }: { p: CardItem; cardIndex: number }) {
       <div className="prj-scan-overlay" aria-hidden="true">
         <span className="prj-scan-line"/>
       </div>
+      <div className="prj-corners" aria-hidden="true">
+        <span className="corn tl"/><span className="corn tr"/>
+        <span className="corn bl"/><span className="corn br"/>
+      </div>
       <div className="prj-content">
         <div className="prj-img-wrap">
-          <img src={imgSrc} alt={p.title ?? ''} loading="lazy"/>
+          <img src={imgSrc} alt={p.title ?? ''} />
           <div className="prj-img-veil" aria-hidden="true"/>
           <div className="prj-img-shade"/>
           <span className="chip solid prj-sector">{p.sectorLabel ?? ''}</span>
           {p.classified && <span className="prj-classified meta">CLASSIFIED</span>}
-          <div className="prj-corners">
-            <span className="corn tl"/><span className="corn tr"/>
-            <span className="corn bl"/><span className="corn br"/>
-          </div>
         </div>
         <div className="prj-body">
           <div className="prj-meta-row">
@@ -193,10 +193,6 @@ export default function ProjectsMasonry({ block, index, pageId, pageType }: Prop
                   <span className="prj-filter-count">{counts[cat.id] || 0}</span>
                 </button>
               ))}
-            </div>
-            <div className="meta prj-filter-meta">
-              <span className="status-dot"/>
-              <span>LIVE FILTER · {CATEGORIES.length - 1} категории</span>
             </div>
           </div>
         </div>

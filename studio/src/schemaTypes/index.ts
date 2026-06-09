@@ -3,6 +3,8 @@ import { page } from './documents/page'
 import { post } from './documents/post'
 import { project } from './documents/project'
 import { projectCategory } from './documents/projectCategory'
+import { postCategory } from './documents/postCategory'
+import { newsletterSubscriber } from './documents/newsletterSubscriber'
 import { callToAction } from './objects/callToAction'
 import { infoSection } from './objects/infoSection'
 import { settings } from './singletons/settings'
@@ -10,6 +12,7 @@ import { link } from './objects/link'
 import { blockContent } from './objects/blockContent'
 import button from './objects/button'
 import { blockContentTextOnly } from './objects/blockContentTextOnly'
+import { seoType } from './objects/seoType'
 
 // NIKOM home section objects (mix of named and default exports)
 import homeHero from './objects/nikom/homeHero'
@@ -71,7 +74,10 @@ export const schemaTypes = [
   person,
   project,
   projectCategory,
+  postCategory,
+  newsletterSubscriber,
   // Objects
+  seoType,
   button,
   blockContent,
   blockContentTextOnly,

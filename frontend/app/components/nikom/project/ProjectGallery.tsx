@@ -240,7 +240,7 @@ export function ProjectGallery({ doc, pageId }: Props) {
               }
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img.src} alt={img.caption} loading="lazy" />
+              <img src={img.src} alt={img.caption} />
               <div className="sg-tile-tag meta">KADR-{String(i + 1).padStart(3, '0')}</div>
               <div className="sg-tile-zoom" aria-hidden="true">
                 <svg

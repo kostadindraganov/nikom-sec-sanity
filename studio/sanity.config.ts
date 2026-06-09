@@ -14,6 +14,10 @@ import { pages } from '@tinloof/sanity-studio'
 import { documentI18n } from '@tinloof/sanity-document-i18n'
 import { withExtends } from '@tinloof/sanity-extends'
 import { defineDocuments, defineLocations } from 'sanity/presentation'
+import { colorInput } from '@sanity/color-input'
+import { codeInput } from '@sanity/code-input'
+import { media } from 'sanity-plugin-media'
+import { dashboardTool, projectUsersWidget, projectInfoWidget } from '@sanity/dashboard'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -152,5 +156,18 @@ export default defineConfig({
     unsplashImageAsset(),
     assist(),
     visionTool(),
+    // Media library — replaces default asset browser with a full media management UI
+    media(),
+    // Color picker input type (use type: 'color' in schema fields)
+    colorInput(),
+    // Syntax-highlighted code block input (use type: 'code' in schema fields)
+    codeInput(),
+    // Dashboard — adds a configurable Dashboard tool in the Studio nav
+    dashboardTool({
+      widgets: [
+        projectInfoWidget(),
+        projectUsersWidget(),
+      ],
+    }),
   ],
 })

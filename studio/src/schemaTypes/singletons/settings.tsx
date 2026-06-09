@@ -14,6 +14,7 @@ export const settings = defineType({
   groups: [
     { name: 'navigation', title: 'Navigation' },
     { name: 'footer', title: 'Footer' },
+    { name: 'contact', title: 'Contact / Email' },
     { name: 'seo', title: 'SEO' },
   ],
   fields: [
@@ -310,6 +311,24 @@ export const settings = defineType({
       type: 'string',
       initialValue: 'СИСТЕМИ ЗА СИГУРНОСТ',
       group: 'footer',
+    }),
+    // ── Contact / Email ─────────────────────────────────────
+    defineField({
+      name: 'contactEmail',
+      title: 'Recipient Email',
+      description: 'Имейл адресът, на който се изпращат запитванията от контактната форма.',
+      type: 'string',
+      group: 'contact',
+      initialValue: 'nikomsecuritysystems@gmail.com',
+      validation: rule => rule.email().required(),
+    }),
+    defineField({
+      name: 'contactFromName',
+      title: 'From Name',
+      description: 'Изпращачът, показан в имейла (напр. "Nikom Security Форма").',
+      type: 'string',
+      group: 'contact',
+      initialValue: 'Nikom Security Форма',
     }),
     // ── SEO ──────────────────────────────────────────────────
     defineField({

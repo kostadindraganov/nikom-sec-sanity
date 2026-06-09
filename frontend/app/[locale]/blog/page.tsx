@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 
 import { PageBuilder } from '@/app/components/PageBuilder'
 import { sanityFetch } from '@/sanity/lib/live'
-import { getPageQuery, nikomPostsListQuery } from '@/sanity/lib/queries'
+import { getPageQuery, nikomPostsListQuery, nikomPostCategoriesQuery } from '@/sanity/lib/queries'
 import { urlForImage } from '@/sanity/lib/utils'
 import { GetPageQueryResult } from '@/sanity.types'
 
@@ -19,10 +19,13 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BlogIndexPage() {
-  const [{ data: page }, { data: posts }] = await Promise.all([
+  const [{ data: page }, { data: posts }, { data: rawCategories }] = await Promise.all([
     sanityFetch({ query: getPageQuery, params: { pathname: PATHNAME } }),
     sanityFetch({ query: nikomPostsListQuery }),
+    sanityFetch({ query: nikomPostCategoriesQuery }),
   ])
+
+  const categories = (rawCategories ?? []).map((c: { key?: string | null; title?: string | null }) => ({ id: c.key ?? '', label: c.title ?? '' }))
 
   if (!page?._id) return notFound()
 
@@ -49,7 +52,7 @@ export default async function BlogIndexPage() {
   const injected = {
     ...page,
     pageBuilder: (page.pageBuilder ?? []).map((b) => {
-      if (b?._type === 'blogList') return { ...b, posts: mapped }
+      if (b?._type === 'blogList') return { ...b, posts: mapped, categories }
       if (b?._type === 'blogFeatured') return { ...b, featuredPost: featured }
       return b
     }),

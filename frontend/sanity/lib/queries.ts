@@ -20,7 +20,9 @@ export const settingsQuery = defineQuery(`
     footerColumns[]{
       title,
       links[]{label, href}
-    }
+    },
+    contactEmail,
+    contactFromName,
   }
 `)
 
@@ -76,6 +78,22 @@ export const getPageQuery = defineQuery(`
           }
         }
       },
+      _type == "homeProjectsFeatured" => {
+        ...,
+        "projects": *[_type == "project" && featured == true] | order(coalesce(featuredOrder, 999) asc, _createdAt asc) {
+          _id,
+          title,
+          "sector": coalesce(category->key.current, sector),
+          "sectorLabel": coalesce(category->title, sectorLabel),
+          year,
+          "image": heroImage,
+          "imageFallback": heroImageFallback,
+          "systems": coalesce(scope[].title, []),
+          "kpis": kpis[]{ _key, label, value, suffix },
+          "href": "/bg/proekti/" + slug.current,
+          featured
+        }
+      },
     },
   }
 `)
@@ -107,10 +125,14 @@ export const postQuery = defineQuery(`
     ${postFields}
     authorName,
     coverImageUrl,
-    category,
-    categoryLabel,
+    "category": coalesce(category->key.current, category),
+    "categoryLabel": coalesce(category->title, categoryLabel),
     tags,
     readTime,
+    "seoTitle": coalesce(seo.title, title),
+    "seoDescription": coalesce(seo.description, excerpt),
+    "seoImage": coalesce(seo.image, coverImage),
+    "noIndex": seo.noIndex == true,
     "translations": *[_type == "translation.metadata" && references(^._id)][0]{
       "list": translations[]{ "locale": value->locale, "pathname": value->pathname.current }
     }.list
@@ -122,7 +144,7 @@ export const relatedPostsQuery = defineQuery(`
     _id,
     "title": coalesce(title, "Untitled"),
     "pathname": pathname.current,
-    categoryLabel,
+    "categoryLabel": coalesce(category->title, categoryLabel),
     coverImage,
     coverImageUrl,
     "date": coalesce(date, _updatedAt),
@@ -156,6 +178,10 @@ export const projectBySlugQuery = defineQuery(`
     heroImage,
     heroImageFallback,
     summary,
+    "seoTitle": coalesce(seo.title, title),
+    "seoDescription": coalesce(seo.description, summary),
+    "seoImage": coalesce(seo.image, heroImage),
+    "noIndex": seo.noIndex == true,
     "systems": systems[]{_key, name},
     "facts": facts[]{_key, label, value},
     "scope": scope[]{_key, n, t, d},
@@ -195,9 +221,20 @@ export const nikomPostsListQuery = defineQuery(`
   *[_type == "post" && defined(slug.current)] | order(coalesce(date, _updatedAt) desc) {
     _id, title, excerpt, authorName,
     "date": coalesce(date, _updatedAt),
-    readTime, tags, category, categoryLabel, featured,
+    readTime, tags,
+    "category": coalesce(category->key.current, category),
+    "categoryLabel": coalesce(category->title, categoryLabel),
+    featured,
     "slug": slug.current,
     coverImage
+  }
+`)
+
+export const nikomPostCategoriesQuery = defineQuery(`
+  *[_type == "postCategory"] | order(title asc) {
+    _id,
+    title,
+    "key": key.current
   }
 `)
 
@@ -206,10 +243,13 @@ export const sitemapData = defineQuery(`
     "pages": *[_type == "page" && defined(pathname.current)] {
       _type, "pathname": pathname.current, _updatedAt
     },
-    "posts": *[_type == "post" && defined(pathname.current)] {
+    "posts": *[_type == "post" && defined(pathname.current) && seo.noIndex != true] {
       _type, locale, "pathname": pathname.current, _updatedAt,
       "translations": *[_type == "translation.metadata" && references(^._id)][0]
         .translations[]{ "locale": value->locale, "pathname": value->pathname.current }
+    },
+    "projects": *[_type == "project" && defined(slug.current) && classified != true && seo.noIndex != true] {
+      _type, "pathname": "/proekti/" + slug.current, _updatedAt
     }
   }
 `)

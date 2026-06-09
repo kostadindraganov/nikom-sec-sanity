@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 
 import { sanityFetch } from '@/sanity/lib/live'
 import { projectBySlugQuery, projectSlugPathnames } from '@/sanity/lib/queries'
+import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 import { ProjectHero } from '@/app/components/nikom/project/ProjectHero'
 import { ProjectFacts } from '@/app/components/nikom/project/ProjectFacts'
 import { ProjectScope } from '@/app/components/nikom/project/ProjectScope'
@@ -37,9 +38,19 @@ export async function generateMetadata(props: Props): Promise<Metadata> {
 
   if (!project) return { title: undefined }
 
+  const projectAny = project as any
+  const ogImage = resolveOpenGraphImage(projectAny.seoImage ?? project.heroImage)
+
   return {
-    title: project.title ?? undefined,
-    description: project.summary ?? undefined,
+    title: projectAny.seoTitle ?? project.title ?? undefined,
+    description: projectAny.seoDescription ?? project.summary ?? undefined,
+    ...(projectAny.noIndex ? { robots: 'noindex' } : {}),
+    openGraph: {
+      images: ogImage ? [ogImage] : [],
+    },
+    alternates: {
+      canonical: `/${params.locale}/proekti/${params.slug}`,
+    },
   }
 }
 
