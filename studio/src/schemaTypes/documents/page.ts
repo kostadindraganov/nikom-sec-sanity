@@ -3,7 +3,7 @@ import { DocumentIcon } from '@sanity/icons'
 import { definePathname } from '@tinloof/sanity-studio'
 
 const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
-const DEFAULT_LOCALE_ID = 'en'
+const DEFAULT_LOCALE_ID = 'bg'
 
 export const page = defineType({
   name: 'page',
@@ -43,7 +43,51 @@ export const page = defineType({
       name: 'pageBuilder',
       title: 'Page builder',
       type: 'array',
-      of: [{ type: 'callToAction' }, { type: 'infoSection' }],
+      of: [
+        { type: 'callToAction' },
+        { type: 'infoSection' },
+        // NIKOM shared
+        { type: 'nikomCta' },
+        // NIKOM home
+        { type: 'homeHero' },
+        { type: 'homeTicker' },
+        { type: 'homeSolutions' },
+        { type: 'homeProcess' },
+        { type: 'homeWhy' },
+        { type: 'homeIndustries' },
+        { type: 'homeProjectsFeatured' },
+        { type: 'homeIntegration' },
+        { type: 'homePartners' },
+        { type: 'homeContact' },
+        // NIKOM about
+        { type: 'aboutHero' },
+        { type: 'aboutManifest' },
+        { type: 'aboutEngagement' },
+        { type: 'aboutSectors' },
+        { type: 'aboutManufacturers' },
+        { type: 'aboutCerts' },
+        // NIKOM services
+        { type: 'servicesHero' },
+        { type: 'servicesCatalog' },
+        { type: 'servicesArchitecture' },
+        { type: 'servicesProject' },
+        { type: 'servicesProcess' },
+        { type: 'servicesFaq' },
+        // NIKOM projects
+        { type: 'projectsHero' },
+        { type: 'projectsFeature' },
+        { type: 'projectsMasonry' },
+        { type: 'projectsSectorStats' },
+        // NIKOM blog
+        { type: 'blogHero' },
+        { type: 'blogFeatured' },
+        { type: 'blogList' },
+        // NIKOM contact
+        { type: 'contactHero' },
+        { type: 'contactInfo' },
+        { type: 'contactMaps' },
+        { type: 'contactForm' },
+      ],
       options: {
         insertMenu: {
           views: [

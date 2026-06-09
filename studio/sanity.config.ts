@@ -25,11 +25,9 @@ const SANITY_STUDIO_PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http
 // i18n configuration. Mirrors `frontend/i18n/routing.ts` — keep in sync when adding a locale.
 const i18n = {
   locales: [
-    { id: 'en', title: '🇬🇧 English' },
-    { id: 'pt', title: '🇵🇹 Português' },
-    { id: 'pl', title: '🇵🇱 Polski' },
+    { id: 'bg', title: '🇧🇬 Български' },
   ],
-  defaultLocaleId: 'en',
+  defaultLocaleId: 'bg',
 }
 
 // Tells the Pages tool, definePathname's URL preview, and Presentation
@@ -67,6 +65,20 @@ const locations = {
       const locale = doc.locale || i18n.defaultLocaleId
       return {
         locations: [{ title: doc.title || 'Untitled', href: `/${locale}${doc.pathname}` }],
+      }
+    },
+  }),
+  project: defineLocations({
+    select: { title: 'title', slug: 'slug.current' },
+    resolve: (doc: any) => {
+      if (!doc || !doc.slug) return { locations: [] }
+      return {
+        locations: [
+          {
+            title: doc.title || 'Untitled',
+            href: `/${i18n.defaultLocaleId}/proekti/${doc.slug}`,
+          },
+        ],
       }
     },
   }),
@@ -119,6 +131,7 @@ export default defineConfig({
       creatablePages: [
         { title: 'Post', type: 'post' },
         { title: 'Page', type: 'page' },
+        { title: 'Project', type: 'project' },
       ],
       folders: {
         '/': {
@@ -126,6 +139,9 @@ export default defineConfig({
         },
         '/posts': {
           title: 'Posts',
+        },
+        '/proekti': {
+          title: 'Проекти',
         },
       },
     }),

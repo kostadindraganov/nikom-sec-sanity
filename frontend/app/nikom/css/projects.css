@@ -1,0 +1,468 @@
+/* ===== Проекти page ===== */
+
+/* ===== Video-style hero (Projects only) ===== */
+.prj-video-hero {
+  position: relative;
+  width: 100%;
+  min-height: clamp(620px, 84vh, 880px);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at center, #1F242C 0%, #0D1015 55%, #050609 100%);
+  display: flex; align-items: center;
+  isolation: isolate;
+}
+
+/* particles */
+.vid-particles { position: absolute; inset: 0; pointer-events: none; }
+.vid-dust {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  filter: blur(.3px);
+  animation: vid-drift 12s linear infinite;
+  will-change: transform;
+}
+@keyframes vid-drift {
+  0%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%  { transform: translate3d(20px, -30px, 0) scale(1.1); }
+  100% { transform: translate3d(-10px, 10px, 0) scale(1); }
+}
+
+/* camera stage */
+.vid-stage {
+  position: absolute;
+  inset: 0;
+  display: grid; place-items: center;
+  pointer-events: none;
+}
+.vid-glow {
+  position: absolute;
+  width: 720px; height: 720px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(140,160,200,.18) 0%, transparent 60%);
+  filter: blur(20px);
+  z-index: 0;
+}
+.vid-cam {
+  position: relative;
+  z-index: 1;
+  width: clamp(360px, 60vw, 720px);
+  max-width: 96%;
+  opacity: 0.95;
+  animation: vid-float 7s ease-in-out infinite;
+  filter:
+    drop-shadow(0 30px 60px rgba(0,0,0,.5))
+    drop-shadow(0 0 80px rgba(247,215,36,.15));
+}
+.vid-cam-svg { width: 100%; height: auto; display: block; }
+@keyframes vid-float {
+  0%, 100% { transform: translateY(0) rotate(-0.3deg); }
+  50%      { transform: translateY(-14px) rotate(0.3deg); }
+}
+
+/* bottom fade to page bg */
+.vid-vignette {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at 50% 65%, transparent 0%, rgba(0,0,0,.35) 100%),
+    linear-gradient(to bottom, transparent 50%, var(--bg) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* foreground content */
+.vid-hero-content {
+  position: relative; z-index: 3;
+  text-align: center;
+  padding: clamp(80px, 12vw, 160px) var(--gutter);
+  width: 100%;
+}
+.vid-eyebrow {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 8px 14px;
+  background: rgba(255,255,255,.05);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: 999px;
+  font-family: 'JetBrains Mono';
+  font-size: 11.5px; letter-spacing: 0.14em;
+  color: rgba(255,255,255,.85);
+  margin-bottom: 32px;
+}
+.vid-h1 {
+  font-family: 'Geologica';
+  font-weight: 500;
+  font-size: clamp(40px, 6vw, 86px);
+  line-height: 1.06;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin: 0;
+  text-wrap: balance;
+  text-shadow: 0 4px 30px rgba(0,0,0,.4);
+}
+.vid-h1 .stream-word { color: #fff; }
+.vid-h1 br + .stream-text { color: rgba(255,255,255,.65); }
+.vid-lead {
+  color: rgba(255,255,255,.7);
+  font-size: clamp(15px, 1.3vw, 19px);
+  max-width: 580px;
+  margin: 28px auto 40px;
+  text-wrap: pretty;
+}
+.vid-cta {
+  display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+}
+.vid-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 14px 24px;
+  border-radius: 999px;
+  font-family: 'Geologica'; font-weight: 500; font-size: 15.5px;
+  border: 1px solid transparent;
+  transition: all .25s ease;
+  backdrop-filter: blur(8px);
+}
+.vid-btn-primary {
+  background: #fff;
+  color: #0B0D10;
+}
+.vid-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -8px rgba(0,0,0,.4); }
+.vid-btn-ghost {
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  border-color: rgba(255,255,255,.15);
+}
+.vid-btn-ghost:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.25); }
+.vid-kbd {
+  display: inline-grid; place-items: center;
+  width: 22px; height: 22px;
+  border: 1px solid rgba(11,13,16,.16);
+  border-radius: 6px;
+  font-family: 'JetBrains Mono'; font-size: 12px;
+  background: rgba(11,13,16,.05);
+}
+@media (max-width: 640px) {
+  .vid-cam { width: 90%; }
+  .vid-glow { width: 100%; height: 100%; }
+}
+
+/* ===== Featured case study ===== */
+.projects-feature { background: var(--bg); }
+.feat-grid {
+  display: grid; grid-template-columns: 1.1fr 1fr;
+  gap: clamp(24px, 3vw, 48px);
+  align-items: start;
+}
+@media (max-width: 920px) { .feat-grid { grid-template-columns: 1fr; } }
+
+.feat-img-wrap {
+  position: relative;
+  aspect-ratio: 4/3;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+}
+.feat-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.6s ease;
+}
+.feat-img-wrap:hover img { transform: scale(1.05); }
+.feat-img-tag {
+  position: absolute; top: 14px; left: 14px;
+  display: flex; gap: 6px;
+}
+.feat-img-corners { position: absolute; inset: 0; pointer-events: none; }
+.feat-img-corners .corn, .prj-corners .corn {
+  position: absolute; width: 16px; height: 16px;
+  border-color: var(--accent);
+}
+.corn.tl { top: 8px; left: 8px; border-top: 2px solid; border-left: 2px solid; }
+.corn.tr { top: 8px; right: 8px; border-top: 2px solid; border-right: 2px solid; }
+.corn.bl { bottom: 8px; left: 8px; border-bottom: 2px solid; border-left: 2px solid; }
+.corn.br { bottom: 8px; right: 8px; border-bottom: 2px solid; border-right: 2px solid; }
+
+.feat-content { padding-top: 8px; }
+.feat-content .h2 { margin-top: 14px; }
+.feat-systems { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 6px; }
+.feat-kpi {
+  margin-top: 20px;
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+  padding-top: 18px; padding-bottom: 22px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.feat-kpi .meta { color: var(--fg-subtle); font-size: 10.5px; }
+.feat-kpi .kpi-v {
+  font-family: 'Geologica'; font-weight: 600; font-size: clamp(18px, 1.8vw, 24px);
+  margin-top: 4px; color: var(--fg);
+}
+.feat-quote {
+  position: relative;
+  margin: 22px 0 0; padding: 18px 4px 0;
+  border-left: 3px solid var(--accent);
+  padding-left: 22px;
+}
+.feat-quote > svg {
+  position: absolute; left: -6px; top: 0;
+  color: var(--accent);
+}
+.feat-quote p {
+  font-style: italic; line-height: 1.55; font-size: 15px;
+  color: var(--fg-muted); margin: 0 0 12px;
+}
+.feat-quote footer {
+  display: flex; flex-direction: column; gap: 2px;
+  font-size: 13.5px;
+}
+.feat-quote footer strong { color: var(--fg); font-family: 'Geologica'; font-weight: 600; }
+.feat-quote footer span { color: var(--fg-subtle); }
+
+/* ===== Filter bar ===== */
+.prj-filter-bar {
+  display: flex; flex-direction: column; gap: 12px;
+  align-items: flex-end;
+}
+.prj-filter-rail {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: flex-end;
+}
+.prj-filter-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 14px;
+  border-radius: 999px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  color: var(--fg-muted);
+  font-family: 'Geologica'; font-weight: 500; font-size: 13.5px;
+  cursor: pointer;
+  transition: all .22s ease;
+}
+.prj-filter-btn:hover {
+  border-color: var(--border-strong);
+  color: var(--fg);
+  transform: translateY(-1px);
+}
+.prj-filter-btn.active {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border-color: var(--accent);
+}
+.prj-filter-count {
+  font-family: 'JetBrains Mono'; font-size: 10.5px;
+  padding: 2px 7px;
+  background: rgba(11,13,16,.06);
+  border-radius: 999px;
+}
+.prj-filter-btn.active .prj-filter-count {
+  background: rgba(26,19,0,.18);
+  color: var(--accent-ink);
+}
+.prj-filter-meta {
+  display: inline-flex; align-items: center; gap: 8px;
+  letter-spacing: 0.06em;
+}
+
+/* ===== Masonry grid ===== */
+.projects-grid { background: var(--bg-soft); }
+.prj-masonry {
+  columns: 3;
+  column-gap: 16px;
+}
+@media (max-width: 1100px) { .prj-masonry { columns: 2; } }
+@media (max-width: 620px) { .prj-masonry { columns: 1; } }
+
+/* Black veil over the image — hides decode/flicker until card fully revealed */
+.prj-img-veil {
+  position: absolute; inset: 0;
+  background: var(--ink-950);
+  opacity: 0.6;
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity .65s ease;
+}
+.prj-card.phase-done .prj-img-veil { opacity: 0; }
+
+/* ===== Project card — scan line reveals content top-to-bottom ===== */
+.prj-card {
+  break-inside: avoid;
+  margin-bottom: 16px;
+  display: block;
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  position: relative;
+  --dot-radius: 14px;
+  transition: border-color .25s, transform .35s;
+}
+.prj-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+
+/* Content starts clipped at top — reveals downward in sync with scan line */
+.prj-content {
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path .95s cubic-bezier(.3, .75, .25, 1);
+}
+.prj-card.phase-scanning .prj-content,
+.prj-card.phase-done .prj-content {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Scan overlay — contains only the moving yellow line */
+.prj-scan-overlay {
+  position: absolute; inset: 0;
+  z-index: 5; pointer-events: none;
+  opacity: 0;
+}
+.prj-card.phase-scanning .prj-scan-overlay { opacity: 1; }
+
+/* The single yellow scan line — top to bottom */
+.prj-scan-line {
+  position: absolute;
+  left: 0; right: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(to right,
+    transparent 0%,
+    rgba(247,215,36,.35) 12%,
+    var(--accent) 50%,
+    rgba(247,215,36,.35) 88%,
+    transparent 100%);
+  box-shadow:
+    0 0 12px var(--accent),
+    0 0 28px rgba(247,215,36,.55),
+    0 6px 18px rgba(247,215,36,.35);
+  opacity: 0;
+}
+.prj-card.phase-scanning .prj-scan-line {
+  animation: prj-scan-down .95s cubic-bezier(.3, .75, .25, 1) forwards;
+}
+@keyframes prj-scan-down {
+  0%   { top: 0%; opacity: 0; }
+  8%   { opacity: 1; }
+  92%  { opacity: 1; }
+  100% { top: 100%; opacity: 0; }
+}
+
+.prj-img-wrap {
+  position: relative;
+  aspect-ratio: 16/10;
+  overflow: hidden;
+}
+.prj-img-wrap img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 1.4s ease, filter .35s;
+  filter: saturate(0.92);
+}
+.prj-card:hover .prj-img-wrap img { transform: scale(1.06); filter: saturate(1.1); }
+.prj-img-shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(11,13,16,.5) 0%, transparent 50%);
+  pointer-events: none;
+}
+.prj-sector {
+  position: absolute; top: 12px; left: 12px;
+}
+.prj-classified {
+  position: absolute; top: 12px; right: 12px;
+  padding: 4px 8px;
+  background: var(--ink-950); color: var(--accent);
+  border: 1px solid var(--accent);
+  border-radius: 4px;
+  font-size: 10px;
+  letter-spacing: .14em;
+}
+.prj-corners {
+  position: absolute; inset: 0; pointer-events: none;
+}
+.prj-corners .corn {
+  width: 12px; height: 12px;
+  border-color: rgba(255,255,255,.4);
+}
+.prj-corners .corn.tl, .prj-corners .corn.tr,
+.prj-corners .corn.bl, .prj-corners .corn.br { border-width: 1.5px; }
+
+.prj-body {
+  padding: 20px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.prj-meta-row {
+  display: flex; justify-content: space-between; align-items: center;
+}
+.prj-id { color: var(--fg-subtle); }
+.prj-title { line-height: 1.22; margin: 0; font-size: clamp(17px, 1.4vw, 20px); }
+.prj-systems { display: flex; flex-wrap: wrap; gap: 6px; }
+.prj-systems .chip { font-size: 11.5px; padding: 4px 9px; white-space: nowrap; }
+.prj-kpi {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(70px, 1fr)); gap: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border);
+}
+.prj-kpi-v {
+  font-family: 'Geologica'; font-weight: 600; font-size: 16px;
+  color: var(--fg); margin-top: 2px;
+}
+.prj-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Geologica'; font-weight: 500; font-size: 14px;
+  color: var(--fg);
+  padding-top: 6px;
+}
+.prj-link:hover { color: var(--accent-strong); }
+[data-theme="dark"] .prj-link:hover { color: var(--accent); }
+.prj-link .arrow { transition: transform .25s; }
+.prj-link:hover .arrow { transform: translateX(4px); }
+
+/* ===== Infinite-scroll sentinel ===== */
+.prj-sentinel {
+  margin-top: 40px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+}
+.prj-loader { display: flex; gap: 6px; }
+.prj-loader span {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--accent);
+  animation: loader-bounce 1.2s ease-in-out infinite;
+}
+.prj-loader span:nth-child(1) { animation-delay: 0s; }
+.prj-loader span:nth-child(2) { animation-delay: 0.15s; }
+.prj-loader span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes loader-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(-8px); opacity: 1; }
+}
+.prj-end { margin-top: 40px; text-align: center; }
+
+/* ===== Sector stats band (dark) ===== */
+.projects-sector-stats.dark-band { background: var(--ink-950); }
+.projects-sector-stats .h2 { color: #F5F2EB; }
+.projects-sector-stats .eyebrow { color: rgba(255,255,255,.6); }
+.projects-sector-stats .section-lead { color: rgba(255,255,255,.65); }
+
+.sec-stats-grid {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px;
+}
+@media (max-width: 920px) { .sec-stats-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 540px) { .sec-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+
+.sec-stat-card {
+  background: var(--ink-900);
+  border: 1px solid var(--ink-700);
+  border-radius: var(--radius-md);
+  padding: 24px 20px;
+  display: flex; flex-direction: column; gap: 10px;
+  align-items: flex-start;
+  --dot-radius: 14px;
+  --dot-duration: 6s;
+  transition: background-color .25s, border-color .25s, transform .25s;
+}
+.sec-stat-card:hover {
+  background: var(--ink-800);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+.sec-stat-card > svg { color: var(--accent); }
+.sec-stat-n {
+  font-family: 'Geologica'; font-weight: 600; font-size: 36px;
+  color: var(--accent); line-height: 1;
+  letter-spacing: -0.01em;
+}
+.sec-stat-l { color: rgba(255,255,255,.7); font-size: 14px; }

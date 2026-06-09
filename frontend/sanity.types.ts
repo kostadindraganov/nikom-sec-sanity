@@ -15,11 +15,151 @@
 export declare const internalGroqTypeReferenceTo: unique symbol;
 
 // Source: ../studio/schema.json
-export type PageReference = {
+export type ButtonPrimary = {
+  label?: string;
+  href?: string;
+};
+
+export type ButtonSecondary = {
+  label?: string;
+  href?: string;
+};
+
+export type CtaPrimary = {
+  label?: string;
+  href?: string;
+};
+
+export type CtaSecondary = {
+  label?: string;
+  href?: string;
+};
+
+export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
   _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "page";
+  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+};
+
+export type FeaturedProjectImage = {
+  asset?: SanityImageAssetReference;
+  media?: unknown // Unable to locate the referenced type "featuredProject.image.media" in schema
+;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  _type: "image";
+};
+
+export type Logo = {
+  asset?: SanityImageAssetReference;
+  media?: unknown // Unable to locate the referenced type "logo.media" in schema
+;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  _type: "image";
+};
+
+export type ProjectCardImage = {
+  asset?: SanityImageAssetReference;
+  media?: unknown // Unable to locate the referenced type "projectCard.image.media" in schema
+;
+  hotspot?: SanityImageHotspot;
+  crop?: SanityImageCrop;
+  _type: "image";
+};
+
+export type NikomCta = {
+  _type: "nikomCta";
+  eyebrow?: string;
+  heading?: string;
+  sub?: string;
+  buttonPrimary?: ButtonPrimary;
+  buttonSecondary?: ButtonSecondary;
+  theme?: "light" | "dark";
+};
+
+export type ContactForm = {
+  _type: "contactForm";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  departments?: Array<{
+    id?: string;
+    label?: string;
+    _type: "department";
+    _key: string;
+  }>;
+  fieldLabelName?: string;
+  fieldLabelSurname?: string;
+  fieldLabelEmail?: string;
+  fieldLabelPhone?: string;
+  fieldLabelCompany?: string;
+  fieldLabelAddress?: string;
+  fieldLabelMessage?: string;
+  submitText?: string;
+  trustTitle?: string;
+  trustText?: string;
+  successHeading?: string;
+  successText?: string;
+  avgResponseTime?: string;
+};
+
+export type ContactMaps = {
+  _type: "contactMaps";
+  eyebrow?: string;
+  heading?: string;
+  latitude?: string;
+  longitude?: string;
+  sector?: string;
+  objectId?: string;
+  googleMapsUrl?: string;
+  wazeUrl?: string;
+  appleMapsUrl?: string;
+  embedUrl?: string;
+  locations?: Array<{
+    label?: string;
+    embedUrl?: string;
+    coords?: string;
+    _type: "mapLocation";
+    _key: string;
+  }>;
+};
+
+export type ContactInfo = {
+  _type: "contactInfo";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  offices?: Array<{
+    num?: string;
+    city?: string;
+    address?: string;
+    phone?: string;
+    email?: string;
+    hours?: string;
+    linkLabel?: string;
+    linkHref?: string;
+    _type: "officeCard";
+    _key: string;
+  }>;
+};
+
+export type ContactHero = {
+  _type: "contactHero";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  phone?: string;
+  phoneDisplay?: string;
+  email?: string;
+};
+
+export type BlogList = {
+  _type: "blogList";
+  eyebrow?: string;
+  heading?: string;
+  initialCount?: number;
 };
 
 export type PostReference = {
@@ -29,6 +169,525 @@ export type PostReference = {
   [internalGroqTypeReferenceTo]?: "post";
 };
 
+export type BlogFeatured = {
+  _type: "blogFeatured";
+  eyebrow?: string;
+  featuredPost?: PostReference;
+  fallbackTitle?: string;
+  fallbackExcerpt?: string;
+  fallbackImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  fallbackAuthor?: string;
+  fallbackDate?: string;
+  fallbackReadMin?: number;
+  fallbackTags?: Array<string>;
+  fallbackCategory?: string;
+  fallbackSlug?: string;
+};
+
+export type BlogHero = {
+  _type: "blogHero";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  backgroundImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type ProjectsSectorStats = {
+  _type: "projectsSectorStats";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  sectors?: Array<{
+    id?: string;
+    label?: string;
+    count?: number;
+    icon?: string;
+    _type: "sectorStat";
+    _key: string;
+  }>;
+};
+
+export type ProjectsMasonry = {
+  _type: "projectsMasonry";
+  eyebrow?: string;
+  heading?: string;
+  items?: Array<{
+    title?: string;
+    sector?: string;
+    sectorLabel?: string;
+    year?: string;
+    image?: ProjectCardImage;
+    imageFallback?: string;
+    href?: string;
+    systems?: Array<string>;
+    kpis?: Array<{
+      label?: string;
+      value?: string;
+      _type: "cardKpi";
+      _key: string;
+    }>;
+    classified?: boolean;
+    size?: "normal" | "featured";
+    _type: "projectCard";
+    _key: string;
+  }>;
+};
+
+export type ProjectsFeature = {
+  _type: "projectsFeature";
+  eyebrow?: string;
+  title?: string;
+  year?: string;
+  sectorLabel?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  imageFallback?: string;
+  systems?: Array<string>;
+  kpis?: Array<{
+    label?: string;
+    value?: string;
+    _type: "kpiItem";
+    _key: string;
+  }>;
+  quoteText?: string;
+  quoteAuthor?: string;
+  quoteRole?: string;
+};
+
+export type ProjectsHero = {
+  _type: "projectsHero";
+  eyebrow?: string;
+  heading1?: string;
+  heading2?: string;
+  lead?: string;
+  ctaPrimaryLabel?: string;
+  ctaGhostLabel?: string;
+  ctaGhostHref?: string;
+  backgroundImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type ServicesFaq = {
+  _type: "servicesFaq";
+  eyebrow?: string;
+  heading?: string;
+  items?: Array<{
+    q?: string;
+    a?: string;
+    _type: "faqItem";
+    _key: string;
+  }>;
+};
+
+export type ServicesProcess = {
+  _type: "servicesProcess";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  steps?: Array<{
+    n?: string;
+    title?: string;
+    desc?: string;
+    _type: "processStep";
+    _key: string;
+  }>;
+};
+
+export type ServicesProject = {
+  _type: "servicesProject";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  items?: Array<{
+    n?: string;
+    title?: string;
+    desc?: string;
+    icon?: string;
+    bullets?: Array<string>;
+    _type: "projectServiceItem";
+    _key: string;
+  }>;
+};
+
+export type ServicesArchitecture = {
+  _type: "servicesArchitecture";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  coreLabel?: string;
+  coreSubLabel?: string;
+};
+
+export type ServicesCatalog = {
+  _type: "servicesCatalog";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  services?: Array<{
+    n?: string;
+    k?: string;
+    title?: string;
+    desc?: string;
+    icon?: string;
+    tags?: Array<string>;
+    stats?: Array<{
+      label?: string;
+      value?: string;
+      _type: "statItem";
+      _key: string;
+    }>;
+    featured?: boolean;
+    _type: "serviceItem";
+    _key: string;
+  }>;
+};
+
+export type ServicesHero = {
+  _type: "servicesHero";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  pills?: Array<string>;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+};
+
+export type AboutCerts = {
+  _type: "aboutCerts";
+  eyebrow?: string;
+  heading?: string;
+  licenseNumber?: string;
+  licenseIssuer?: string;
+  scopeLabel?: string;
+  scopeItems?: Array<{
+    text?: string;
+    _type: "scopeItem";
+    _key: string;
+  }>;
+};
+
+export type AboutManufacturers = {
+  _type: "aboutManufacturers";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  brands?: Array<{
+    name?: string;
+    sub?: string;
+    logo?: Logo;
+    _type: "brand";
+    _key: string;
+  }>;
+};
+
+export type AboutSectors = {
+  _type: "aboutSectors";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  sectors?: Array<{
+    number?: string;
+    name?: string;
+    _type: "sector";
+    _key: string;
+  }>;
+};
+
+export type AboutEngagement = {
+  _type: "aboutEngagement";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  steps?: Array<{
+    number?: string;
+    title?: string;
+    description?: string;
+    _type: "step";
+    _key: string;
+  }>;
+};
+
+export type AboutManifest = {
+  _type: "aboutManifest";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  pillars?: Array<{
+    number?: string;
+    title?: string;
+    description?: string;
+    _type: "pillar";
+    _key: string;
+  }>;
+};
+
+export type AboutHero = {
+  _type: "aboutHero";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  image?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  stats?: Array<{
+    value?: string;
+    animated?: boolean;
+    suffix?: string;
+    label?: string;
+    _type: "stat";
+    _key: string;
+  }>;
+};
+
+export type HomeContact = {
+  _type: "homeContact";
+  eyebrow?: string;
+  heading?: string;
+  copy?: string;
+  contactItems?: Array<{
+    icon?: string;
+    label?: string;
+    value?: string;
+    _type: "contactItem";
+    _key: string;
+  }>;
+  formSubmitLabel?: string;
+  formSuccessHeading?: string;
+  formSuccessBody?: string;
+};
+
+export type HomePartners = {
+  _type: "homePartners";
+  eyebrow?: string;
+  heading?: string;
+  partnersRow1?: Array<{
+    name?: string;
+    _type: "partnerItem";
+    _key: string;
+  }>;
+  partnersRow2?: Array<{
+    name?: string;
+    _type: "partnerItem2";
+    _key: string;
+  }>;
+  certs?: Array<{
+    label?: string;
+    _type: "certItem";
+    _key: string;
+  }>;
+};
+
+export type HomeIntegration = {
+  _type: "homeIntegration";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  subsystems?: Array<{
+    key?: string;
+    label?: string;
+    icon?: "fire" | "cam" | "key" | "bell" | "speaker" | "bar" | "intercom" | "net";
+    _type: "subsystem";
+    _key: string;
+  }>;
+  events?: Array<{
+    time?: string;
+    tag?: string;
+    kind?: "info" | "ok" | "warn" | "alert";
+    msg?: string;
+    _type: "eventItem";
+    _key: string;
+  }>;
+  kpis?: Array<{
+    value?: number;
+    suffix?: string;
+    prefix?: string;
+    decimals?: number;
+    label?: string;
+    _type: "archKpi";
+    _key: string;
+  }>;
+  scenarioSteps?: Array<{
+    time?: string;
+    tag?: string;
+    kind?: "alert" | "ok" | "warn" | "info";
+    msg?: string;
+    _type: "scenarioStep";
+    _key: string;
+  }>;
+};
+
+export type HomeProjectsFeatured = {
+  _type: "homeProjectsFeatured";
+  eyebrow?: string;
+  heading?: string;
+  projects?: Array<{
+    title?: string;
+    sector?: string;
+    year?: string;
+    image?: FeaturedProjectImage;
+    imageFallback?: string;
+    kpis?: Array<{
+      label?: string;
+      value?: number;
+      suffix?: string;
+      _type: "kpiItem";
+      _key: string;
+    }>;
+    systems?: Array<string>;
+    href?: string;
+    featured?: boolean;
+    _type: "featuredProject";
+    _key: string;
+  }>;
+};
+
+export type HomeIndustries = {
+  _type: "homeIndustries";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  sectors?: Array<{
+    name?: string;
+    k?: "hospital" | "retail" | "hotel" | "ind" | "office" | "gov";
+    code?: string;
+    kpi?: number;
+    kpiLabel?: string;
+    events?: Array<string>;
+    _type: "sector";
+    _key: string;
+  }>;
+};
+
+export type HomeWhy = {
+  _type: "homeWhy";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  stats?: Array<{
+    value?: number;
+    decimals?: number;
+    prefix?: string;
+    suffix?: string;
+    label?: string;
+    isCounter?: boolean;
+    _type: "stat";
+    _key: string;
+  }>;
+  pillars?: Array<{
+    icon?: "Fire" | "Cam" | "Key" | "Speaker" | "Net" | "Shield" | "Bar" | "Panic" | "Phone" | "Arrow" | "Check" | "Plus";
+    title?: string;
+    desc?: string;
+    _type: "pillar";
+    _key: string;
+  }>;
+};
+
+export type HomeProcess = {
+  _type: "homeProcess";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  steps?: Array<{
+    num?: string;
+    title?: string;
+    desc?: string;
+    _type: "processStep";
+    _key: string;
+  }>;
+};
+
+export type HomeSolutions = {
+  _type: "homeSolutions";
+  eyebrow?: string;
+  heading?: string;
+  lead?: string;
+  cards?: Array<{
+    icon?: string;
+    chip?: string;
+    meta?: string;
+    title?: string;
+    desc?: string;
+    tag?: string;
+    variant?: "default" | "fire" | "wide" | "dark-wide";
+    _type: "solutionCard";
+    _key: string;
+  }>;
+};
+
+export type HomeTicker = {
+  _type: "homeTicker";
+  items?: Array<{
+    num?: string;
+    text?: string;
+    _type: "tickerItem";
+    _key: string;
+  }>;
+  speed?: number;
+};
+
+export type HomeHero = {
+  _type: "homeHero";
+  eyebrow?: string;
+  headingParts?: Array<{
+    text?: string;
+    highlight?: boolean;
+    _type: "headingPart";
+    _key: string;
+  }>;
+  sub?: string;
+  ctaPrimary?: CtaPrimary;
+  ctaSecondary?: CtaSecondary;
+  trustItems?: Array<{
+    value?: string;
+    suffix?: string;
+    label?: string;
+    isCounter?: boolean;
+    _type: "trustItem";
+    _key: string;
+  }>;
+  stripLive?: string;
+  stripLocations?: string;
+  stripLicense?: string;
+};
+
+export type PageReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "page";
+};
+
 export type Link = {
   _type: "link";
   linkType?: "href" | "page" | "post";
@@ -36,13 +695,6 @@ export type Link = {
   page?: PageReference;
   post?: PostReference;
   openInNewTab?: boolean;
-};
-
-export type SanityImageAssetReference = {
-  _ref: string;
-  _type: "reference";
-  _weak?: boolean;
-  [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
 };
 
 export type CallToAction = {
@@ -224,6 +876,96 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
+export type ProjectReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "project";
+};
+
+export type Project = {
+  _id: string;
+  _type: "project";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title: string;
+  slug: Slug;
+  sector?: "healthcare" | "hotel" | "retail" | "industrial" | "government";
+  sectorLabel?: string;
+  year?: string;
+  location?: string;
+  classified?: boolean;
+  heroImage?: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  };
+  heroImageFallback?: string;
+  summary?: string;
+  facts?: Array<{
+    label?: string;
+    value?: string;
+    _type: "factItem";
+    _key: string;
+  }>;
+  scope?: Array<{
+    title?: string;
+    desc?: string;
+    _type: "scopeItem";
+    _key: string;
+  }>;
+  quote?: {
+    text?: string;
+    author?: string;
+    role?: string;
+  };
+  gallery?: Array<{
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+    _key: string;
+  }>;
+  kpis?: Array<{
+    value?: string;
+    suffix?: string;
+    label?: string;
+    _type: "kpiCounter";
+    _key: string;
+  }>;
+  related?: Array<{
+    _key: string;
+  } & ProjectReference>;
+};
+
+export type SanityImageCrop = {
+  _type: "sanity.imageCrop";
+  top: number;
+  bottom: number;
+  left: number;
+  right: number;
+};
+
+export type SanityImageHotspot = {
+  _type: "sanity.imageHotspot";
+  x: number;
+  y: number;
+  height: number;
+  width: number;
+};
+
+export type Slug = {
+  _type: "slug";
+  current: string;
+  source?: string;
+};
+
 export type Settings = {
   _id: string;
   _type: "settings";
@@ -253,6 +995,39 @@ export type Settings = {
     _type: "block";
     _key: string;
   }>;
+  siteName?: string;
+  headerNav?: Array<{
+    label?: string;
+    href?: string;
+    _type: "navItem";
+    _key: string;
+  }>;
+  phone?: string;
+  phoneDisplay?: string;
+  ctaText?: string;
+  licenseText?: string;
+  locations?: string;
+  liveText?: string;
+  footerTagline?: string;
+  social?: Array<{
+    label?: string;
+    href?: string;
+    _type: "socialLink";
+    _key: string;
+  }>;
+  footerColumns?: Array<{
+    title?: string;
+    links?: Array<{
+      label?: string;
+      href?: string;
+      _type: "navItem";
+      _key: string;
+    }>;
+    _type: "footerColumn";
+    _key: string;
+  }>;
+  footerGhostText?: string;
+  footerGhostSub?: string;
   ogImage?: {
     asset?: SanityImageAssetReference;
     media?: unknown;
@@ -262,22 +1037,6 @@ export type Settings = {
     metadataBase?: string;
     _type: "image";
   };
-};
-
-export type SanityImageCrop = {
-  _type: "sanity.imageCrop";
-  top: number;
-  bottom: number;
-  left: number;
-  right: number;
-};
-
-export type SanityImageHotspot = {
-  _type: "sanity.imageHotspot";
-  x: number;
-  y: number;
-  height: number;
-  width: number;
 };
 
 export type Page = {
@@ -294,7 +1053,75 @@ export type Page = {
     _key: string;
   } & CallToAction | {
     _key: string;
-  } & InfoSection>;
+  } & InfoSection | {
+    _key: string;
+  } & NikomCta | {
+    _key: string;
+  } & HomeHero | {
+    _key: string;
+  } & HomeTicker | {
+    _key: string;
+  } & HomeSolutions | {
+    _key: string;
+  } & HomeProcess | {
+    _key: string;
+  } & HomeWhy | {
+    _key: string;
+  } & HomeIndustries | {
+    _key: string;
+  } & HomeProjectsFeatured | {
+    _key: string;
+  } & HomeIntegration | {
+    _key: string;
+  } & HomePartners | {
+    _key: string;
+  } & HomeContact | {
+    _key: string;
+  } & AboutHero | {
+    _key: string;
+  } & AboutManifest | {
+    _key: string;
+  } & AboutEngagement | {
+    _key: string;
+  } & AboutSectors | {
+    _key: string;
+  } & AboutManufacturers | {
+    _key: string;
+  } & AboutCerts | {
+    _key: string;
+  } & ServicesHero | {
+    _key: string;
+  } & ServicesCatalog | {
+    _key: string;
+  } & ServicesArchitecture | {
+    _key: string;
+  } & ServicesProject | {
+    _key: string;
+  } & ServicesProcess | {
+    _key: string;
+  } & ServicesFaq | {
+    _key: string;
+  } & ProjectsHero | {
+    _key: string;
+  } & ProjectsFeature | {
+    _key: string;
+  } & ProjectsMasonry | {
+    _key: string;
+  } & ProjectsSectorStats | {
+    _key: string;
+  } & BlogHero | {
+    _key: string;
+  } & BlogFeatured | {
+    _key: string;
+  } & BlogList | {
+    _key: string;
+  } & ContactHero | {
+    _key: string;
+  } & ContactInfo | {
+    _key: string;
+  } & ContactMaps | {
+    _key: string;
+  } & ContactForm>;
 };
 
 export type PersonReference = {
@@ -310,10 +1137,10 @@ export type Post = {
   _createdAt: string;
   _updatedAt: string;
   _rev: string;
-  locale?: "en" | "pt" | "pl";
+  locale?: "bg" | "en";
   title: string;
   pathname?: Slug;
-  content?: BlockContent;
+  slug: Slug;
   excerpt?: string;
   coverImage?: {
     asset?: SanityImageAssetReference;
@@ -323,8 +1150,16 @@ export type Post = {
     alt?: string;
     _type: "image";
   };
+  coverImageUrl?: string;
   date?: string;
   author?: PersonReference;
+  authorName?: string;
+  category?: "standards" | "tech" | "case" | "maintenance" | "news";
+  categoryLabel?: string;
+  tags?: Array<string>;
+  readTime?: number;
+  featured?: boolean;
+  content?: BlockContent;
 };
 
 export type Person = {
@@ -343,12 +1178,6 @@ export type Person = {
     alt?: string;
     _type: "image";
   };
-};
-
-export type Slug = {
-  _type: "slug";
-  current: string;
-  source?: string;
 };
 
 export type AssistInstructionContext = {
@@ -471,19 +1300,14 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = PageReference | PostReference | Link | SanityImageAssetReference | CallToAction | InfoSection | BlockContentTextOnly | BlockContent | Button | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | AssistInstructionContextReference | SanityAssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | Settings | SanityImageCrop | SanityImageHotspot | Page | PersonReference | Post | Person | Slug | AssistInstructionContext | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = ButtonPrimary | ButtonSecondary | CtaPrimary | CtaSecondary | SanityImageAssetReference | FeaturedProjectImage | Logo | ProjectCardImage | NikomCta | ContactForm | ContactMaps | ContactInfo | ContactHero | BlogList | PostReference | BlogFeatured | BlogHero | ProjectsSectorStats | ProjectsMasonry | ProjectsFeature | ProjectsHero | ServicesFaq | ServicesProcess | ServicesProject | ServicesArchitecture | ServicesCatalog | ServicesHero | AboutCerts | AboutManufacturers | AboutSectors | AboutEngagement | AboutManifest | AboutHero | HomeContact | HomePartners | HomeIntegration | HomeProjectsFeatured | HomeIndustries | HomeWhy | HomeProcess | HomeSolutions | HomeTicker | HomeHero | PageReference | Link | CallToAction | InfoSection | BlockContentTextOnly | BlockContent | Button | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | AssistInstructionContextReference | SanityAssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | ProjectReference | Project | SanityImageCrop | SanityImageHotspot | Slug | Settings | Page | PersonReference | Post | Person | AssistInstructionContext | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]
+// Query: *[_type == "settings"][0]{    title,    description,    ogImage,    siteName,    headerNav[]{label, href},    phone,    phoneDisplay,    ctaText,    licenseText,    locations,    liveText,    footerTagline,    footerGhostText,    footerGhostSub,    social[]{label, href},    footerColumns[]{      title,      links[]{label, href}    }  }
 export type SettingsQueryResult = {
-  _id: string;
-  _type: "settings";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
   title: string;
-  description?: Array<{
+  description: Array<{
     children?: Array<{
       marks?: Array<string>;
       text?: string;
@@ -504,8 +1328,8 @@ export type SettingsQueryResult = {
     level?: number;
     _type: "block";
     _key: string;
-  }>;
-  ogImage?: {
+  }> | null;
+  ogImage: {
     asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
@@ -513,7 +1337,32 @@ export type SettingsQueryResult = {
     alt?: string;
     metadataBase?: string;
     _type: "image";
-  };
+  } | null;
+  siteName: string | null;
+  headerNav: Array<{
+    label: string | null;
+    href: string | null;
+  }> | null;
+  phone: string | null;
+  phoneDisplay: string | null;
+  ctaText: string | null;
+  licenseText: string | null;
+  locations: string | null;
+  liveText: string | null;
+  footerTagline: string | null;
+  footerGhostText: string | null;
+  footerGhostSub: string | null;
+  social: Array<{
+    label: string | null;
+    href: string | null;
+  }> | null;
+  footerColumns: Array<{
+    title: string | null;
+    links: Array<{
+      label: string | null;
+      href: string | null;
+    }> | null;
+  }> | null;
 } | null;
 
 // Source: sanity/lib/queries.ts
@@ -527,6 +1376,130 @@ export type GetPageQueryResult = {
   heading: string;
   subheading: string | null;
   pageBuilder: Array<{
+    _key: string;
+    _type: "aboutCerts";
+    eyebrow?: string;
+    heading?: string;
+    licenseNumber?: string;
+    licenseIssuer?: string;
+    scopeLabel?: string;
+    scopeItems?: Array<{
+      text?: string;
+      _type: "scopeItem";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "aboutEngagement";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    steps?: Array<{
+      number?: string;
+      title?: string;
+      description?: string;
+      _type: "step";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "aboutHero";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    image?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    stats?: Array<{
+      value?: string;
+      animated?: boolean;
+      suffix?: string;
+      label?: string;
+      _type: "stat";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "aboutManifest";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    pillars?: Array<{
+      number?: string;
+      title?: string;
+      description?: string;
+      _type: "pillar";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "aboutManufacturers";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    brands?: Array<{
+      name?: string;
+      sub?: string;
+      logo?: Logo;
+      _type: "brand";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "aboutSectors";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    sectors?: Array<{
+      number?: string;
+      name?: string;
+      _type: "sector";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "blogFeatured";
+    eyebrow?: string;
+    featuredPost?: PostReference;
+    fallbackTitle?: string;
+    fallbackExcerpt?: string;
+    fallbackImage?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    fallbackAuthor?: string;
+    fallbackDate?: string;
+    fallbackReadMin?: number;
+    fallbackTags?: Array<string>;
+    fallbackCategory?: string;
+    fallbackSlug?: string;
+  } | {
+    _key: string;
+    _type: "blogHero";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    backgroundImage?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "blogList";
+    eyebrow?: string;
+    heading?: string;
+    initialCount?: number;
+  } | {
     _key: string;
     _type: "callToAction";
     eyebrow?: string;
@@ -553,6 +1526,279 @@ export type GetPageQueryResult = {
     };
     theme?: "dark" | "light";
     contentAlignment?: "imageFirst" | "textFirst";
+  } | {
+    _key: string;
+    _type: "contactForm";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    departments?: Array<{
+      id?: string;
+      label?: string;
+      _type: "department";
+      _key: string;
+    }>;
+    fieldLabelName?: string;
+    fieldLabelSurname?: string;
+    fieldLabelEmail?: string;
+    fieldLabelPhone?: string;
+    fieldLabelCompany?: string;
+    fieldLabelAddress?: string;
+    fieldLabelMessage?: string;
+    submitText?: string;
+    trustTitle?: string;
+    trustText?: string;
+    successHeading?: string;
+    successText?: string;
+    avgResponseTime?: string;
+  } | {
+    _key: string;
+    _type: "contactHero";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    phone?: string;
+    phoneDisplay?: string;
+    email?: string;
+  } | {
+    _key: string;
+    _type: "contactInfo";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    offices?: Array<{
+      num?: string;
+      city?: string;
+      address?: string;
+      phone?: string;
+      email?: string;
+      hours?: string;
+      linkLabel?: string;
+      linkHref?: string;
+      _type: "officeCard";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "contactMaps";
+    eyebrow?: string;
+    heading?: string;
+    latitude?: string;
+    longitude?: string;
+    sector?: string;
+    objectId?: string;
+    googleMapsUrl?: string;
+    wazeUrl?: string;
+    appleMapsUrl?: string;
+    embedUrl?: string;
+    locations?: Array<{
+      label?: string;
+      embedUrl?: string;
+      coords?: string;
+      _type: "mapLocation";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "homeContact";
+    eyebrow?: string;
+    heading?: string;
+    copy?: string;
+    contactItems?: Array<{
+      icon?: string;
+      label?: string;
+      value?: string;
+      _type: "contactItem";
+      _key: string;
+    }>;
+    formSubmitLabel?: string;
+    formSuccessHeading?: string;
+    formSuccessBody?: string;
+  } | {
+    _key: string;
+    _type: "homeHero";
+    eyebrow?: string;
+    headingParts?: Array<{
+      text?: string;
+      highlight?: boolean;
+      _type: "headingPart";
+      _key: string;
+    }>;
+    sub?: string;
+    ctaPrimary?: CtaPrimary;
+    ctaSecondary?: CtaSecondary;
+    trustItems?: Array<{
+      value?: string;
+      suffix?: string;
+      label?: string;
+      isCounter?: boolean;
+      _type: "trustItem";
+      _key: string;
+    }>;
+    stripLive?: string;
+    stripLocations?: string;
+    stripLicense?: string;
+  } | {
+    _key: string;
+    _type: "homeIndustries";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    sectors?: Array<{
+      name?: string;
+      k?: "gov" | "hospital" | "hotel" | "ind" | "office" | "retail";
+      code?: string;
+      kpi?: number;
+      kpiLabel?: string;
+      events?: Array<string>;
+      _type: "sector";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "homeIntegration";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    subsystems?: Array<{
+      key?: string;
+      label?: string;
+      icon?: "bar" | "bell" | "cam" | "fire" | "intercom" | "key" | "net" | "speaker";
+      _type: "subsystem";
+      _key: string;
+    }>;
+    events?: Array<{
+      time?: string;
+      tag?: string;
+      kind?: "alert" | "info" | "ok" | "warn";
+      msg?: string;
+      _type: "eventItem";
+      _key: string;
+    }>;
+    kpis?: Array<{
+      value?: number;
+      suffix?: string;
+      prefix?: string;
+      decimals?: number;
+      label?: string;
+      _type: "archKpi";
+      _key: string;
+    }>;
+    scenarioSteps?: Array<{
+      time?: string;
+      tag?: string;
+      kind?: "alert" | "info" | "ok" | "warn";
+      msg?: string;
+      _type: "scenarioStep";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "homePartners";
+    eyebrow?: string;
+    heading?: string;
+    partnersRow1?: Array<{
+      name?: string;
+      _type: "partnerItem";
+      _key: string;
+    }>;
+    partnersRow2?: Array<{
+      name?: string;
+      _type: "partnerItem2";
+      _key: string;
+    }>;
+    certs?: Array<{
+      label?: string;
+      _type: "certItem";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "homeProcess";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    steps?: Array<{
+      num?: string;
+      title?: string;
+      desc?: string;
+      _type: "processStep";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "homeProjectsFeatured";
+    eyebrow?: string;
+    heading?: string;
+    projects?: Array<{
+      title?: string;
+      sector?: string;
+      year?: string;
+      image?: FeaturedProjectImage;
+      imageFallback?: string;
+      kpis?: Array<{
+        label?: string;
+        value?: number;
+        suffix?: string;
+        _type: "kpiItem";
+        _key: string;
+      }>;
+      systems?: Array<string>;
+      href?: string;
+      featured?: boolean;
+      _type: "featuredProject";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "homeSolutions";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    cards?: Array<{
+      icon?: string;
+      chip?: string;
+      meta?: string;
+      title?: string;
+      desc?: string;
+      tag?: string;
+      variant?: "dark-wide" | "default" | "fire" | "wide";
+      _type: "solutionCard";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "homeTicker";
+    items?: Array<{
+      num?: string;
+      text?: string;
+      _type: "tickerItem";
+      _key: string;
+    }>;
+    speed?: number;
+  } | {
+    _key: string;
+    _type: "homeWhy";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    stats?: Array<{
+      value?: number;
+      decimals?: number;
+      prefix?: string;
+      suffix?: string;
+      label?: string;
+      isCounter?: boolean;
+      _type: "stat";
+      _key: string;
+    }>;
+    pillars?: Array<{
+      icon?: "Arrow" | "Bar" | "Cam" | "Check" | "Fire" | "Key" | "Net" | "Panic" | "Phone" | "Plus" | "Shield" | "Speaker";
+      title?: string;
+      desc?: string;
+      _type: "pillar";
+      _key: string;
+    }>;
   } | {
     _key: string;
     _type: "infoSection";
@@ -588,6 +1834,180 @@ export type GetPageQueryResult = {
       _key: string;
       markDefs: null;
     }> | null;
+  } | {
+    _key: string;
+    _type: "nikomCta";
+    eyebrow?: string;
+    heading?: string;
+    sub?: string;
+    buttonPrimary?: ButtonPrimary;
+    buttonSecondary?: ButtonSecondary;
+    theme?: "dark" | "light";
+  } | {
+    _key: string;
+    _type: "projectsFeature";
+    eyebrow?: string;
+    title?: string;
+    year?: string;
+    sectorLabel?: string;
+    image?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+    imageFallback?: string;
+    systems?: Array<string>;
+    kpis?: Array<{
+      label?: string;
+      value?: string;
+      _type: "kpiItem";
+      _key: string;
+    }>;
+    quoteText?: string;
+    quoteAuthor?: string;
+    quoteRole?: string;
+  } | {
+    _key: string;
+    _type: "projectsHero";
+    eyebrow?: string;
+    heading1?: string;
+    heading2?: string;
+    lead?: string;
+    ctaPrimaryLabel?: string;
+    ctaGhostLabel?: string;
+    ctaGhostHref?: string;
+    backgroundImage?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "projectsMasonry";
+    eyebrow?: string;
+    heading?: string;
+    items?: Array<{
+      title?: string;
+      sector?: string;
+      sectorLabel?: string;
+      year?: string;
+      image?: ProjectCardImage;
+      imageFallback?: string;
+      href?: string;
+      systems?: Array<string>;
+      kpis?: Array<{
+        label?: string;
+        value?: string;
+        _type: "cardKpi";
+        _key: string;
+      }>;
+      classified?: boolean;
+      size?: "featured" | "normal";
+      _type: "projectCard";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "projectsSectorStats";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    sectors?: Array<{
+      id?: string;
+      label?: string;
+      count?: number;
+      icon?: string;
+      _type: "sectorStat";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "servicesArchitecture";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    coreLabel?: string;
+    coreSubLabel?: string;
+  } | {
+    _key: string;
+    _type: "servicesCatalog";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    services?: Array<{
+      n?: string;
+      k?: string;
+      title?: string;
+      desc?: string;
+      icon?: string;
+      tags?: Array<string>;
+      stats?: Array<{
+        label?: string;
+        value?: string;
+        _type: "statItem";
+        _key: string;
+      }>;
+      featured?: boolean;
+      _type: "serviceItem";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "servicesFaq";
+    eyebrow?: string;
+    heading?: string;
+    items?: Array<{
+      q?: string;
+      a?: string;
+      _type: "faqItem";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "servicesHero";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    pills?: Array<string>;
+    image?: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      _type: "image";
+    };
+  } | {
+    _key: string;
+    _type: "servicesProcess";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    steps?: Array<{
+      n?: string;
+      title?: string;
+      desc?: string;
+      _type: "processStep";
+      _key: string;
+    }>;
+  } | {
+    _key: string;
+    _type: "servicesProject";
+    eyebrow?: string;
+    heading?: string;
+    lead?: string;
+    items?: Array<{
+      n?: string;
+      title?: string;
+      desc?: string;
+      icon?: string;
+      bullets?: Array<string>;
+      _type: "projectServiceItem";
+      _key: string;
+    }>;
   }> | null;
 } | null;
 
@@ -596,7 +2016,7 @@ export type GetPageQueryResult = {
 // Query: *[_type == "post" && locale == $locale && defined(pathname.current)] | order(date desc, _updatedAt desc) {      _id,  locale,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "pathname": pathname.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type AllPostsQueryResult = Array<{
   _id: string;
-  locale: "en" | "pl" | "pt" | null;
+  locale: "bg" | "en" | null;
   status: "draft" | "published";
   title: string;
   pathname: string | null;
@@ -629,7 +2049,7 @@ export type AllPostsQueryResult = Array<{
 // Query: *[_type == "post" && locale == $locale && _id != $skip && defined(pathname.current)] | order(date desc, _updatedAt desc) [0...$limit] {      _id,  locale,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "pathname": pathname.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},  }
 export type MorePostsQueryResult = Array<{
   _id: string;
-  locale: "en" | "pl" | "pt" | null;
+  locale: "bg" | "en" | null;
   status: "draft" | "published";
   title: string;
   pathname: string | null;
@@ -659,7 +2079,7 @@ export type MorePostsQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: postQuery
-// Query: *[_type == "post" && locale == $locale && pathname.current == $pathname][0] {    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }      }    },      _id,  locale,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "pathname": pathname.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},    "translations": *[_type == "translation.metadata" && references(^._id)][0]{      "list": translations[]{ "locale": value->locale, "pathname": value->pathname.current }    }.list  }
+// Query: *[_type == "post" && locale == $locale && pathname.current == $pathname][0] {    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }      }    },      _id,  locale,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "pathname": pathname.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},    authorName,    coverImageUrl,    category,    categoryLabel,    tags,    readTime,    "translations": *[_type == "translation.metadata" && references(^._id)][0]{      "list": translations[]{ "locale": value->locale, "pathname": value->pathname.current }    }.list  }
 export type PostQueryResult = {
   content: Array<{
     children?: Array<{
@@ -692,7 +2112,7 @@ export type PostQueryResult = {
     markDefs: null;
   }> | null;
   _id: string;
-  locale: "en" | "pl" | "pt" | null;
+  locale: "bg" | "en" | null;
   status: "draft" | "published";
   title: string;
   pathname: string | null;
@@ -718,14 +2138,41 @@ export type PostQueryResult = {
       _type: "image";
     };
   } | null;
+  authorName: string | null;
+  coverImageUrl: string | null;
+  category: "case" | "maintenance" | "news" | "standards" | "tech" | null;
+  categoryLabel: string | null;
+  tags: Array<string> | null;
+  readTime: number | null;
   translations: null;
 } | null;
+
+// Source: sanity/lib/queries.ts
+// Variable: relatedPostsQuery
+// Query: *[_type == "post" && locale == $locale && _id != $skip && defined(pathname.current)] | order(date desc, _updatedAt desc) [0...3] {    _id,    "title": coalesce(title, "Untitled"),    "pathname": pathname.current,    categoryLabel,    coverImage,    coverImageUrl,    "date": coalesce(date, _updatedAt),    readTime  }
+export type RelatedPostsQueryResult = Array<{
+  _id: string;
+  title: string;
+  pathname: string | null;
+  categoryLabel: string | null;
+  coverImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  coverImageUrl: string | null;
+  date: string;
+  readTime: number | null;
+}>;
 
 // Source: sanity/lib/queries.ts
 // Variable: postPathnames
 // Query: *[_type == "post" && defined(pathname.current)] {    locale,    "pathname": pathname.current,    "slug": string::split(pathname.current, "/")[-1]  }
 export type PostPathnamesResult = Array<{
-  locale: "en" | "pl" | "pt" | null;
+  locale: "bg" | "en" | null;
   pathname: string;
   slug: string | null;
 }>;
@@ -735,6 +2182,131 @@ export type PostPathnamesResult = Array<{
 // Query: *[_type == "page" && defined(pathname.current)]  { "path": string::split(pathname.current, "/")[@ != ""] }
 export type PagesPathnamesResult = Array<{
   path: Array<string>;
+}>;
+
+// Source: sanity/lib/queries.ts
+// Variable: projectBySlugQuery
+// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    _type,    title,    sector,    sectorLabel,    year,    location,    classified,    heroImage,    summary,    "systems": systems[]{_key, name},    "facts": facts[]{_key, label, value},    "scope": scope[]{_key, n, t, d},    quote,    "gallery": gallery[]{_key, caption, image},    "kpis": kpis[]{_key, label, value},    "related": related[]->{      _id,      title,      sectorLabel,      year,      "slug": slug.current,      heroImage    },    "slug": slug.current  }
+export type ProjectBySlugQueryResult = {
+  _id: string;
+  _type: "project";
+  title: string;
+  sector: "government" | "healthcare" | "hotel" | "industrial" | "retail" | null;
+  sectorLabel: string | null;
+  year: string | null;
+  location: string | null;
+  classified: boolean | null;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  summary: string | null;
+  systems: null;
+  facts: Array<{
+    _key: string;
+    label: string | null;
+    value: string | null;
+  }> | null;
+  scope: Array<{
+    _key: string;
+    n: null;
+    t: null;
+    d: null;
+  }> | null;
+  quote: {
+    text?: string;
+    author?: string;
+    role?: string;
+  } | null;
+  gallery: Array<{
+    _key: string;
+    caption: null;
+    image: null;
+  }> | null;
+  kpis: Array<{
+    _key: string;
+    label: string | null;
+    value: string | null;
+  }> | null;
+  related: Array<{
+    _id: string;
+    title: string;
+    sectorLabel: string | null;
+    year: string | null;
+    slug: string;
+    heroImage: {
+      asset?: SanityImageAssetReference;
+      media?: unknown;
+      hotspot?: SanityImageHotspot;
+      crop?: SanityImageCrop;
+      alt?: string;
+      _type: "image";
+    } | null;
+  }> | null;
+  slug: string;
+} | null;
+
+// Source: sanity/lib/queries.ts
+// Variable: projectSlugPathnames
+// Query: *[_type == "project" && defined(slug.current)]{    "slug": slug.current  }
+export type ProjectSlugPathnamesResult = Array<{
+  slug: string;
+}>;
+
+// Source: sanity/lib/queries.ts
+// Variable: nikomProjectsListQuery
+// Query: *[_type == "project" && defined(slug.current)] | order(_createdAt asc) {    _id, title, sector, sectorLabel, year, classified,    "slug": slug.current,    heroImage,    "systems": coalesce(scope[].title, systems, []),    kpis[]{ _key, label, value }  }
+export type NikomProjectsListQueryResult = Array<{
+  _id: string;
+  title: string;
+  sector: "government" | "healthcare" | "hotel" | "industrial" | "retail" | null;
+  sectorLabel: string | null;
+  year: string | null;
+  classified: boolean | null;
+  slug: string;
+  heroImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  systems: Array<never> | Array<string | null>;
+  kpis: Array<{
+    _key: string;
+    label: string | null;
+    value: string | null;
+  }> | null;
+}>;
+
+// Source: sanity/lib/queries.ts
+// Variable: nikomPostsListQuery
+// Query: *[_type == "post" && defined(slug.current)] | order(coalesce(date, _updatedAt) desc) {    _id, title, excerpt, authorName,    "date": coalesce(date, _updatedAt),    readTime, tags, category, categoryLabel, featured,    "slug": slug.current,    coverImage  }
+export type NikomPostsListQueryResult = Array<{
+  _id: string;
+  title: string;
+  excerpt: string | null;
+  authorName: string | null;
+  date: string;
+  readTime: number | null;
+  tags: Array<string> | null;
+  category: "case" | "maintenance" | "news" | "standards" | "tech" | null;
+  categoryLabel: string | null;
+  featured: boolean | null;
+  slug: string;
+  coverImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
 }>;
 
 // Source: sanity/lib/queries.ts
@@ -748,7 +2320,7 @@ export type SitemapDataResult = {
   }>;
   posts: Array<{
     _type: "post";
-    locale: "en" | "pl" | "pt" | null;
+    locale: "bg" | "en" | null;
     pathname: string;
     _updatedAt: string;
     translations: null;
@@ -759,13 +2331,18 @@ export type SitemapDataResult = {
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[_type == \"settings\"][0]": SettingsQueryResult;
+    "\n  *[_type == \"settings\"][0]{\n    title,\n    description,\n    ogImage,\n    siteName,\n    headerNav[]{label, href},\n    phone,\n    phoneDisplay,\n    ctaText,\n    licenseText,\n    locations,\n    liveText,\n    footerTagline,\n    footerGhostText,\n    footerGhostSub,\n    social[]{label, href},\n    footerColumns[]{\n      title,\n      links[]{label, href}\n    }\n  }\n": SettingsQueryResult;
     "\n  *[_type == 'page' && pathname.current == $pathname][0]{\n    _id,\n    _type,\n    name,\n    pathname,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        button {\n          ...,\n          \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n\n        }\n      },\n      _type == \"infoSection\" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n          }\n        }\n      },\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && defined(pathname.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && _id != $skip && defined(pathname.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": MorePostsQueryResult;
-    "\n  *[_type == \"post\" && locale == $locale && pathname.current == $pathname][0] {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n    },\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n    \"translations\": *[_type == \"translation.metadata\" && references(^._id)][0]{\n      \"list\": translations[]{ \"locale\": value->locale, \"pathname\": value->pathname.current }\n    }.list\n  }\n": PostQueryResult;
+    "\n  *[_type == \"post\" && locale == $locale && pathname.current == $pathname][0] {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n    },\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n    authorName,\n    coverImageUrl,\n    category,\n    categoryLabel,\n    tags,\n    readTime,\n    \"translations\": *[_type == \"translation.metadata\" && references(^._id)][0]{\n      \"list\": translations[]{ \"locale\": value->locale, \"pathname\": value->pathname.current }\n    }.list\n  }\n": PostQueryResult;
+    "\n  *[_type == \"post\" && locale == $locale && _id != $skip && defined(pathname.current)] | order(date desc, _updatedAt desc) [0...3] {\n    _id,\n    \"title\": coalesce(title, \"Untitled\"),\n    \"pathname\": pathname.current,\n    categoryLabel,\n    coverImage,\n    coverImageUrl,\n    \"date\": coalesce(date, _updatedAt),\n    readTime\n  }\n": RelatedPostsQueryResult;
     "\n  *[_type == \"post\" && defined(pathname.current)] {\n    locale,\n    \"pathname\": pathname.current,\n    \"slug\": string::split(pathname.current, \"/\")[-1]\n  }\n": PostPathnamesResult;
     "\n  *[_type == \"page\" && defined(pathname.current)]\n  { \"path\": string::split(pathname.current, \"/\")[@ != \"\"] }\n": PagesPathnamesResult;
+    "\n  *[_type == \"project\" && slug.current == $slug][0]{\n    _id,\n    _type,\n    title,\n    sector,\n    sectorLabel,\n    year,\n    location,\n    classified,\n    heroImage,\n    summary,\n    \"systems\": systems[]{_key, name},\n    \"facts\": facts[]{_key, label, value},\n    \"scope\": scope[]{_key, n, t, d},\n    quote,\n    \"gallery\": gallery[]{_key, caption, image},\n    \"kpis\": kpis[]{_key, label, value},\n    \"related\": related[]->{\n      _id,\n      title,\n      sectorLabel,\n      year,\n      \"slug\": slug.current,\n      heroImage\n    },\n    \"slug\": slug.current\n  }\n": ProjectBySlugQueryResult;
+    "\n  *[_type == \"project\" && defined(slug.current)]{\n    \"slug\": slug.current\n  }\n": ProjectSlugPathnamesResult;
+    "\n  *[_type == \"project\" && defined(slug.current)] | order(_createdAt asc) {\n    _id, title, sector, sectorLabel, year, classified,\n    \"slug\": slug.current,\n    heroImage,\n    \"systems\": coalesce(scope[].title, systems, []),\n    kpis[]{ _key, label, value }\n  }\n": NikomProjectsListQueryResult;
+    "\n  *[_type == \"post\" && defined(slug.current)] | order(coalesce(date, _updatedAt) desc) {\n    _id, title, excerpt, authorName,\n    \"date\": coalesce(date, _updatedAt),\n    readTime, tags, category, categoryLabel, featured,\n    \"slug\": slug.current,\n    coverImage\n  }\n": NikomPostsListQueryResult;
     "\n  {\n    \"pages\": *[_type == \"page\" && defined(pathname.current)] {\n      _type, \"pathname\": pathname.current, _updatedAt\n    },\n    \"posts\": *[_type == \"post\" && defined(pathname.current)] {\n      _type, locale, \"pathname\": pathname.current, _updatedAt,\n      \"translations\": *[_type == \"translation.metadata\" && references(^._id)][0]\n        .translations[]{ \"locale\": value->locale, \"pathname\": value->pathname.current }\n    }\n  }\n": SitemapDataResult;
   }
 }

@@ -8,12 +8,14 @@ import { VisualEditing } from 'next-sanity/visual-editing'
 import { Toaster } from 'sonner'
 
 import { DraftModeToast } from '@/app/components/DraftModeToast'
-import { Footer } from '@/app/components/Footer'
+import { SiteChrome } from '@/app/components/nikom/SiteChrome'
+import { Footer } from '@/app/components/nikom/Footer'
 import { sanityFetch, SanityLive } from '@/sanity/lib/live'
 import { settingsQuery } from '@/sanity/lib/queries'
 import { resolveOpenGraphImage } from '@/sanity/lib/utils'
 import { handleError } from '@/app/client-utils'
 import { routing } from '@/i18n/routing'
+import '@/app/nikom/nikom.css'
 
 const inter = Inter({
   variable: '--font-inter',
@@ -79,26 +81,58 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale)
 
   const { isEnabled: isDraftMode } = await draftMode()
+  const { data: settings } = await sanityFetch({ query: settingsQuery })
+
+  const nav: { label: string; href: string }[] | undefined =
+    settings?.headerNav?.map((n) => ({ label: n.label ?? '', href: n.href ?? '/' })) ?? undefined
+  const footerColumns: { title: string; links: { label: string; href: string }[] }[] | undefined =
+    settings?.footerColumns?.map((col) => ({
+      title: col.title ?? '',
+      links: (col.links ?? []).map((l) => ({ label: l.label ?? '', href: l.href ?? '#' })),
+    })) ?? undefined
+  const social: { label: string; href: string }[] | undefined =
+    settings?.social?.map((sl) => ({ label: sl.label ?? '', href: sl.href ?? '#' })) ?? undefined
 
   return (
     <html
       lang={locale}
-      className={`${inter.variable} ${ibmPlexMono.variable} bg-gray-50 text-gray-900 antialiased`}
+      data-theme="light"
+      className={`${inter.variable} ${ibmPlexMono.variable} antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Geologica:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap&subset=cyrillic"
+          rel="stylesheet"
+        />
+      </head>
       <body>
         <NextIntlClientProvider locale={locale}>
-          <section className="min-h-screen pt-24">
-            <Toaster theme="light" />
-            {isDraftMode && (
-              <>
-                <DraftModeToast />
-                <VisualEditing />
-              </>
-            )}
-            <SanityLive onError={handleError} />
-            <main>{children}</main>
-            <Footer />
-          </section>
+          <Toaster theme="light" />
+          {isDraftMode && (
+            <>
+              <DraftModeToast />
+              <VisualEditing />
+            </>
+          )}
+          <SanityLive onError={handleError} />
+          <SiteChrome
+            nav={nav}
+            phone={settings?.phone ?? undefined}
+            phoneDisplay={settings?.phoneDisplay ?? undefined}
+            ctaText={settings?.ctaText ?? undefined}
+          />
+          <main>{children}</main>
+          <Footer
+            tagline={settings?.footerTagline ?? undefined}
+            social={social}
+            footerColumns={footerColumns}
+            phone={settings?.phone ?? undefined}
+            phoneDisplay={settings?.phoneDisplay ?? undefined}
+            ghostText={settings?.footerGhostText ?? undefined}
+            ghostSub={settings?.footerGhostSub ?? undefined}
+          />
         </NextIntlClientProvider>
       </body>
     </html>

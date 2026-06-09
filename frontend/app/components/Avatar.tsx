@@ -7,10 +7,10 @@ type Props = {
     lastName: string | null
     picture?: {
       asset?: { _ref: string }
-      hotspot?: { x: number; y: number }
-      crop?: { top: number; bottom: number; left: number; right: number }
+      hotspot?: { x?: number; y?: number }
+      crop?: { top?: number; bottom?: number; left?: number; right?: number }
       alt?: string
-    }
+    } | null
   }
   date?: string
   small?: boolean
@@ -29,8 +29,21 @@ export const Avatar = ({ person, date, small = false }: Props) => {
             className="h-full rounded-full"
             height={small ? 32 : 48}
             width={small ? 32 : 48}
-            hotspot={picture.hotspot}
-            crop={picture.crop}
+            hotspot={
+              picture.hotspot?.x != null && picture.hotspot?.y != null
+                ? { x: picture.hotspot.x, y: picture.hotspot.y }
+                : undefined
+            }
+            crop={
+              picture.crop
+                ? {
+                    top: picture.crop.top ?? 0,
+                    bottom: picture.crop.bottom ?? 0,
+                    left: picture.crop.left ?? 0,
+                    right: picture.crop.right ?? 0,
+                  }
+                : undefined
+            }
             mode="cover"
           />
         </div>

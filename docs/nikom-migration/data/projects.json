@@ -1,0 +1,316 @@
+[
+  {
+    "id": "tokuda",
+    "slug": "project-35",
+    "title": "„Аджибадем Сити Клиник Болница Токуда“ ЕАД",
+    "sector": "healthcare",
+    "sectorLabel": "Здравеопазване",
+    "year": "2010 — наст.",
+    "heroImageFallback": "/nikom/proj-tokuda.jpg",
+    "classified": false,
+    "summary": "Дългосрочно партньорство от 2010 г. Изграждане и поддръжка на пожароизвестителна, спринклерна и пожарогасителна система в болнично заведение от висок клас.",
+    "facts": [
+      { "label": "Период", "value": "2010 — наст." },
+      { "label": "Сектор", "value": "Здравеопазване" },
+      { "label": "Статус", "value": "Активна поддръжка" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване Esser by Honeywell", "desc": "" },
+      { "title": "Спринклерна пожарогасителна", "desc": "" },
+      { "title": "Пожарни кранове", "desc": "" }
+    ],
+    "quote": {
+      "text": "Дългогодишното успешно партньорство и съвместна работа с екипа на НИКОМ системи за сигурност ЕООД от 2010 г., ръководен от инж. Николай Васев, ни дава основание да ги препоръчаме като коректен, компетентен и надежден партньор.",
+      "author": "инж. Георги Кърчев",
+      "role": "инспектор Пожарна Безопасност"
+    },
+    "gallery": [],
+    "kpis": [
+      { "value": "2000", "suffix": "", "label": "Детектори" },
+      { "value": "4800", "suffix": "", "label": "Спринклери" }
+    ],
+    "related": []
+  },
+  {
+    "id": "hipoland",
+    "slug": "project-42",
+    "title": "Верига магазини ХИПОЛЕНД",
+    "sector": "retail",
+    "sectorLabel": "Ритейл",
+    "year": "2019 — наст.",
+    "heroImageFallback": "/nikom/proj-hipoland.jpg",
+    "classified": false,
+    "summary": "Комплексна сигурност за верига магазини — пожароизвестяване, видеонаблюдение, сигнално-охранителни системи и озвучаване на 28+ обекта.",
+    "facts": [
+      { "label": "Период", "value": "2019 — наст." },
+      { "label": "Сектор", "value": "Ритейл" },
+      { "label": "Статус", "value": "Активна поддръжка" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" },
+      { "title": "Видеонаблюдение", "desc": "" },
+      { "title": "Сигнално-охранителни системи", "desc": "" },
+      { "title": "Озвучаване", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "28", "suffix": "+", "label": "Обекта" },
+      { "value": "99.5", "suffix": "%", "label": "SLA" }
+    ],
+    "related": []
+  },
+  {
+    "id": "hematology",
+    "slug": "nsbalkhz-ead-bolnitca-po-khematologiia-gr.sofiia",
+    "title": "НСБАЛХЗ ЕАД — Болница по Хематология, гр. София",
+    "sector": "healthcare",
+    "sectorLabel": "Здравеопазване",
+    "year": "2021",
+    "heroImageFallback": "/nikom/proj-onkobolnitsa.jpg",
+    "classified": false,
+    "summary": "Изграждане на комплексни системи за сигурност в специализирана болница, включително силнотокови инсталации и СКС.",
+    "facts": [
+      { "label": "Период", "value": "2021" },
+      { "label": "Сектор", "value": "Здравеопазване" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" },
+      { "title": "Сигнално-охранителна", "desc": "" },
+      { "title": "Силнотокови инсталации", "desc": "" },
+      { "title": "СКС", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "12", "suffix": "", "label": "Чисти зони" },
+      { "value": "850", "suffix": "+", "label": "Точки за SKS" }
+    ],
+    "related": []
+  },
+  {
+    "id": "poland",
+    "slug": "posolstvo-i-rezidentciia-na-republika-polsha-sofiia",
+    "title": "Посолство и резиденция на Република ПОЛША, София",
+    "sector": "government",
+    "sectorLabel": "Държавни",
+    "year": "2020",
+    "heroImageFallback": "/nikom/proj-poland.jpg",
+    "classified": true,
+    "summary": "Дипломатически обект с изисквания за максимална сигурност. Видеонаблюдение, контрол на достъп и видеодомофонна система с резервиране N+1.",
+    "facts": [
+      { "label": "Период", "value": "2020" },
+      { "label": "Сектор", "value": "Държавни" },
+      { "label": "Ниво", "value": "Дипл." },
+      { "label": "Резервиране", "value": "N+1" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Видеонаблюдение", "desc": "" },
+      { "title": "Контрол на достъп", "desc": "" },
+      { "title": "Видеодомофонна система", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [],
+    "related": []
+  },
+  {
+    "id": "gopet",
+    "slug": "skladova-baza-gopet-trans-gr.sofiia-4000-kv.m",
+    "title": "Складова база GOPET TRANS, гр. София",
+    "sector": "industrial",
+    "sectorLabel": "Складове",
+    "year": "2018",
+    "heroImageFallback": "/nikom/proj-gopet.jpg",
+    "classified": false,
+    "summary": "Пълна сигурностна инфраструктура за логистична база от 4 000 m² — пожароизвестяване, видеонаблюдение, контрол на достъп, паркинг и охранителна система.",
+    "facts": [
+      { "label": "Период", "value": "2018" },
+      { "label": "Сектор", "value": "Складове" },
+      { "label": "Площ", "value": "4 000 m²" },
+      { "label": "Камери", "value": "48" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" },
+      { "title": "Видеонаблюдение", "desc": "" },
+      { "title": "Контрол на достъп", "desc": "" },
+      { "title": "Паркинг", "desc": "" },
+      { "title": "Охранителна", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "4000", "suffix": " m²", "label": "Площ" },
+      { "value": "48", "suffix": "", "label": "Камери" }
+    ],
+    "related": []
+  },
+  {
+    "id": "izvorite",
+    "slug": "khotelski-kompleks-izvorite-gr.razlog",
+    "title": "Хотелски комплекс ИЗВОРИТЕ, гр. Разлог",
+    "sector": "hotel",
+    "sectorLabel": "Хотели",
+    "year": "2017",
+    "heroImageFallback": "/nikom/proj-izvorite.jpg",
+    "classified": false,
+    "summary": "Пожароизвестяване и оповестителна система SOS за хотелски комплекс с 85 стаи, отговаряща на стандарт EN 54-16.",
+    "facts": [
+      { "label": "Период", "value": "2017" },
+      { "label": "Сектор", "value": "Хотели" },
+      { "label": "Стаи", "value": "85" },
+      { "label": "EN 54-16", "value": "ДА" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" },
+      { "title": "Оповестителна и SOS системи", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "85", "suffix": "", "label": "Стаи" }
+    ],
+    "related": []
+  },
+  {
+    "id": "anel-sofia",
+    "slug": "khotel-anel-5-gr-sofiia",
+    "title": "Хотел АНЕЛ 5★, гр. София",
+    "sector": "hotel",
+    "sectorLabel": "Хотели",
+    "year": "2015",
+    "heroImageFallback": "/nikom/proj-anel.jpg",
+    "classified": false,
+    "summary": "Пожароизвестителна система за петзвезден хотел с 11 етажа и 84 стаи в центъра на София.",
+    "facts": [
+      { "label": "Период", "value": "2015" },
+      { "label": "Сектор", "value": "Хотели" },
+      { "label": "Етажи", "value": "11" },
+      { "label": "Стаи", "value": "84" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "11", "suffix": "", "label": "Етажи" },
+      { "value": "84", "suffix": "", "label": "Стаи" }
+    ],
+    "related": []
+  },
+  {
+    "id": "crystal",
+    "slug": "butikov-khotel-kristal-palas-4-gr.sofiia",
+    "title": "Бутиков хотел Кристал Палас 4★, гр. София",
+    "sector": "hotel",
+    "sectorLabel": "Хотели",
+    "year": "2014",
+    "heroImageFallback": "/nikom/proj-crystal.jpg",
+    "classified": false,
+    "summary": "Пожароизвестяване и видеонаблюдение за бутиков четиризвезден хотел с 62 стаи.",
+    "facts": [
+      { "label": "Период", "value": "2014" },
+      { "label": "Сектор", "value": "Хотели" },
+      { "label": "Стаи", "value": "62" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" },
+      { "title": "Видеонаблюдение", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "62", "suffix": "", "label": "Стаи" }
+    ],
+    "related": []
+  },
+  {
+    "id": "arena",
+    "slug": "khotel-arena-di-serdika-5-gr.sofiia",
+    "title": "Хотел Arena di Serdika 5★, гр. София",
+    "sector": "hotel",
+    "sectorLabel": "Хотели",
+    "year": "2016",
+    "heroImageFallback": "/nikom/proj-arena.jpg",
+    "classified": false,
+    "summary": "Пожароизвестяване, видеонаблюдение и контрол на достъп за петзвезден хотел с 140 стаи и 5 конферентни зали.",
+    "facts": [
+      { "label": "Период", "value": "2016" },
+      { "label": "Сектор", "value": "Хотели" },
+      { "label": "Стаи", "value": "140" },
+      { "label": "Зали", "value": "5" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" },
+      { "title": "Видеонаблюдение", "desc": "" },
+      { "title": "Контрол на достъп", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "140", "suffix": "", "label": "Стаи" },
+      { "value": "5", "suffix": "", "label": "Зали" }
+    ],
+    "related": []
+  },
+  {
+    "id": "sozopol",
+    "slug": "art-khotelski-kompleks-anel-gr-sozopol",
+    "title": "Арт хотелски комплекс АНЕЛ, гр. Созопол",
+    "sector": "hotel",
+    "sectorLabel": "Хотели",
+    "year": "2019",
+    "heroImageFallback": "/nikom/proj-sozopol.jpg",
+    "classified": false,
+    "summary": "Пожароизвестяване и СКС за арт хотелски комплекс с целогодишна работа край Черно море.",
+    "facts": [
+      { "label": "Период", "value": "2019" },
+      { "label": "Сектор", "value": "Хотели" },
+      { "label": "Сезон", "value": "12/12 мес." },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Пожароизвестяване", "desc": "" },
+      { "title": "СКС", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [],
+    "related": []
+  },
+  {
+    "id": "defence",
+    "slug": "obekt-ministerstvo-na-otbranata-gazovo-pozhargasene",
+    "title": "Обект на Министерство на отбраната",
+    "sector": "government",
+    "sectorLabel": "Държавни",
+    "year": "2022",
+    "heroImageFallback": "/nikom/proj-mod.jpg",
+    "classified": true,
+    "summary": "Газова автоматична пожарогасителна инсталация с агент FM-200 за три зони на обект на Министерство на отбраната.",
+    "facts": [
+      { "label": "Период", "value": "2022" },
+      { "label": "Сектор", "value": "Държавни" },
+      { "label": "Тип агент", "value": "FM-200" },
+      { "label": "Зони", "value": "3" },
+      { "label": "Статус", "value": "Завършен" }
+    ],
+    "scope": [
+      { "title": "Газова автоматична пожарогасителна инсталация", "desc": "" }
+    ],
+    "quote": null,
+    "gallery": [],
+    "kpis": [
+      { "value": "3", "suffix": "", "label": "Зони" }
+    ],
+    "related": []
+  }
+]

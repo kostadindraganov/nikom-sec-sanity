@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 
 import { PageBuilder } from '@/app/components/PageBuilder'
-import { Header } from '@/app/components/Header'
 import { sanityFetch } from '@/sanity/lib/live'
 import { getPageQuery, pagesPathnames } from '@/sanity/lib/queries'
 import { GetPageQueryResult } from '@/sanity.types'
@@ -51,12 +50,5 @@ export default async function Page(props: Props) {
     return notFound()
   }
 
-  return (
-    <>
-      <Header />
-      <div className="my-12 lg:my-24">
-        <PageBuilder page={page as GetPageQueryResult} />
-      </div>
-    </>
-  )
+  return <PageBuilder page={page as GetPageQueryResult} />
 }

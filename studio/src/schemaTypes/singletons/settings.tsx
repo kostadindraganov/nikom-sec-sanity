@@ -11,6 +11,11 @@ export const settings = defineType({
   title: 'Settings',
   type: 'document',
   icon: CogIcon,
+  groups: [
+    { name: 'navigation', title: 'Navigation' },
+    { name: 'footer', title: 'Footer' },
+    { name: 'seo', title: 'SEO' },
+  ],
   fields: [
     defineField({
       name: 'title',
@@ -119,6 +124,194 @@ export const settings = defineType({
         }),
       ],
     }),
+    // ── Navigation ──────────────────────────────────────────
+    defineField({
+      name: 'siteName',
+      title: 'Site Name',
+      type: 'string',
+      initialValue: 'NIKOM Security',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'headerNav',
+      title: 'Header Navigation',
+      type: 'array',
+      group: 'navigation',
+      initialValue: [
+        { _type: 'navItem', label: 'Начало', href: '/' },
+        { _type: 'navItem', label: 'За нас', href: '/za-nas' },
+        { _type: 'navItem', label: 'Услуги', href: '/uslugi' },
+        { _type: 'navItem', label: 'Проекти', href: '/proekti' },
+        { _type: 'navItem', label: 'Блог', href: '/blog' },
+        { _type: 'navItem', label: 'Контакт', href: '/kontakt' },
+      ],
+      of: [
+        defineArrayMember({
+          name: 'navItem',
+          type: 'object',
+          fields: [
+            defineField({ name: 'label', type: 'string', title: 'Label' }),
+            defineField({ name: 'href', type: 'string', title: 'Path / URL' }),
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'href' },
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'phone',
+      title: 'Phone (machine-readable)',
+      type: 'string',
+      initialValue: '+359894523970',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'phoneDisplay',
+      title: 'Phone (display)',
+      type: 'string',
+      initialValue: '+359 89 45 23 970',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'ctaText',
+      title: 'Header CTA Button Text',
+      type: 'string',
+      initialValue: 'Заявете консултация',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'licenseText',
+      title: 'License Text',
+      type: 'string',
+      initialValue: 'Лиценз № 2436-2017 · МВР',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'locations',
+      title: 'Locations',
+      type: 'string',
+      initialValue: 'Sofia · Plovdiv · Varna · Burgas',
+      group: 'navigation',
+    }),
+    defineField({
+      name: 'liveText',
+      title: 'Live Duty Text',
+      type: 'string',
+      initialValue: 'LIVE — Дежурен инженер на линия',
+      group: 'navigation',
+    }),
+    // ── Footer ───────────────────────────────────────────────
+    defineField({
+      name: 'footerTagline',
+      title: 'Footer Tagline',
+      type: 'text',
+      rows: 2,
+      initialValue: 'Инженерен партньор за интегрирани системи за сигурност, пожарна безопасност и контрол на достъп.',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'social',
+      title: 'Social Links',
+      type: 'array',
+      group: 'footer',
+      initialValue: [
+        { _type: 'socialLink', label: 'LinkedIn', href: '#' },
+        { _type: 'socialLink', label: 'Facebook', href: '#' },
+        { _type: 'socialLink', label: 'YouTube', href: '#' },
+      ],
+      of: [
+        defineArrayMember({
+          name: 'socialLink',
+          type: 'object',
+          fields: [
+            defineField({ name: 'label', type: 'string', title: 'Label' }),
+            defineField({ name: 'href', type: 'string', title: 'URL' }),
+          ],
+          preview: {
+            select: { title: 'label', subtitle: 'href' },
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'footerColumns',
+      title: 'Footer Columns',
+      type: 'array',
+      group: 'footer',
+      initialValue: [
+        {
+          _type: 'footerColumn',
+          title: 'Навигация',
+          links: [
+            { _type: 'navItem', label: 'Начало', href: '/' },
+            { _type: 'navItem', label: 'За нас', href: '/za-nas' },
+            { _type: 'navItem', label: 'Услуги', href: '/uslugi' },
+            { _type: 'navItem', label: 'Проекти', href: '/proekti' },
+            { _type: 'navItem', label: 'Блог', href: '/blog' },
+            { _type: 'navItem', label: 'Контакт', href: '/kontakt' },
+          ],
+        },
+        {
+          _type: 'footerColumn',
+          title: 'Услуги',
+          links: [
+            { _type: 'navItem', label: 'Пожароизвестяване', href: '/uslugi' },
+            { _type: 'navItem', label: 'Видеонаблюдение', href: '/uslugi' },
+            { _type: 'navItem', label: 'Контрол на достъп', href: '/uslugi' },
+            { _type: 'navItem', label: 'Паник системи', href: '/uslugi' },
+            { _type: 'navItem', label: 'Озвучаване', href: '/uslugi' },
+            { _type: 'navItem', label: 'Структурно окабеляване', href: '/uslugi' },
+            { _type: 'navItem', label: 'Интеграция (PSIM)', href: '/uslugi' },
+          ],
+        },
+      ],
+      of: [
+        defineArrayMember({
+          name: 'footerColumn',
+          type: 'object',
+          fields: [
+            defineField({ name: 'title', type: 'string', title: 'Column Title' }),
+            defineField({
+              name: 'links',
+              type: 'array',
+              title: 'Links',
+              of: [
+                defineArrayMember({
+                  name: 'navItem',
+                  type: 'object',
+                  fields: [
+                    defineField({ name: 'label', type: 'string', title: 'Label' }),
+                    defineField({ name: 'href', type: 'string', title: 'Path / URL' }),
+                  ],
+                  preview: {
+                    select: { title: 'label', subtitle: 'href' },
+                  },
+                }),
+              ],
+            }),
+          ],
+          preview: {
+            select: { title: 'title' },
+          },
+        }),
+      ],
+    }),
+    defineField({
+      name: 'footerGhostText',
+      title: 'Footer Ghost Text (large)',
+      type: 'string',
+      initialValue: 'NIKOM',
+      group: 'footer',
+    }),
+    defineField({
+      name: 'footerGhostSub',
+      title: 'Footer Ghost Sub Text',
+      type: 'string',
+      initialValue: 'СИСТЕМИ ЗА СИГУРНОСТ',
+      group: 'footer',
+    }),
+    // ── SEO ──────────────────────────────────────────────────
     defineField({
       name: 'ogImage',
       title: 'Open Graph Image',
@@ -148,14 +341,8 @@ export const settings = defineType({
         defineField({
           name: 'metadataBase',
           type: 'url',
-          description: (
-            <a
-              href="https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase"
-              rel="noreferrer noopener"
-            >
-              More information
-            </a>
-          ),
+          description:
+            'The base URL used to resolve relative OG image and metadata paths. More info: https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase',
         }),
       ],
     }),

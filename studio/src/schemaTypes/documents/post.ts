@@ -5,7 +5,7 @@ import { definePathname } from '@tinloof/sanity-studio'
 import type { Post } from '../../../../frontend/sanity.types'
 
 const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
-const DEFAULT_LOCALE_ID = 'en'
+const DEFAULT_LOCALE_ID = 'bg'
 
 export const post = defineType({
   name: 'post',
@@ -14,6 +14,7 @@ export const post = defineType({
   type: 'document',
   groups: [
     { name: 'content', title: 'Content', default: true },
+    { name: 'meta', title: 'Meta' },
     { name: 'settings', title: 'Settings' },
   ],
   fields: [
@@ -26,9 +27,8 @@ export const post = defineType({
       initialValue: DEFAULT_LOCALE_ID,
       options: {
         list: [
+          { title: '🇧🇬 Български', value: 'bg' },
           { title: '🇬🇧 English', value: 'en' },
-          { title: '🇵🇹 Português', value: 'pt' },
-          { title: '🇵🇱 Polski', value: 'pl' },
         ],
       },
     }),
@@ -43,15 +43,11 @@ export const post = defineType({
       name: 'pathname',
       group: 'settings',
       description:
-        "The URL path for this post. The locale prefix (/en, /pt, /pl) is added automatically based on the post's language. Path must start with /posts/.",
+        "The URL path for this post. Path must start with /blog/.",
       options: {
         source: (doc: any) => {
-          if (!doc?.title) return ''
-          const slug = doc.title
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/(^-|-$)/g, '')
-          return `posts/${slug}`
+          if (!doc?.slug) return ''
+          return `blog/${doc.slug}`
         },
         i18n: {
           enabled: true,
@@ -70,22 +66,28 @@ export const post = defineType({
       validation: Rule =>
         Rule.custom(slug => {
           if (!slug?.current) return true
-          if (!slug.current.startsWith('/posts/')) {
-            return 'Path must start with /posts/ prefix.'
+          if (!slug.current.startsWith('/blog/')) {
+            return 'Path must start with /blog/ prefix.'
           }
           return true
         }),
     }),
     defineField({
-      name: 'content',
-      title: 'Content',
-      type: 'blockContent',
-      group: 'content',
+      name: 'slug',
+      title: 'Slug',
+      type: 'slug',
+      group: 'settings',
+      options: {
+        source: 'title',
+        maxLength: 100,
+      },
+      validation: rule => rule.required(),
     }),
     defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
+      rows: 3,
       group: 'content',
     }),
     defineField({
@@ -118,6 +120,13 @@ export const post = defineType({
       ],
     }),
     defineField({
+      name: 'coverImageUrl',
+      title: 'Cover Image URL (fallback)',
+      type: 'string',
+      group: 'content',
+      description: 'Fallback path if no Sanity image is uploaded, e.g. /nikom/proj-tokuda.jpg',
+    }),
+    defineField({
       name: 'date',
       title: 'Date',
       type: 'datetime',
@@ -131,23 +140,83 @@ export const post = defineType({
       group: 'content',
       to: [{ type: 'person' }],
     }),
+    defineField({
+      name: 'authorName',
+      title: 'Author name (plain text)',
+      type: 'string',
+      group: 'content',
+      description: 'Used when author reference is not set.',
+    }),
+    defineField({
+      name: 'category',
+      title: 'Category',
+      type: 'string',
+      group: 'meta',
+      options: {
+        list: [
+          { title: 'Стандарти', value: 'standards' },
+          { title: 'Технологии', value: 'tech' },
+          { title: 'Case Study', value: 'case' },
+          { title: 'Поддръжка', value: 'maintenance' },
+          { title: 'Новини', value: 'news' },
+        ],
+      },
+    }),
+    defineField({
+      name: 'categoryLabel',
+      title: 'Category label (display)',
+      type: 'string',
+      group: 'meta',
+      description: 'Display name shown in UI, e.g. "Стандарти"',
+    }),
+    defineField({
+      name: 'tags',
+      title: 'Tags',
+      type: 'array',
+      group: 'meta',
+      of: [{ type: 'string' }],
+      options: { layout: 'tags' },
+    }),
+    defineField({
+      name: 'readTime',
+      title: 'Read time (minutes)',
+      type: 'number',
+      group: 'meta',
+    }),
+    defineField({
+      name: 'featured',
+      title: 'Featured post',
+      type: 'boolean',
+      group: 'meta',
+      initialValue: false,
+    }),
+    defineField({
+      name: 'content',
+      title: 'Body content',
+      type: 'blockContent',
+      group: 'content',
+    }),
   ],
   preview: {
     select: {
       title: 'title',
       authorFirstName: 'author.firstName',
       authorLastName: 'author.lastName',
+      authorName: 'authorName',
       date: 'date',
       media: 'coverImage',
       locale: 'locale',
       pathname: 'pathname',
     },
-    prepare({ title, media, authorFirstName, authorLastName, date, locale, pathname }) {
+    prepare({ title, media, authorFirstName, authorLastName, authorName, date, locale, pathname }) {
       const path = pathname?.current
         ? `/${locale || DEFAULT_LOCALE_ID}${pathname.current}`
         : ''
+      const resolvedAuthor = authorFirstName && authorLastName
+        ? `${authorFirstName} ${authorLastName}`
+        : (authorName ?? '')
       const meta = [
-        authorFirstName && authorLastName && `by ${authorFirstName} ${authorLastName}`,
+        resolvedAuthor && `by ${resolvedAuthor}`,
         date && `on ${format(parseISO(date), 'LLL d, yyyy')}`,
       ]
         .filter(Boolean)

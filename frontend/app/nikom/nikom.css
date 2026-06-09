@@ -1,0 +1,19 @@
+@import './css/styles.css';
+@import './css/sections.css';
+@import './css/animations.css';
+@import './css/about.css';
+@import './css/services.css';
+@import './css/projects.css';
+@import './css/project-single.css';
+@import './css/contact.css';
+@import './css/blog.css';
+
+/* Override: ensure NIKOM .container wins over Tailwind @utility container on NIKOM pages.
+   Tailwind v4 @utility container generates a utility class with no max-width;
+   these rules come later in the cascade so NIKOM wins, but we re-declare explicitly for safety. */
+.container {
+  max-width: 1320px;
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 3vw, 40px);
+}
