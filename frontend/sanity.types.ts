@@ -12,6 +12,8 @@
  * ---------------------------------------------------------------------------------
  */
 
+export declare const internalGroqTypeReferenceTo: unique symbol;
+
 // Source: ../studio/schema.json
 export type PageReference = {
   _ref: string;
@@ -222,15 +224,6 @@ export type SanityAssistSchemaTypeField = {
   } & SanityAssistInstruction>;
 };
 
-export type InternationalizedArrayReferenceValue = {
-  _type: "internationalizedArrayReferenceValue";
-  value?: PostReference;
-};
-
-export type InternationalizedArrayReference = Array<{
-  _key: string;
-} & InternationalizedArrayReferenceValue>;
-
 export type Settings = {
   _id: string;
   _type: "settings";
@@ -381,16 +374,6 @@ export type AssistInstructionContext = {
   }>;
 };
 
-export type TranslationMetadata = {
-  _id: string;
-  _type: "translation.metadata";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  translations?: InternationalizedArrayReference;
-  schemaTypes?: Array<string>;
-};
-
 export type SanityImagePaletteSwatch = {
   _type: "sanity.imagePaletteSwatch";
   background?: string;
@@ -488,9 +471,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = PageReference | PostReference | Link | SanityImageAssetReference | CallToAction | InfoSection | BlockContentTextOnly | BlockContent | Button | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | AssistInstructionContextReference | SanityAssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | InternationalizedArrayReferenceValue | InternationalizedArrayReference | Settings | SanityImageCrop | SanityImageHotspot | Page | PersonReference | Post | Person | Slug | AssistInstructionContext | TranslationMetadata | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
-
-export declare const internalGroqTypeReferenceTo: unique symbol;
+export type AllSanitySchemaTypes = PageReference | PostReference | Link | SanityImageAssetReference | CallToAction | InfoSection | BlockContentTextOnly | BlockContent | Button | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | AssistInstructionContextReference | SanityAssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | Settings | SanityImageCrop | SanityImageHotspot | Page | PersonReference | Post | Person | Slug | AssistInstructionContext | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -737,10 +718,7 @@ export type PostQueryResult = {
       _type: "image";
     };
   } | null;
-  translations: Array<{
-    locale: "en" | "pl" | "pt" | null;
-    pathname: string | null;
-  }> | null;
+  translations: null;
 } | null;
 
 // Source: sanity/lib/queries.ts
@@ -773,10 +751,7 @@ export type SitemapDataResult = {
     locale: "en" | "pl" | "pt" | null;
     pathname: string;
     _updatedAt: string;
-    translations: Array<{
-      locale: "en" | "pl" | "pt" | null;
-      pathname: string | null;
-    }> | null;
+    translations: null;
   }>;
 };
 
