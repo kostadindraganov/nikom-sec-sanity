@@ -891,6 +891,7 @@ export type Project = {
   _rev: string;
   title: string;
   slug: Slug;
+  pathname?: Slug;
   sector?: "healthcare" | "hotel" | "retail" | "industrial" | "government";
   sectorLabel?: string;
   year?: string;

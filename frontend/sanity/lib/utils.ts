@@ -16,6 +16,16 @@ export function urlForImage(source: SanityImageSource) {
   return builder.image(source)
 }
 
+// Resolve a Sanity image field to a CDN URL, falling back to a static path
+// when the field has no uploaded asset (e.g. content not yet set in Studio).
+export function imageUrl(
+  source: { asset?: { _ref?: string } } | null | undefined,
+  fallback: string
+): string {
+  if (!source?.asset?._ref) return fallback
+  return urlForImage(source as SanityImageSource).url() || fallback
+}
+
 export function resolveOpenGraphImage(
   image?: SanityImageSource | null,
   width = 1200,

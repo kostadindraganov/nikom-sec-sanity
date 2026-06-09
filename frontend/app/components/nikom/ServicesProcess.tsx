@@ -21,26 +21,14 @@ type Props = {
   pageType: string;
 };
 
-const DEFAULT_STEPS: ProcessStep[] = [
-  { _key: 's01', n: '01', title: 'Консултация', desc: 'Оглед на обект, нормативни изисквания.' },
-  { _key: 's02', n: '02', title: 'Проектиране', desc: 'Работен проект, спецификации, съгласувания.' },
-  { _key: 's03', n: '03', title: 'Доставка', desc: 'Сертифицирана техника, лицензиран екип.' },
-  { _key: 's04', n: '04', title: 'Монтаж', desc: 'Лицензиран екип, инсталация по график.' },
-  { _key: 's05', n: '05', title: 'Тестване', desc: '72-часов приемен тест, протоколи.' },
-  { _key: 's06', n: '06', title: 'Обучение', desc: 'Инструктаж на операторите.' },
-  { _key: 's07', n: '07', title: 'Поддръжка', desc: 'Абонаментен сервиз 24/7.' },
-];
-
 export default function ServicesProcess({ block, pageId, pageType }: Props) {
   const key = block?._key ?? '';
   const path = (field: string) => `pageBuilder[_key=="${key}"].${field}`;
 
-  const eyebrow = block?.eyebrow ?? 'Методология · End-to-end';
-  const heading = block?.heading ?? 'Един и същ процес за всеки проект.';
-  const lead =
-    block?.lead ??
-    'Не правим компромис на ключови етапи. От консултация до дългосрочна поддръжка — една отговорна точка.';
-  const steps = block?.steps?.length ? block.steps : DEFAULT_STEPS;
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const lead = block?.lead;
+  const steps = block?.steps ?? [];
 
   return (
     <section className="section-pad services-process">

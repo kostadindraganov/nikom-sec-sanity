@@ -23,13 +23,6 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_CONTACT_ITEMS: ContactItem[] = [
-  { label: 'Телефон', value: '+359 89 45 23 970' },
-  { label: 'Имейл', value: 'office@nikom-security.com' },
-  { label: 'Централа', value: 'гр. София, ул. Инженерна 14, ет. 3' },
-  { label: 'Работно време', value: 'Пн–Пт · 09:00—18:00  |  Сервиз · 24/7' },
-]
-
 function Field({ label, placeholder, required }: { label: string; placeholder: string; required?: boolean }) {
   return (
     <div className="field">
@@ -52,10 +45,7 @@ export default function HomeContact({ block, index: _index, pageId, pageType }: 
   const [sent, setSent] = useState(false)
   const basePath = `pageBuilder[_key=="${block?._key}"]`
 
-  const contactItems: ContactItem[] =
-    block?.contactItems && block.contactItems.length > 0
-      ? block.contactItems
-      : DEFAULT_CONTACT_ITEMS
+  const contactItems: ContactItem[] = block?.contactItems ?? []
 
   return (
     <section className="section-pad contact" id="contact">
@@ -66,18 +56,18 @@ export default function HomeContact({ block, index: _index, pageId, pageType }: 
               className="eyebrow"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${basePath}.eyebrow` }).toString()}
             >
-              {block?.eyebrow ?? 'Контакт · Инженер на линия'}
+              {block?.eyebrow}
             </div>
             <h2
               className="h2"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${basePath}.heading` }).toString()}
             >
-              <StreamText text={block?.heading ?? 'Обсъдете Вашия проект с инженер.'} />
+              <StreamText text={block?.heading ?? ''} />
             </h2>
             <p
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${basePath}.copy` }).toString()}
             >
-              {block?.copy ?? 'Получавате обратна връзка до 4 работни часа в работни дни. За спешни случаи на действащи обекти — директен телефон към дежурен инженер.'}
+              {block?.copy}
             </p>
 
             <div
@@ -94,9 +84,9 @@ export default function HomeContact({ block, index: _index, pageId, pageType }: 
                   >
                     <div className="meta">{item.label}</div>
                     {isPhone ? (
-                      <a href={`tel:${(item.value ?? '').replace(/\s/g, '')}`} className="ci-big">{item.value ?? '+359 89 45 23 970'}</a>
+                      <a href={`tel:${(item.value ?? '').replace(/\s/g, '')}`} className="ci-big">{item.value}</a>
                     ) : isEmail ? (
-                      <a href={`mailto:${item.value}`} className="ci-big">{item.value ?? 'office@nikom-security.com'}</a>
+                      <a href={`mailto:${item.value}`} className="ci-big">{item.value}</a>
                     ) : (
                       <div className="ci-mid">{item.value}</div>
                     )}
@@ -122,12 +112,12 @@ export default function HomeContact({ block, index: _index, pageId, pageType }: 
                   className="h3"
                   data-sanity={dataAttr({ id: pageId, type: pageType, path: `${basePath}.formSuccessHeading` }).toString()}
                 >
-                  {block?.formSuccessHeading ?? 'Получихме заявката Ви.'}
+                  {block?.formSuccessHeading}
                 </h3>
                 <p
                   data-sanity={dataAttr({ id: pageId, type: pageType, path: `${basePath}.formSuccessBody` }).toString()}
                 >
-                  {block?.formSuccessBody ?? 'Инженер от екипа ще се свърже с Вас в рамките на 4 работни часа.'}
+                  {block?.formSuccessBody}
                 </p>
               </div>
             ) : (
@@ -149,7 +139,7 @@ export default function HomeContact({ block, index: _index, pageId, pageType }: 
                   <textarea rows={4} placeholder="Брой етажи, площ, системи от интерес, срокове…" />
                 </div>
                 <button className="btn btn-primary btn-lg" type="submit">
-                  {block?.formSubmitLabel ?? 'Изпрати заявката'} <Icons.Arrow />
+                  {block?.formSubmitLabel} <Icons.Arrow />
                 </button>
                 <div className="form-foot">
                   <span className="meta">Средно време за отговор: ~3ч 12мин</span>

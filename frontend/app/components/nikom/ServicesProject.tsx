@@ -66,39 +66,14 @@ function ProjIcon({ kind }: { kind: string }) {
   }
 }
 
-const DEFAULT_ITEMS: ProjectServiceItem[] = [
-  {
-    _key: 'plan', n: '01', title: 'Проектиране', icon: 'plan',
-    desc: 'Изготвяне на работен проект, технически чертежи и спецификации съгласно действащите норми и стандарти.',
-    bullets: ['Концептуален проект', 'Технически чертежи', 'Спецификация на апаратурата', 'Съгласувания с РСПБЗН'],
-  },
-  {
-    _key: 'build', n: '02', title: 'Разработка и монтаж', icon: 'build',
-    desc: 'Лицензиран екип за разработка и монтаж — с документиране на всеки етап и 72-часов приемен тест.',
-    bullets: ['Структурно окабеляване', 'Монтаж на апаратурата', 'Програмиране', '72-часов приемен тест'],
-  },
-  {
-    _key: 'pm', n: '03', title: 'Управление на проекти', icon: 'pm',
-    desc: 'Назначен инженер-ръководител с единствена точка на отговорност за графика, бюджета и качеството.',
-    bullets: ['Инженер-ръководител', 'График и milestone', 'Бюджетен контрол', 'Документация и handover'],
-  },
-  {
-    _key: 'srv', n: '04', title: 'Сервизно обслужване', icon: 'srv',
-    desc: 'Гаранционен и следгаранционен сервиз с абонаментна поддръжка 24/7 и договорно SLA.',
-    bullets: ['Гаранционен сервиз', 'Абонаментна поддръжка', 'SLA реакция', 'Резервни части на склад'],
-  },
-];
-
 export default function ServicesProject({ block, pageId, pageType }: Props) {
   const key = block?._key ?? '';
   const path = (field: string) => `pageBuilder[_key=="${key}"].${field}`;
 
-  const eyebrow = block?.eyebrow ?? 'Услуги по проекти · 04 типа';
-  const heading = block?.heading ?? 'От концепция до дългосрочна поддръжка.';
-  const lead =
-    block?.lead ??
-    'Работим със сертифицирана апаратура и по високи технически стандарти. Всеки проект минава през еднакъв инженерен work-flow.';
-  const items = block?.items?.length ? block.items : DEFAULT_ITEMS;
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const lead = block?.lead;
+  const items = block?.items ?? [];
 
   return (
     <section className="section-pad services-project dark-band">

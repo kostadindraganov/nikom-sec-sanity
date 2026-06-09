@@ -1,5 +1,6 @@
 'use client'
 
+import { stegaClean } from 'next-sanity'
 import { Counter, StreamText } from '@/app/components/nikom/animations'
 import { Icons } from '@/app/components/nikom/icons'
 import { dataAttr } from '@/sanity/lib/utils'
@@ -29,34 +30,9 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_OFFICES: OfficeCard[] = [
-  {
-    _key: 'card01',
-    num: '01',
-    city: 'Адрес офис и склад',
-    address: 'жк. Младост 4, блок 477, вх. 1, офис 1\nСофия, 1715\nБългария',
-    linkLabel: 'Виж на картата',
-    linkHref: '#map',
-  },
-  {
-    _key: 'card02',
-    num: '02',
-    city: 'Работно време',
-    hours: 'Пн – Пт · 09:00 — 18:00\nСб & Нд — неработни\nСервиз — 24 / 7 / 365',
-    linkLabel: 'Активен статус ⓘ',
-  },
-  {
-    _key: 'card03',
-    num: '03',
-    city: 'Данни на фирмата',
-    address: '„Ником Системи за Сигурност" ЕООД\nЕИК 131294795\nЛиценз ГД ПБЗН-МВР № 743/07.07.2017 г.',
-    linkLabel: 'Документи на запитване ⓘ',
-  },
-  { _key: 'card04', num: '04', city: 'Време за реакция' },
-]
-
 function renderAddress(text: string) {
-  return text.split('\n').map((line, i, arr) => (
+  // Strip stega before splitting on '\n' — see StreamText note in animations.tsx.
+  return stegaClean(text).split('\n').map((line, i, arr) => (
     <span key={i}>{line}{i < arr.length - 1 ? <br /> : null}</span>
   ))
 }
@@ -65,7 +41,7 @@ export default function ContactInfo({ block, index, pageId, pageType }: Props) {
   const path = (field: string) =>
     dataAttr({ id: pageId, type: pageType, path: `pageBuilder[_key=="${block._key}"].${field}` }).toString()
 
-  const offices = block?.offices ?? DEFAULT_OFFICES
+  const offices = block?.offices ?? []
 
   return (
     <section className="section-pad ctc-info">
@@ -73,14 +49,14 @@ export default function ContactInfo({ block, index, pageId, pageType }: Props) {
         <div className="section-head">
           <div className="left">
             <div className="eyebrow" data-sanity={path('eyebrow')}>
-              {block?.eyebrow ?? 'Координати · 04 канала за връзка'}
+              {block?.eyebrow}
             </div>
             <h2 className="h2" data-sanity={path('heading')}>
-              <StreamText text={block?.heading ?? 'Как можем да Ви бъдем полезни.'} />
+              <StreamText text={block?.heading} />
             </h2>
           </div>
           <p className="section-lead" data-sanity={path('lead')}>
-            {block?.lead ?? 'Ако желаете да направим среща или консултация, изпратете запитване чрез формата по-долу или ни звъннете директно.'}
+            {block?.lead}
           </p>
         </div>
 
@@ -103,10 +79,10 @@ export default function ContactInfo({ block, index, pageId, pageType }: Props) {
                 data-sanity={dataAttr({ id: pageId, type: pageType, path: cardPath }).toString()}
               >
                 <div className="ctc-info-num meta" data-sanity={cardAttr('num')}>
-                  {card.num ?? '01'}
+                  {card.num}
                 </div>
                 <h3 className="h4" data-sanity={cardAttr('city')}>
-                  {card.city ?? 'Офис'}
+                  {card.city}
                 </h3>
 
                 {isReactionCard ? (
@@ -132,7 +108,7 @@ export default function ContactInfo({ block, index, pageId, pageType }: Props) {
 
                 {card.linkHref ? (
                   <a className="ctc-info-link" href={card.linkHref} data-sanity={cardAttr('linkLabel')}>
-                    {card.linkLabel ?? 'Виж'} <Icons.Arrow />
+                    {card.linkLabel} <Icons.Arrow />
                   </a>
                 ) : card.linkLabel ? (
                   <span className="ctc-info-link" data-sanity={cardAttr('linkLabel')}>

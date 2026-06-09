@@ -137,29 +137,29 @@ export default function ProjectsHero({ block, index, pageId, pageType }: Props) 
           data-sanity={dataAttr({ id: pageId, type: pageType, path: path('eyebrow') }).toString()}
         >
           <span className="status-dot"/>
-          <span>{block?.eyebrow ?? 'NIKOM · АРХИВ ОТ РЕАЛНИ ПРОЕКТИ'}</span>
+          <span>{block?.eyebrow}</span>
         </div>
         <h1
           className="vid-h1"
           data-sanity={dataAttr({ id: pageId, type: pageType, path: path('heading1') }).toString()}
         >
-          <StreamText text={block?.heading1 ?? 'Проектирани с инженерия.'}/>
+          <StreamText text={block?.heading1 ?? ''}/>
           <br/>
-          <StreamText text={block?.heading2 ?? 'Изпълнени с прецизност.'} startDelay={800}/>
+          <StreamText text={block?.heading2 ?? ''} startDelay={800}/>
         </h1>
         <p
           className="vid-lead"
           data-sanity={dataAttr({ id: pageId, type: pageType, path: path('lead') }).toString()}
         >
-          {block?.lead ?? '11 избрани реализации в здравеопазване, хотелиерство, ритейл и държавни обекти.'}
+          {block?.lead}
         </p>
         <div className="vid-cta">
           <a href="#projects" className="vid-btn vid-btn-primary">
             <span className="vid-kbd">⌘</span>
-            {block?.ctaPrimaryLabel ?? 'Разгледай проектите'}
+            {block?.ctaPrimaryLabel}
           </a>
-          <a href={block?.ctaGhostHref ?? '/bg/kontakt'} className="vid-btn vid-btn-ghost">
-            {block?.ctaGhostLabel ?? 'Заявете консултация'}
+          <a href={block?.ctaGhostHref} className="vid-btn vid-btn-ghost">
+            {block?.ctaGhostLabel}
           </a>
         </div>
       </div>

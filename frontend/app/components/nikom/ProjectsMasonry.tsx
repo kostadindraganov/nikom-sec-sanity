@@ -3,7 +3,7 @@
 import React, { useState, useMemo, useEffect, useRef } from 'react'
 import { Icons } from '@/app/components/nikom/icons'
 import { StreamText } from '@/app/components/nikom/animations'
-import { dataAttr } from '@/sanity/lib/utils'
+import { dataAttr, imageUrl } from '@/sanity/lib/utils'
 
 type CardItem = {
   _key?: string
@@ -75,7 +75,7 @@ function ProjectCard({ p, cardIndex }: { p: CardItem; cardIndex: number }) {
     }
   }, [cardIndex])
 
-  const imgSrc = p.imageFallback ?? '/nikom/proj-tokuda.jpg'
+  const imgSrc = imageUrl(p.image, p.imageFallback ?? '')
   const href = p.href ?? '#'
 
   return (
@@ -171,13 +171,13 @@ export default function ProjectsMasonry({ block, index, pageId, pageType }: Prop
               className="eyebrow"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: path('eyebrow') }).toString()}
             >
-              {block?.eyebrow ?? 'Архив · 11+ реализации'}
+              {block?.eyebrow}
             </div>
             <h2
               className="h2"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: path('heading') }).toString()}
             >
-              <StreamText text={block?.heading ?? 'Изберете сектор и разгледайте проектите.'}/>
+              <StreamText text={block?.heading ?? ''}/>
             </h2>
           </div>
           {/* Filter bar */}

@@ -2,7 +2,7 @@
 
 import { StreamText, LazyImg } from '@/app/components/nikom/animations'
 import { Icons } from '@/app/components/nikom/icons'
-import { dataAttr } from '@/sanity/lib/utils'
+import { dataAttr, imageUrl } from '@/sanity/lib/utils'
 
 type Post = {
   _id?: string
@@ -24,6 +24,7 @@ type Props = {
     eyebrow?: string
     fallbackTitle?: string
     fallbackExcerpt?: string
+    fallbackImage?: { asset?: { _ref?: string } }
     fallbackAuthor?: string
     fallbackDate?: string
     fallbackReadMin?: number
@@ -44,17 +45,17 @@ function formatDate(iso: string) {
 }
 
 export default function BlogFeatured({ block, index, pageId, pageType, featuredPost }: Props) {
-  const eyebrow = block?.eyebrow ?? 'Избрана статия'
+  const eyebrow = block?.eyebrow
 
-  const title = featuredPost?.title ?? block?.fallbackTitle ?? 'Какво е EN 54 и защо имаме нужда от сертифицирани системи'
-  const excerpt = featuredPost?.excerpt ?? block?.fallbackExcerpt ?? 'Подробно обяснение на европейския стандарт за пожароизвестителни системи и какво трябва да знае всеки управител на сграда.'
-  const imgSrc = featuredPost?.coverImageUrl ?? '/nikom/proj-tokuda.jpg'
-  const author = featuredPost?.authorName ?? block?.fallbackAuthor ?? 'инж. Николай Васев'
-  const date = featuredPost?.date ?? block?.fallbackDate ?? '2026-04-12'
-  const readMin = featuredPost?.readTime ?? block?.fallbackReadMin ?? 8
-  const tags = featuredPost?.tags ?? block?.fallbackTags ?? ['EN 54', 'Пожароизвестяване', 'Сертификати']
-  const category = featuredPost?.categoryLabel ?? block?.fallbackCategory ?? 'Стандарти'
-  const slug = featuredPost?.slug?.current ?? block?.fallbackSlug ?? 'kakvo-e-en54-i-zashto-imame-nuzhda'
+  const title = featuredPost?.title ?? block?.fallbackTitle
+  const excerpt = featuredPost?.excerpt ?? block?.fallbackExcerpt
+  const imgSrc = featuredPost?.coverImageUrl ?? imageUrl(block?.fallbackImage, '/nikom/proj-tokuda.jpg')
+  const author = featuredPost?.authorName ?? block?.fallbackAuthor
+  const date = featuredPost?.date ?? block?.fallbackDate
+  const readMin = featuredPost?.readTime ?? block?.fallbackReadMin
+  const tags = featuredPost?.tags ?? block?.fallbackTags ?? []
+  const category = featuredPost?.categoryLabel ?? block?.fallbackCategory
+  const slug = featuredPost?.slug?.current ?? block?.fallbackSlug
   const href = `/bg/blog/${slug}`
 
   return (
@@ -62,7 +63,7 @@ export default function BlogFeatured({ block, index, pageId, pageType, featuredP
       <div className="container">
         <div className="bf-grid">
           <a className="bf-img-wrap" href={href}>
-            <LazyImg src={imgSrc} alt={title} />
+            <LazyImg src={imgSrc} alt={title ?? ''} />
             <span className="chip solid bf-cat">{category}</span>
             <div className="bf-corners">
               <span className="corn tl" /><span className="corn tr" />
@@ -91,7 +92,7 @@ export default function BlogFeatured({ block, index, pageId, pageType, featuredP
               </div>
               <div className="bf-meta-row">
                 <span className="meta">Дата</span>
-                <span className="bf-meta-v">{formatDate(date)}</span>
+                <span className="bf-meta-v">{date ? formatDate(date) : ''}</span>
               </div>
               <div className="bf-meta-row">
                 <span className="meta">Време за прочит</span>

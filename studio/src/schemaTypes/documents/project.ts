@@ -1,7 +1,9 @@
 import { defineField, defineType } from 'sanity'
 import { DocumentIcon } from '@sanity/icons'
+import { definePathname } from '@tinloof/sanity-studio'
 
 const PREVIEW_URL = process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:3000'
+const DEFAULT_LOCALE_ID = 'bg'
 
 export const project = defineType({
   name: 'project',
@@ -32,25 +34,32 @@ export const project = defineType({
       },
       validation: Rule => Rule.required(),
     }),
-    defineField({
-      name: 'sector',
-      title: 'Sector key',
-      type: 'string',
-      group: 'details',
+    definePathname({
+      name: 'pathname',
+      group: 'content',
+      description: 'The URL path for this project. Must start with /proekti/.',
       options: {
-        list: [
-          { title: 'Здравеопазване', value: 'healthcare' },
-          { title: 'Хотели', value: 'hotel' },
-          { title: 'Ритейл', value: 'retail' },
-          { title: 'Складове', value: 'industrial' },
-          { title: 'Държавни', value: 'government' },
-        ],
+        source: (doc: any) => {
+          if (!doc?.slug?.current) return ''
+          return `proekti/${doc.slug.current}`
+        },
+        prefix: `${PREVIEW_URL}/${DEFAULT_LOCALE_ID}`,
+        autoNavigate: true,
       },
+      validation: Rule =>
+        Rule.custom((slug: any) => {
+          if (!slug?.current) return true
+          if (!slug.current.startsWith('/proekti/')) {
+            return 'Path must start with /proekti/ prefix.'
+          }
+          return true
+        }),
     }),
     defineField({
-      name: 'sectorLabel',
-      title: 'Sector label (Bulgarian)',
-      type: 'string',
+      name: 'category',
+      title: 'Категория',
+      type: 'reference',
+      to: [{ type: 'projectCategory' }],
       group: 'details',
     }),
     defineField({
@@ -164,11 +173,28 @@ export const project = defineType({
       group: 'media',
       of: [
         {
-          type: 'image',
-          options: { hotspot: true },
+          type: 'object',
+          name: 'galleryItem',
+          title: 'Gallery image',
           fields: [
-            { name: 'alt', type: 'string', title: 'Alt text' },
+            defineField({
+              name: 'image',
+              type: 'image',
+              title: 'Image',
+              options: { hotspot: true },
+            }),
+            defineField({
+              name: 'caption',
+              type: 'string',
+              title: 'Caption',
+            }),
           ],
+          preview: {
+            select: { media: 'image', title: 'caption' },
+            prepare({ media, title }: { media: unknown; title?: string }) {
+              return { title: title ?? 'Gallery image', media }
+            },
+          },
         },
       ],
     }),

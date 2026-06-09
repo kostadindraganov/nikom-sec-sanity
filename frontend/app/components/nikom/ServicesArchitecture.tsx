@@ -52,11 +52,9 @@ export default function ServicesArchitecture({ block, pageId, pageType }: Props)
     return () => clearInterval(id);
   }, []);
 
-  const eyebrow = block?.eyebrow ?? 'Архитектура · Интеграция';
-  const heading = block?.heading ?? 'Дванадесет системи. Една централна интеграция.';
-  const lead =
-    block?.lead ??
-    'PSIM платформата свързва всички подсистеми в единна среда — със сценарии за автоматична реакция, корелация на събития и централно наблюдение.';
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const lead = block?.lead;
 
   return (
     <section className="section-pad services-arch dark-band">

@@ -33,42 +33,12 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_PILLARS: PillarItem[] = [
-  {
-    _key: 'p1',
-    title: 'Инженерен подход',
-    desc: 'Решения, проектирани от инженери. Всеки проект минава през работно проектиране и съгласуване.',
-  },
-  {
-    _key: 'p2',
-    title: 'Сертифицирана апаратура',
-    desc: 'Esser, Honeywell, INIM, Securiton, Bosch, Soyal, Paradox — само сертифицирани производители.',
-  },
-  {
-    _key: 'p3',
-    title: 'Прецизно изпълнение',
-    desc: 'Лицензирани монтажни екипи, доказана методика, документиране и 72-часов приемен тест.',
-  },
-  {
-    _key: 'p4',
-    title: 'Дългосрочна поддръжка',
-    desc: 'Абонаментен сервиз 24/7, профилактика, резервни части, договорно SLA.',
-  },
-]
-
-const DEFAULT_STATS: StatItem[] = [
-  { _key: 'stat1', value: 98.6, decimals: 1, suffix: '%', label: 'точност на SLA реакции', isCounter: true },
-  { _key: 'stat2', value: 30, prefix: '<', label: 'мин средно време за критична реакция', isCounter: true },
-]
-
 export default function HomeWhy({ block, pageId, pageType }: Props) {
-  const eyebrow = block?.eyebrow ?? 'Защо NIKOM'
-  const heading = block?.heading ?? 'Инженерен партньор, не доставчик на оборудване.'
-  const lead =
-    block?.lead ??
-    'Над 20 години изграждаме критични системи за болници, посолства, индустрия и търговски вериги. Останалото е въпрос на стандарт.'
-  const stats = block?.stats?.length ? block.stats : DEFAULT_STATS
-  const pillars = block?.pillars?.length ? block.pillars : DEFAULT_PILLARS
+  const eyebrow = block?.eyebrow
+  const heading = block?.heading
+  const lead = block?.lead
+  const stats = block?.stats ?? []
+  const pillars = block?.pillars ?? []
 
   const blockPath = `pageBuilder[_key=="${block?._key}"]`
 

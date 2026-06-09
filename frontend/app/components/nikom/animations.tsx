@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
+import { stegaClean } from 'next-sanity';
 
 // Animated counter that triggers when scrolled into view
 export function useCountUp(target: number, { duration = 1600, decimals = 0 }: { duration?: number; decimals?: number } = {}): [React.RefObject<HTMLSpanElement | null>, string] {
@@ -181,9 +182,14 @@ export function StreamText({ children, text: textProp, speed = 55, startDelay = 
   className?: string;
   caret?: boolean;
 }) {
-  const text = typeof textProp === 'string' ? textProp
+  const rawText = typeof textProp === 'string' ? textProp
     : typeof children === 'string' ? children
     : (Array.isArray(children) ? (children as unknown[]).filter(c => typeof c === 'string').join('') : String(children || ''));
+  // Strip stega encoding before tokenizing: splitting at whitespace fractures the
+  // invisible stega payload across word spans, which makes Visual Editing's decoder
+  // throw "Encoded data has invalid length". The parent element's data-sanity attr
+  // still carries the click-to-edit anchor, so we lose nothing.
+  const text = stegaClean(rawText);
   // tokenize into runs of whitespace + word so spaces are preserved
   const tokens = text.match(/\S+|\s+/g) || [];
   const ref = useRef<HTMLSpanElement>(null);

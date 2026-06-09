@@ -71,13 +71,7 @@ export default function ProjectsSectorStats({ block, index, pageId, pageType }: 
   const path = (field: string) =>
     `pageBuilder[_key=="${block._key ?? ''}"].${field}`
 
-  const sectors = block?.sectors ?? [
-    { id: 'hotel', label: 'Хотели', count: 5, icon: 'hotel' },
-    { id: 'healthcare', label: 'Здравеопазване', count: 2, icon: 'health' },
-    { id: 'government', label: 'Държавни', count: 2, icon: 'gov' },
-    { id: 'retail', label: 'Ритейл', count: 1, icon: 'retail' },
-    { id: 'industrial', label: 'Складове', count: 1, icon: 'ind' },
-  ]
+  const sectors = block?.sectors ?? []
 
   return (
     <section className="section-pad projects-sector-stats dark-band">
@@ -88,20 +82,20 @@ export default function ProjectsSectorStats({ block, index, pageId, pageType }: 
               className="eyebrow"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: path('eyebrow') }).toString()}
             >
-              {block?.eyebrow ?? 'Сектори · Разбивка'}
+              {block?.eyebrow}
             </div>
             <h2
               className="h2"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: path('heading') }).toString()}
             >
-              <StreamText text={block?.heading ?? 'Опит в най-различни критични среди.'}/>
+              <StreamText text={block?.heading ?? ''}/>
             </h2>
           </div>
           <p
             className="section-lead"
             data-sanity={dataAttr({ id: pageId, type: pageType, path: path('lead') }).toString()}
           >
-            {block?.lead ?? 'Всеки сектор има специфични нормативни изисквания и риск-профил. Подходът ни е адаптиран към всеки от тях.'}
+            {block?.lead}
           </p>
         </div>
         <div

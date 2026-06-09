@@ -10,8 +10,11 @@ const pad = (n: number) => String(n).padStart(2, '0')
 const fmtTime = (d: Date) => `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
 
 function useNow() {
-  const [t, setT] = useState(() => new Date())
+  // Start null so SSR and the first client render agree (no live time on the
+  // server). The real clock is set after mount, avoiding a hydration mismatch.
+  const [t, setT] = useState<Date | null>(null)
   useEffect(() => {
+    setT(new Date())
     const id = setInterval(() => setT(new Date()), 1000)
     return () => clearInterval(id)
   }, [])
@@ -98,7 +101,7 @@ function IndustrySOC({
           <i />
           LIVE
         </span>
-        <span className="soc-time">{fmtTime(now)}</span>
+        <span className="soc-time">{now ? fmtTime(now) : '--:--:--'}</span>
       </div>
       <div className="soc-mid">
         <div className="soc-kpi-wrap">
@@ -158,71 +161,12 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_SECTORS: SectorItem[] = [
-  {
-    _key: 'sec1',
-    name: 'Болници и лечебни заведения',
-    k: 'hospital',
-    code: 'H+',
-    kpi: 187,
-    kpiLabel: 'ЗОНИ',
-    events: ['Зона 12 · OK', 'Достъп · Кардиология', 'ASD · норма', 'Камера 47 · активна', 'Газ-гасене · armed'],
-  },
-  {
-    _key: 'sec2',
-    name: 'Търговски вериги & ритейл',
-    k: 'retail',
-    code: 'R',
-    kpi: 640,
-    kpiLabel: 'КАМЕРИ',
-    events: ['EAS · Каса 04', 'POS-CCTV синхрон', 'Зона 03 · норма', 'Видеоанализ · OK', 'Склад · вход 2'],
-  },
-  {
-    _key: 'sec3',
-    name: 'Хотели и жилищни комплекси',
-    k: 'hotel',
-    code: 'HSP',
-    kpi: 248,
-    kpiLabel: 'СТАИ',
-    events: ['Карта · етаж 7', 'Лоби · OK', 'Паркинг · вход 2', 'Пожар · норма', 'SPA зона · OK'],
-  },
-  {
-    _key: 'sec4',
-    name: 'Индустриални и складови бази',
-    k: 'ind',
-    code: 'IND',
-    kpi: 412,
-    kpiLabel: 'СЕНЗОРИ',
-    events: ['Периметър · OK', 'Радар · сектор B', 'Бариера · вход 2', 'VESDA · норма', 'ATEX зона · OK'],
-  },
-  {
-    _key: 'sec5',
-    name: 'Офис и административни сгради',
-    k: 'office',
-    code: 'OFF',
-    kpi: 16,
-    kpiLabel: 'ЕТАЖА',
-    events: ['Турникет · вход юг', 'BMS · норма', 'Зона 4 · OK', 'Лифт · сервиз', 'Дата-център · OK'],
-  },
-  {
-    _key: 'sec6',
-    name: 'Държавни и институционални',
-    k: 'gov',
-    code: 'GOV',
-    kpi: 92,
-    kpiLabel: 'ЗОНИ',
-    events: ['Бариера · вход 1', 'ID-контрол · активен', 'Периметър · OK', 'Архив · заключен', 'Sally-port · clear'],
-  },
-]
-
 /* ============ MAIN COMPONENT ============ */
 export default function HomeIndustries({ block, pageId, pageType }: Props) {
-  const eyebrow = block?.eyebrow ?? 'Сектори · 06 индустрии'
-  const heading = block?.heading ?? 'Системи, изпитани в най-критични среди.'
-  const lead =
-    block?.lead ??
-    'Всеки сектор има специфични нормативни изисквания и риск-профил. Подходът ни е адаптиран към всеки от тях.'
-  const sectors = block?.sectors?.length ? block.sectors : DEFAULT_SECTORS
+  const eyebrow = block?.eyebrow
+  const heading = block?.heading
+  const lead = block?.lead
+  const sectors = block?.sectors ?? []
 
   const blockPath = `pageBuilder[_key=="${block?._key}"]`
 

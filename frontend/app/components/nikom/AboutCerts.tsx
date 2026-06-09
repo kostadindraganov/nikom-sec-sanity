@@ -24,16 +24,9 @@ type Props = {
   pageType: string;
 };
 
-const DEFAULT_SCOPE: ScopeItem[] = [
-  { _key: 'sc1', text: 'Пожароизвестителни системи' },
-  { _key: 'sc2', text: 'Пожарогасителни системи' },
-  { _key: 'sc3', text: 'Системи за управление на дим и топлина' },
-  { _key: 'sc4', text: 'Пожарни кранове' },
-];
-
 export default function AboutCerts({ block, index, pageId, pageType }: Props) {
   const path = `pageBuilder[_key=="${block?._key}"]`;
-  const scopeItems = block?.scopeItems ?? DEFAULT_SCOPE;
+  const scopeItems = block?.scopeItems ?? [];
 
   return (
     <section className="section-pad about-certs">
@@ -44,13 +37,13 @@ export default function AboutCerts({ block, index, pageId, pageType }: Props) {
               className="eyebrow"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.eyebrow` }).toString()}
             >
-              {block?.eyebrow ?? 'Лиценз · Сертификати'}
+              {block?.eyebrow}
             </div>
             <h2
               className="h2"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.heading` }).toString()}
             >
-              <StreamText text={block?.heading ?? 'Лицензирани от ГД ПБЗН – МВР.'} />
+              <StreamText text={block?.heading} />
             </h2>
           </div>
         </div>
@@ -62,13 +55,13 @@ export default function AboutCerts({ block, index, pageId, pageType }: Props) {
                 className="lic-no"
                 data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.licenseNumber` }).toString()}
               >
-                {block?.licenseNumber ?? 'Разрешително № 743/07.07.2017 г.'}
+                {block?.licenseNumber}
               </div>
               <div
                 className="lic-issuer"
                 data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.licenseIssuer` }).toString()}
               >
-                {block?.licenseIssuer ?? 'Главна Дирекция „Пожарна безопасност и защита на населението" — МВР'}
+                {block?.licenseIssuer}
               </div>
             </div>
           </div>
@@ -77,7 +70,7 @@ export default function AboutCerts({ block, index, pageId, pageType }: Props) {
               className="lic-scope"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.scopeLabel` }).toString()}
             >
-              {block?.scopeLabel ?? 'Поддържане и обслужване на противопожарни системи и съоръжения:'}
+              {block?.scopeLabel}
             </div>
             <ul
               className="lic-list"

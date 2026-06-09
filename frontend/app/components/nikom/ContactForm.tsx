@@ -38,15 +38,8 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_DEPARTMENTS: Department[] = [
-  { _key: 'd1', id: 'consultation', label: 'Консултация' },
-  { _key: 'd2', id: 'project', label: 'Нов проект' },
-  { _key: 'd3', id: 'service', label: 'Сервиз' },
-  { _key: 'd4', id: 'other', label: 'Друго' },
-]
-
 interface FieldProps {
-  label: string
+  label?: string
   required?: boolean
   type?: string
   placeholder?: string
@@ -61,7 +54,7 @@ function CFormField({ label, required, type, placeholder }: FieldProps) {
 }
 
 interface TextareaProps {
-  label: string
+  label?: string
   placeholder?: string
 }
 function CFormTextarea({ label, placeholder }: TextareaProps) {
@@ -80,7 +73,7 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
   const path = (field: string) =>
     dataAttr({ id: pageId, type: pageType, path: `pageBuilder[_key=="${block._key}"].${field}` }).toString()
 
-  const departments = block?.departments ?? DEFAULT_DEPARTMENTS
+  const departments = block?.departments ?? []
 
   const successRef = `REQ-${Math.floor(Math.random() * 99999).toString().padStart(5, '0')}`
 
@@ -91,13 +84,13 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
           {/* Left column */}
           <div className="ctc-form-left">
             <div className="eyebrow" data-sanity={path('eyebrow')}>
-              {block?.eyebrow ?? 'Запитване · Форма'}
+              {block?.eyebrow}
             </div>
             <h2 className="h2" data-sanity={path('heading')}>
-              <StreamText text={block?.heading ?? 'Изпратете запитване — отговор до 4 работни часа.'} />
+              <StreamText text={block?.heading} />
             </h2>
             <p className="ctc-form-lead" data-sanity={path('lead')}>
-              {block?.lead ?? 'Получавате обратна връзка от инженер до 4 работни часа. За спешни случаи на действащи обекти — директен телефон към дежурен инженер.'}
+              {block?.lead}
             </p>
 
             <div className="ctc-type-pills">
@@ -127,10 +120,10 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
               <Icons.Shield />
               <div>
                 <strong data-sanity={path('trustTitle')}>
-                  {block?.trustTitle ?? 'Вашата информация е защитена'}
+                  {block?.trustTitle}
                 </strong>
                 <span data-sanity={path('trustText')}>
-                  {block?.trustText ?? 'Обработваме конфиденциално и не споделяме с трети страни.'}
+                  {block?.trustText}
                 </span>
               </div>
             </div>
@@ -147,10 +140,10 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
               <div className="ctc-form-success">
                 <div className="ctc-success-circle"><Icons.Check /></div>
                 <h3 className="h3" data-sanity={path('successHeading')}>
-                  {block?.successHeading ?? 'Получихме запитването Ви.'}
+                  {block?.successHeading}
                 </h3>
                 <p data-sanity={path('successText')}>
-                  {block?.successText ?? 'Инженер от екипа ще се свърже с Вас в рамките на 4 работни часа.'}
+                  {block?.successText}
                 </p>
                 <div className="meta" style={{marginTop: 24}}>
                   Referenc: {successRef}
@@ -160,47 +153,47 @@ export default function ContactForm({ block, index, pageId, pageType }: Props) {
               <>
                 <div className="ctc-form-row-2">
                   <CFormField
-                    label={block?.fieldLabelName ?? 'Име'}
+                    label={block?.fieldLabelName}
                     required
                     placeholder="Иван"
                   />
                   <CFormField
-                    label={block?.fieldLabelSurname ?? 'Фамилия'}
+                    label={block?.fieldLabelSurname}
                     required
                     placeholder="Иванов"
                   />
                 </div>
                 <div className="ctc-form-row-2">
                   <CFormField
-                    label={block?.fieldLabelEmail ?? 'Имейл'}
+                    label={block?.fieldLabelEmail}
                     required
                     type="email"
                     placeholder="email@example.com"
                   />
                   <CFormField
-                    label={block?.fieldLabelPhone ?? 'Телефон'}
+                    label={block?.fieldLabelPhone}
                     placeholder="+359 ..."
                   />
                 </div>
                 <CFormField
-                  label={block?.fieldLabelCompany ?? 'Фирма / Организация'}
+                  label={block?.fieldLabelCompany}
                   placeholder="Опционално"
                 />
                 <CFormField
-                  label={block?.fieldLabelAddress ?? 'Адрес на обекта'}
+                  label={block?.fieldLabelAddress}
                   placeholder="Опционално"
                 />
                 <CFormTextarea
-                  label={block?.fieldLabelMessage ?? 'Кратко описание или въпрос'}
+                  label={block?.fieldLabelMessage}
                   placeholder="Брой етажи, площ, системи от интерес, срокове..."
                 />
                 <button className="btn btn-primary btn-lg" type="submit" data-sanity={path('submitText')}>
-                  {block?.submitText ?? 'Изпрати запитване'} <Icons.Arrow />
+                  {block?.submitText} <Icons.Arrow />
                 </button>
                 <div className="ctc-form-foot">
                   <span className="meta">Средно време за отговор:</span>
                   <span className="ctc-form-foot-v" data-sanity={path('avgResponseTime')}>
-                    {block?.avgResponseTime ?? '~3ч 12мин'}
+                    {block?.avgResponseTime}
                   </span>
                 </div>
               </>

@@ -1,0 +1,419 @@
+{
+  "projectsHero": {
+    "eyebrow": "NIKOM · АРХИВ ОТ РЕАЛНИ ПРОЕКТИ",
+    "heading1": "Проектирани с инженерия.",
+    "heading2": "Изпълнени с прецизност.",
+    "lead": "11 избрани реализации в здравеопазване, хотелиерство, ритейл и държавни обекти.",
+    "ctaPrimaryLabel": "Разгледай проектите",
+    "ctaGhostLabel": "Заявете консултация",
+    "ctaGhostHref": "/bg/kontakt"
+  },
+  "projectsFeature": {
+    "eyebrow": "Избран проект · Дългосрочно партньорство",
+    "title": "„Аджибадем Сити Клиник Болница Токуда\" ЕАД",
+    "year": "2010 — наст.",
+    "sectorLabel": "Здравеопазване",
+    "imageFallback": "/nikom/proj-tokuda.jpg",
+    "systems": [
+      "Пожароизвестяване Esser by Honeywell",
+      "Спринклерна пожарогасителна",
+      "Пожарни кранове"
+    ],
+    "kpis": [
+      {
+        "_key": "kpis-0",
+        "_type": "kpiItem",
+        "label": "Детектори",
+        "value": "2 000"
+      },
+      {
+        "_key": "kpis-1",
+        "_type": "kpiItem",
+        "label": "Спринклери",
+        "value": "4 800"
+      }
+    ],
+    "quoteText": "Дългогодишното успешно партньорство и съвместна работа с екипа на „НИКОМ системи за сигурност\" ЕООД от 2010 г., ръководен от инж. Николай Васев, ни дава основание да ги препоръчаме като коректен, компетентен и надежден партньор.",
+    "quoteAuthor": "инж. Георги Кърчев",
+    "quoteRole": "инспектор Пожарна Безопасност"
+  },
+  "projectsMasonry": {
+    "eyebrow": "Архив · 11+ реализации",
+    "heading": "Изберете сектор и разгледайте проектите.",
+    "items": [
+      {
+        "_key": "items-0",
+        "_type": "projectCard",
+        "title": "„Аджибадем Сити Клиник Болница Токуда\" ЕАД",
+        "sector": "healthcare",
+        "sectorLabel": "Здравеопазване",
+        "year": "2010 — наст.",
+        "imageFallback": "/nikom/proj-tokuda.jpg",
+        "href": "/bg/proekti/project-35",
+        "systems": [
+          "Пожароизвестяване Esser by Honeywell",
+          "Спринклерна пожарогасителна",
+          "Пожарни кранове"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Детектори",
+            "value": "2 000"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "Спринклери",
+            "value": "4 800"
+          }
+        ],
+        "classified": false,
+        "size": "featured"
+      },
+      {
+        "_key": "items-1",
+        "_type": "projectCard",
+        "title": "Верига магазини ХИПОЛЕНД",
+        "sector": "retail",
+        "sectorLabel": "Ритейл",
+        "year": "2019 — наст.",
+        "imageFallback": "/nikom/proj-hipoland.jpg",
+        "href": "/bg/proekti/project-42",
+        "systems": [
+          "Пожароизвестяване",
+          "Видеонаблюдение",
+          "Сигнално-охранителни системи",
+          "Озвучаване"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Обекта",
+            "value": "28+"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "SLA",
+            "value": "99.5%"
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-2",
+        "_type": "projectCard",
+        "title": "„НСБАЛХЗ\" ЕАД — Болница по Хематология, гр. София",
+        "sector": "healthcare",
+        "sectorLabel": "Здравеопазване",
+        "year": "2021",
+        "imageFallback": "/nikom/proj-onkobolnitsa.jpg",
+        "href": "/bg/proekti/nsbalkhz-ead-bolnitca-po-khematologiia-gr.sofiia",
+        "systems": [
+          "Пожароизвестяване",
+          "Сигнално-охранителна",
+          "Силнотокови инсталации",
+          "СКС"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Чисти зони",
+            "value": "12"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "Точки за SKS",
+            "value": "850+"
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-3",
+        "_type": "projectCard",
+        "title": "Посолство и резиденция на Република ПОЛША, София",
+        "sector": "government",
+        "sectorLabel": "Държавни",
+        "year": "2020",
+        "imageFallback": "/nikom/proj-poland.jpg",
+        "href": "/bg/proekti/posolstvo-i-rezidentciia-na-republika-polsha-sofiia",
+        "systems": [
+          "Видеонаблюдение",
+          "Контрол на достъп",
+          "Видеодомофонна система"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Ниво",
+            "value": "Дипл."
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "Резервиране",
+            "value": "N+1"
+          }
+        ],
+        "classified": true,
+        "size": "normal"
+      },
+      {
+        "_key": "items-4",
+        "_type": "projectCard",
+        "title": "Складова база GOPET TRANS, гр. София",
+        "sector": "industrial",
+        "sectorLabel": "Складове",
+        "year": "2018",
+        "imageFallback": "/nikom/proj-gopet.jpg",
+        "href": "/bg/proekti/skladova-baza-gopet-trans-gr.sofiia-4000-kv.m",
+        "systems": [
+          "Пожароизвестяване",
+          "Видеонаблюдение",
+          "Контрол на достъп",
+          "Паркинг",
+          "Охранителна"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Площ",
+            "value": "4 000 m²"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "Камери",
+            "value": "48"
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-5",
+        "_type": "projectCard",
+        "title": "Хотелски комплекс ИЗВОРИТЕ, гр. Разлог",
+        "sector": "hotel",
+        "sectorLabel": "Хотели",
+        "year": "2017",
+        "imageFallback": "/nikom/proj-izvorite.jpg",
+        "href": "/bg/proekti/khotelski-kompleks-izvorite-gr.razlog",
+        "systems": [
+          "Пожароизвестяване",
+          "Оповестителна и SOS системи"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Стаи",
+            "value": "85"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "EN 54-16",
+            "value": "ДА"
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-6",
+        "_type": "projectCard",
+        "title": "Хотел АНЕЛ 5★, гр. София",
+        "sector": "hotel",
+        "sectorLabel": "Хотели",
+        "year": "2015",
+        "imageFallback": "/nikom/proj-anel.jpg",
+        "href": "/bg/proekti/khotel-anel-5-gr-sofiia",
+        "systems": [
+          "Пожароизвестяване"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Етажи",
+            "value": "11"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "Стаи",
+            "value": "84"
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-7",
+        "_type": "projectCard",
+        "title": "Бутиков хотел Кристал Палас 4★, гр. София",
+        "sector": "hotel",
+        "sectorLabel": "Хотели",
+        "year": "2014",
+        "imageFallback": "/nikom/proj-crystal.jpg",
+        "href": "/bg/proekti/butikov-khotel-kristal-palas-4-gr.sofiia",
+        "systems": [
+          "Пожароизвестяване",
+          "Видеонаблюдение"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Стаи",
+            "value": "62"
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-8",
+        "_type": "projectCard",
+        "title": "Хотел Arena di Serdika 5★, гр. София",
+        "sector": "hotel",
+        "sectorLabel": "Хотели",
+        "year": "2016",
+        "imageFallback": "/nikom/proj-arena.jpg",
+        "href": "/bg/proekti/khotel-arena-di-serdika-5-gr.sofiia",
+        "systems": [
+          "Пожароизвестяване",
+          "Видеонаблюдение",
+          "Контрол на достъп"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Стаи",
+            "value": "140"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "Зали",
+            "value": "5"
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-9",
+        "_type": "projectCard",
+        "title": "Арт хотелски комплекс АНЕЛ, гр. Созопол",
+        "sector": "hotel",
+        "sectorLabel": "Хотели",
+        "year": "2019",
+        "imageFallback": "/nikom/proj-sozopol.jpg",
+        "href": "/bg/proekti/art-khotelski-kompleks-anel-gr-sozopol",
+        "systems": [
+          "Пожароизвестяване",
+          "СКС"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Сезон",
+            "value": "12/12 мес."
+          }
+        ],
+        "classified": false,
+        "size": "normal"
+      },
+      {
+        "_key": "items-10",
+        "_type": "projectCard",
+        "title": "Обект на Министерство на отбраната",
+        "sector": "government",
+        "sectorLabel": "Държавни",
+        "year": "2022",
+        "imageFallback": "/nikom/proj-mod.jpg",
+        "href": "/bg/proekti/obekt-ministerstvo-na-otbranata-gazovo-pozhargasene",
+        "systems": [
+          "Газова автоматична пожарогасителна инсталация"
+        ],
+        "kpis": [
+          {
+            "_key": "kpis-0",
+            "_type": "cardKpi",
+            "label": "Тип агент",
+            "value": "FM-200"
+          },
+          {
+            "_key": "kpis-1",
+            "_type": "cardKpi",
+            "label": "Зони",
+            "value": "3"
+          }
+        ],
+        "classified": true,
+        "size": "normal"
+      }
+    ]
+  },
+  "projectsSectorStats": {
+    "eyebrow": "Сектори · Разбивка",
+    "heading": "Опит в най-различни критични среди.",
+    "lead": "Всеки сектор има специфични нормативни изисквания и риск-профил. Подходът ни е адаптиран към всеки от тях.",
+    "sectors": [
+      {
+        "_key": "sectors-0",
+        "_type": "sectorStat",
+        "id": "hotel",
+        "label": "Хотели",
+        "count": 5,
+        "icon": "hotel"
+      },
+      {
+        "_key": "sectors-1",
+        "_type": "sectorStat",
+        "id": "healthcare",
+        "label": "Здравеопазване",
+        "count": 2,
+        "icon": "health"
+      },
+      {
+        "_key": "sectors-2",
+        "_type": "sectorStat",
+        "id": "government",
+        "label": "Държавни",
+        "count": 2,
+        "icon": "gov"
+      },
+      {
+        "_key": "sectors-3",
+        "_type": "sectorStat",
+        "id": "retail",
+        "label": "Ритейл",
+        "count": 1,
+        "icon": "retail"
+      },
+      {
+        "_key": "sectors-4",
+        "_type": "sectorStat",
+        "id": "industrial",
+        "label": "Складове",
+        "count": 1,
+        "icon": "ind"
+      }
+    ]
+  }
+}

@@ -16,6 +16,7 @@ type Props = {
     _id?: string
     title?: string | null
     heroImage?: { asset?: { _ref?: string } } | null
+    heroImageFallback?: string | null
     gallery?: GalleryItem[] | null
   }
   pageId: string
@@ -185,7 +186,7 @@ function Lightbox({
 export function ProjectGallery({ doc, pageId }: Props) {
   const [open, setOpen] = React.useState<number | null>(null)
 
-  const fallbackSrc = '/nikom/project1.jpg'
+  const fallbackSrc = doc?.heroImageFallback ?? '/nikom/proj-tokuda.jpg'
   const rawGallery = doc?.gallery ?? []
 
   const images =

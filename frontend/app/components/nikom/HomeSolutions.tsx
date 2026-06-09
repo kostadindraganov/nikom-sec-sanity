@@ -240,17 +240,6 @@ function IntegrationMini() {
   );
 }
 
-// Default cards when no Sanity data
-const DEFAULT_CARDS: Card[] = [
-  { _key: 'fire',        icon: 'Fire',    chip: '01 · Пожарна безопасност', meta: 'EN 54 · NFPA',           title: 'Пожароизвестяване & пожарогасене',     desc: '',                                                                                                                          tag: 'Прегледай решения',          variant: 'fire' },
-  { _key: 'cctv',        icon: 'Cam',     chip: '02 · Сигурност',           meta: '',                       title: 'Видеонаблюдение & СОТ',               desc: 'IP/PTZ камери, термовизия, VMS, охранителни централи, периметрова защита.',                                                  tag: 'Детайли',                    variant: 'default' },
-  { _key: 'panic',       icon: 'Panic',   chip: '03 · Реакция',             meta: '',                       title: 'Паник & алармени системи',            desc: 'Дискретни паник бутони, моментално оповестяване, патрулна реакция.',                                                        tag: 'Детайли',                    variant: 'default' },
-  { _key: 'acs',         icon: 'Key',     chip: '04 · Контрол на достъп',   meta: 'RFID · BIOMETRIC · ANPR', title: 'Контрол на достъп & паркинг',         desc: 'Soyal, Paradox, Suprema. Биометрия, картови системи, турникети, бариери и ANPR за паркинг управление.',                    tag: 'Детайли',                    variant: 'wide' },
-  { _key: 'speaker',     icon: 'Speaker', chip: '05 · Комуникация',         meta: '',                       title: 'Озвучаване & оповестяване',           desc: 'Bosch, TOA, Inter-M. Гласово евакуационно оповестяване EN 54-16.',                                                           tag: 'Детайли',                    variant: 'default' },
-  { _key: 'net',         icon: 'Net',     chip: '06 · Инфраструктура',      meta: '',                       title: 'Структурни кабелни системи',          desc: 'Cat6/6A, оптика, LAN/WAN, сървърни шкафове — основата на всяка система.',                                                    tag: 'Детайли',                    variant: 'default' },
-  { _key: 'integration', icon: 'Shield',  chip: '07 · Интеграция',          meta: 'PSIM · SCADA · BMS',     title: 'Единна интегрирана среда',            desc: 'Свързваме пожарна, охрана, достъп, видеонаблюдение, оповестяване и BMS в единна PSIM платформа.',                            tag: 'Архитектура на интеграцията', variant: 'dark-wide' },
-];
-
 function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
   card: Card;
   pageId?: string;
@@ -272,13 +261,13 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
         <div className="fire-glow" />
 
         <div className="card-meta" style={{ position: 'relative', zIndex: 2 }}>
-          <span className="chip dark">{card.chip ?? '01 · Пожарна безопасност'}</span>
-          <span className="meta">{card.meta ?? 'EN 54 · NFPA'}</span>
+          <span className="chip dark">{card.chip}</span>
+          <span className="meta">{card.meta}</span>
         </div>
 
         <div className="fire-title" style={{ position: 'relative', zIndex: 2 }}>
           <div className="card-icon anim"><ResolveIcon name={card.icon} /></div>
-          <h3 className="h3">{card.title ?? 'Пожароизвестяване & пожарогасене'}</h3>
+          <h3 className="h3">{card.title}</h3>
         </div>
 
         <div className="fire-diagram" style={{ position: 'relative', zIndex: 2 }}>
@@ -303,7 +292,7 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
         </div>
 
         <a className="card-link" href="#" style={{ position: 'relative', zIndex: 2 }}>
-          {card.tag ?? 'Прегледай решения'} <Icons.Arrow />
+          {card.tag} <Icons.Arrow />
         </a>
         <CornerTicks />
       </div>
@@ -314,14 +303,14 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
     return (
       <div className="bento-card span-2" data-sanity={itemDataAttr}>
         <div className="card-meta">
-          <span className="chip">{card.chip ?? '04 · Контрол на достъп'}</span>
-          <span className="meta">{card.meta ?? 'RFID · BIOMETRIC · ANPR'}</span>
+          <span className="chip">{card.chip}</span>
+          <span className="meta">{card.meta}</span>
         </div>
         <div className="card-row">
           <div>
             <div className="card-icon anim"><ResolveIcon name={card.icon} /></div>
-            <h3 className="h3">{card.title ?? 'Контрол на достъп & паркинг'}</h3>
-            <p>{card.desc ?? 'Soyal, Paradox, Suprema. Биометрия, картови системи, турникети, бариери и ANPR за паркинг управление.'}</p>
+            <h3 className="h3">{card.title}</h3>
+            <p>{card.desc}</p>
           </div>
           <div className="acs-visual">
             <AcsVisual />
@@ -336,20 +325,20 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
     return (
       <div className="bento-card span-2 dark" data-sanity={itemDataAttr}>
         <div className="card-meta">
-          <span className="chip solid">{card.chip ?? '07 · Интеграция'}</span>
-          <span className="meta light">{card.meta ?? 'PSIM · SCADA · BMS'}</span>
+          <span className="chip solid">{card.chip}</span>
+          <span className="meta light">{card.meta}</span>
         </div>
         <div className="card-row">
           <div>
-            <h3 className="h3">{card.title ?? 'Единна интегрирана среда'}</h3>
-            <p>{card.desc ?? 'Свързваме пожарна, охрана, достъп, видеонаблюдение, оповестяване и BMS в единна PSIM платформа.'}</p>
+            <h3 className="h3">{card.title}</h3>
+            <p>{card.desc}</p>
           </div>
           <div className="int-visual">
             <IntegrationMini />
           </div>
         </div>
         <a className="card-link light" href="#">
-          {card.tag ?? 'Архитектура на интеграцията'} <Icons.Arrow />
+          {card.tag} <Icons.Arrow />
         </a>
       </div>
     );
@@ -359,23 +348,23 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
   return (
     <div className="bento-card" data-sanity={itemDataAttr}>
       <div className="card-meta">
-        <span className="chip">{card.chip ?? '02 · Сигурност'}</span>
+        <span className="chip">{card.chip}</span>
         <span className="icon-dot" />
       </div>
       <div className="card-icon anim"><ResolveIcon name={card.icon} /></div>
-      <h3 className="h4">{card.title ?? 'Видеонаблюдение & СОТ'}</h3>
+      <h3 className="h4">{card.title}</h3>
       <p>{card.desc ?? ''}</p>
-      <a className="card-link" href="#">{card.tag ?? 'Детайли'} <Icons.Arrow /></a>
+      <a className="card-link" href="#">{card.tag} <Icons.Arrow /></a>
       <CornerTicks />
     </div>
   );
 }
 
 export default function HomeSolutions({ block, index, pageId, pageType }: Props) {
-  const eyebrow = block?.eyebrow ?? 'Решения · 05 категории';
-  const heading = block?.heading ?? 'Един партньор за всички инженерни системи в обекта.';
-  const lead = block?.lead ?? 'Проектираме, доставяме и интегрираме сертифицирани системи на водещи производители. Категориите по-долу се изграждат самостоятелно или като единна интегрирана среда.';
-  const cards = (block?.cards && block.cards.length > 0) ? block.cards : DEFAULT_CARDS;
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const lead = block?.lead;
+  const cards = block?.cards ?? [];
   const blockKey = block?._key ?? '';
 
   const fieldPath = (field: string) =>

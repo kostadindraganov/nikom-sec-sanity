@@ -34,34 +34,34 @@ export default function NikomCta({ block, index, pageId, pageType }: Props) {
               className="eyebrow"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.eyebrow` }).toString()}
             >
-              {block?.eyebrow ?? 'Готови сме за разговор'}
+              {block?.eyebrow}
             </div>
             <h2
               className="h2"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.heading` }).toString()}
             >
-              <StreamText text={block?.heading ?? 'Свържете се с нас за консултация по нов или съществуващ проект.'} />
+              <StreamText text={block?.heading} />
             </h2>
             <p
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.sub` }).toString()}
             >
-              {block?.sub ?? 'Получавате обратна връзка от инженер до 4 работни часа.'}
+              {block?.sub}
             </p>
           </div>
           <div className="cta-band-actions">
             <a
               className="btn btn-primary btn-lg"
-              href={block?.buttonPrimary?.href ?? '/bg/kontakt'}
+              href={block?.buttonPrimary?.href}
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.buttonPrimary` }).toString()}
             >
-              {block?.buttonPrimary?.label ?? 'Заявете консултация'} <Icons.Arrow />
+              {block?.buttonPrimary?.label} <Icons.Arrow />
             </a>
             <a
               className="btn btn-ghost btn-lg"
-              href={block?.buttonSecondary?.href ?? '/bg/proekti'}
+              href={block?.buttonSecondary?.href}
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.buttonSecondary` }).toString()}
             >
-              {block?.buttonSecondary?.label ?? 'Вижте проекти'}
+              {block?.buttonSecondary?.label}
             </a>
           </div>
         </div>

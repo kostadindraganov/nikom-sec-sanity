@@ -128,8 +128,8 @@ export default function BlogList({ block, index, pageId, pageType, posts: postsP
   // Posts come from the dedicated /blog route (prop) or, when rendered generically,
   // from data injected onto the block. Either way BlogList stays fully editable.
   const posts: Post[] = postsProp.length ? postsProp : ((block as { posts?: Post[] })?.posts ?? [])
-  const eyebrow = block?.eyebrow ?? `Архив · ${posts.length || 10} статии`
-  const heading = block?.heading ?? 'Намерете точно това, което Ви интересува.'
+  const eyebrow = block?.eyebrow
+  const heading = block?.heading
   const initialCount = block?.initialCount ?? 4
 
   const [filter, setFilter] = React.useState('all')

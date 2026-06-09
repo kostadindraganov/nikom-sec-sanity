@@ -210,9 +210,9 @@ export default function ContactHero({ block, index, pageId, pageType }: Props) {
   const path = (field: string) =>
     dataAttr({ id: pageId, type: pageType, path: `pageBuilder[_key=="${block._key}"].${field}` }).toString()
 
-  const phone = block?.phone ?? '+359894523970'
-  const phoneDisplay = block?.phoneDisplay ?? '+359 89 45 23 970'
-  const email = block?.email ?? 'office@nikom-security.com'
+  const phone = block?.phone
+  const phoneDisplay = block?.phoneDisplay
+  const email = block?.email
 
   return (
     <section className="contact-hero">
@@ -224,13 +224,13 @@ export default function ContactHero({ block, index, pageId, pageType }: Props) {
         <div className="ctc-hero-inner">
           <div className="ctc-hero-text">
             <div className="eyebrow" data-sanity={path('eyebrow')}>
-              {block?.eyebrow ?? 'Контакт · Инженер на линия'}
+              {block?.eyebrow}
             </div>
             <h1 className="h1 ctc-h1" data-sanity={path('heading')}>
-              <StreamText text={block?.heading ?? 'Свържете се с нас за нов или съществуващ проект.'} />
+              <StreamText text={block?.heading} />
             </h1>
             <p className="ctc-hero-lead" data-sanity={path('lead')}>
-              {block?.lead ?? 'Дискретността и конфиденциалността са гарантирани. Ще споделим нашия опит накратко или в обширна консултация — както Ви е удобно.'}
+              {block?.lead}
             </p>
           </div>
           <div className="ctc-hero-phone" aria-hidden="true">

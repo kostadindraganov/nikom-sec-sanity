@@ -22,20 +22,9 @@ type Props = {
   pageType: string;
 };
 
-const DEFAULT_BRANDS: Brand[] = [
-  { _key: 'b1', name: 'Esser', sub: 'by Honeywell' },
-  { _key: 'b2', name: 'INIM', sub: 'Electronics' },
-  { _key: 'b3', name: 'Panasonic', sub: '' },
-  { _key: 'b4', name: 'Securiton', sub: '' },
-  { _key: 'b5', name: 'Dahua', sub: '' },
-  { _key: 'b6', name: 'Paradox', sub: '' },
-  { _key: 'b7', name: 'Soyal', sub: '' },
-  { _key: 'b8', name: 'Farfisa', sub: '' },
-];
-
 export default function AboutManufacturers({ block, index, pageId, pageType }: Props) {
   const path = `pageBuilder[_key=="${block?._key}"]`;
-  const brands = block?.brands ?? DEFAULT_BRANDS;
+  const brands = block?.brands ?? [];
 
   return (
     <section className="section-pad about-brands">
@@ -46,20 +35,20 @@ export default function AboutManufacturers({ block, index, pageId, pageType }: P
               className="eyebrow"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.eyebrow` }).toString()}
             >
-              {block?.eyebrow ?? 'Партньори · 08 световни производители'}
+              {block?.eyebrow}
             </div>
             <h2
               className="h2"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.heading` }).toString()}
             >
-              <StreamText text={block?.heading ?? 'Доказано качество, многообразие и възможности за интеграция.'} />
+              <StreamText text={block?.heading} />
             </h2>
           </div>
           <p
             className="section-lead"
             data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.lead` }).toString()}
           >
-            {block?.lead ?? 'В портфолиото си избираме да присъстват продукти с доказано качество, многообразие в техническите спецификации, възможности за интеграция и икономическа ефективност.'}
+            {block?.lead}
           </p>
         </div>
         <div

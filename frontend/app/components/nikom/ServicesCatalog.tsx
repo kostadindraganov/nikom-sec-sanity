@@ -134,91 +134,14 @@ function SrvIcon({ kind }: { kind: string }) {
   }
 }
 
-const DEFAULT_SERVICES: ServiceItem[] = [
-  {
-    _key: 'fire', n: '01', k: 'FIRE', title: 'Пожароизвестителни системи', icon: 'fire', featured: false,
-    desc: 'Адресируеми и конвенционални системи за ранна детекция, отговарящи на EN 54 и Наредба Iз-1971.',
-    tags: ['Esser by Honeywell', 'INIM', 'Securiton', 'Адресируеми', 'Аспирация VESDA', 'Сертифицирано EN 54'],
-    stats: [{ _key: 'f1', label: 'Покрити обекта', value: '210+' }, { _key: 'f2', label: 'Стандарти', value: 'EN 54' }, { _key: 'f3', label: 'Brands', value: '4' }],
-  },
-  {
-    _key: 'fire-ext', n: '02', k: 'FIRE-EXT', title: 'Пожарогасителни системи', icon: 'fire-ext', featured: false,
-    desc: 'Спринклерни, газови, водно-мъглеви и пенни инсталации за критични зони и сървърни помещения.',
-    tags: ['Спринклери', 'FM-200', 'FirePro', 'Водно-мъгляви', 'Газово', 'Пожарни кранове'],
-    stats: [{ _key: 'fe1', label: 'Реализирани', value: '60+' }, { _key: 'fe2', label: 'Тип агенти', value: '5' }, { _key: 'fe3', label: 'Лиценз ПБЗН', value: '№ 743' }],
-  },
-  {
-    _key: 'cctv', n: '03', k: 'CCTV', title: 'Видеонаблюдение', icon: 'cam', featured: false,
-    desc: 'IP/PTZ, термовизия, VMS и видеоанализ — с камери на Dahua, Panasonic и водещи производители.',
-    tags: ['IP / PTZ', 'Термовизия', 'VMS', 'AI видеоанализ', 'Dahua', 'Panasonic'],
-    stats: [{ _key: 'c1', label: 'Камери монтирани', value: '2 400+' }, { _key: 'c2', label: 'Хранилище', value: 'до 90 дни' }, { _key: 'c3', label: 'Резолюция', value: 'до 4K' }],
-  },
-  {
-    _key: 'panic', n: '04', k: 'PANIC', title: 'Паник системи', icon: 'panic', featured: false,
-    desc: 'Дискретни паник бутони с моментално оповестяване, връзка с дежурни центрове и патрулна реакция.',
-    tags: ['Стационарни', 'Мобилни', 'Дискретни', 'GSM модул', 'Връзка с СОТ'],
-    stats: [{ _key: 'p1', label: 'Реакция', value: '< 30 мин' }, { _key: 'p2', label: 'Тип бутони', value: '8' }, { _key: 'p3', label: '24/7 мониторинг', value: 'ДА' }],
-  },
-  {
-    _key: 'int', n: '05', k: 'INT', title: 'Сигнално-охранителни системи', icon: 'int', featured: false,
-    desc: 'Алармени централи с периметрова и вътрешна защита от Paradox, INIM, Texecom — за всеки тип обект.',
-    tags: ['Paradox', 'INIM', 'Texecom', 'Периметрова', 'Безжична', 'Хибридна'],
-    stats: [{ _key: 'i1', label: 'Зони на обект', value: 'до 256' }, { _key: 'i2', label: 'GSM/IP комуникация', value: 'ДА' }, { _key: 'i3', label: 'Резервиране', value: 'N+1' }],
-  },
-  {
-    _key: 'park', n: '06', k: 'PARK', title: 'Паркинг системи', icon: 'park', featured: false,
-    desc: 'ANPR разпознаване на номера, бариери, тикет-машини и управление на платени паркинги.',
-    tags: ['ANPR', 'Бариери', 'Тикет-системи', 'Платени', 'Free-flow', 'Интеграция HR'],
-    stats: [{ _key: 'pk1', label: 'Пропускателна способност', value: '1 200 авт/ч' }, { _key: 'pk2', label: 'Точност ANPR', value: '98.5%' }, { _key: 'pk3', label: 'Реакция', value: '< 1.2s' }],
-  },
-  {
-    _key: 'acs', n: '07', k: 'ACS', title: 'Системи за контрол на достъп', icon: 'key', featured: false,
-    desc: 'RFID, биометрия, картови системи и турникети с интеграция към HR и работно време.',
-    tags: ['RFID', 'Биометрия', 'Soyal', 'Турникети', 'Suprema', 'Работно време'],
-    stats: [{ _key: 'a1', label: 'Точки за контрол', value: '500+' }, { _key: 'a2', label: 'Тип идентификация', value: '4' }, { _key: 'a3', label: 'Интеграция HR', value: 'ДА' }],
-  },
-  {
-    _key: 'psim', n: '08', k: 'PSIM', title: 'Интегрирани системи за сигурност', icon: 'psim', featured: true,
-    desc: 'PSIM платформа, която обединява пожарна, охрана, достъп, видеонаблюдение и оповестяване в единна среда.',
-    tags: ['PSIM', 'SCADA', 'BMS интеграция', 'Unified Dashboard', 'Автоматизирани сценарии'],
-    stats: [{ _key: 'ps1', label: 'Подсистеми', value: '8' }, { _key: 'ps2', label: 'Latency', value: '< 400ms' }, { _key: 'ps3', label: 'Uptime', value: '99.97%' }],
-  },
-  {
-    _key: 'intercom', n: '09', k: 'INT2', title: 'Аудио и Видеодомофонни системи', icon: 'intercom', featured: false,
-    desc: 'Farfisa и водещи производители — за жилищни сгради, офиси и охраняеми обекти.',
-    tags: ['Farfisa', 'IP домофон', 'Видео', 'Мобилно приложение', 'Многоабонатни'],
-    stats: [{ _key: 'ic1', label: 'Тип системи', value: '6' }, { _key: 'ic2', label: 'Абонати', value: 'до 1024' }, { _key: 'ic3', label: 'IP/2-wire', value: 'Двата' }],
-  },
-  {
-    _key: 'comm', n: '10', k: 'COMM', title: 'Комуникационни системи', icon: 'comm', featured: false,
-    desc: 'Вътрешни комуникации, интерком, безжични и hands-free решения за индустриални среди.',
-    tags: ['Интерком', 'Безжични', 'Hands-free', 'Wallphones', 'Indust. grade'],
-    stats: [{ _key: 'co1', label: 'Реализирани', value: '40+' }, { _key: 'co2', label: 'IP54+', value: 'ДА' }, { _key: 'co3', label: 'Шум', value: 'до 95 dB' }],
-  },
-  {
-    _key: 'pa', n: '11', k: 'PA', title: 'Озвучителни и оповестителни системи', icon: 'speaker', featured: false,
-    desc: 'Гласово евакуационно оповестяване EN 54-16 (Bosch, TOA), фоново озвучаване и конферентни системи.',
-    tags: ['Bosch', 'TOA', 'EN 54-16', 'VES', 'Фоново озвучаване', 'Конферентни'],
-    stats: [{ _key: 'pa1', label: 'Сертифицирано EN 54-16', value: 'ДА' }, { _key: 'pa2', label: 'Зони на обект', value: 'до 64' }, { _key: 'pa3', label: 'Watts', value: 'до 5 kW' }],
-  },
-  {
-    _key: 'sks', n: '12', k: 'SKS', title: 'Структурни кабелни системи', icon: 'net', featured: false,
-    desc: 'Cat6/6A медни и FO оптични мрежи, сървърни шкафове, патч панели — основата на всяка интегрирана система.',
-    tags: ['Cat 6/6A', 'Cat 7', 'Optical Fiber', 'Сървърни шкафове', 'Trasses', 'Patch panels'],
-    stats: [{ _key: 'sk1', label: 'Точки изградени', value: '12 000+' }, { _key: 'sk2', label: 'FO дължини', value: '85 km' }, { _key: 'sk3', label: 'Сертификация Fluke', value: 'ДА' }],
-  },
-];
-
 export default function ServicesCatalog({ block, pageId, pageType }: Props) {
   const key = block?._key ?? '';
   const path = (field: string) => `pageBuilder[_key=="${key}"].${field}`;
 
-  const eyebrow = block?.eyebrow ?? 'Каталог · Изграждане на системи';
-  const heading = block?.heading ?? 'Дванадесет категории сертифицирани системи.';
-  const lead =
-    block?.lead ??
-    'Всеки тип система се изгражда самостоятелно или като част от интегрирана среда. Работим със сертифицирана техника от световни производители.';
-  const services = block?.services?.length ? block.services : DEFAULT_SERVICES;
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const lead = block?.lead;
+  const services = block?.services ?? [];
 
   return (
     <section className="section-pad services-catalog">

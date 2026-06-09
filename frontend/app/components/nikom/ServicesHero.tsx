@@ -1,7 +1,7 @@
 'use client';
 
 import { StreamText } from '@/app/components/nikom/animations';
-import { dataAttr } from '@/sanity/lib/utils';
+import { dataAttr, imageUrl } from '@/sanity/lib/utils';
 
 type Props = {
   block: {
@@ -22,18 +22,16 @@ export default function ServicesHero({ block, pageId, pageType }: Props) {
   const path = (field: string) =>
     `pageBuilder[_key=="${key}"].${field}`;
 
-  const eyebrow = block?.eyebrow ?? 'Услуги · 12 системни категории';
-  const heading = block?.heading ?? 'Широк кръг от услуги в системите за наблюдение и сигурност.';
-  const lead =
-    block?.lead ??
-    'Екипът на „НИКОМ Системи за Сигурност" е с 20-годишен опит в сферата на системите за сигурност и контрол. Специализираме във всяка област на системи за наблюдение и сигурност и предлагаме услуги с висок стандарт и богат опит.';
-  const pills = block?.pills ?? ['Проектиране', 'Разработка и монтаж', 'Управление на проекти', 'Сервизно обслужване'];
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const lead = block?.lead;
+  const pills = block?.pills ?? [];
 
   return (
     <section className="services-hero">
       <div className="srv-hero-img-wrap">
         <img
-          src="/nikom/services-hero.jpg"
+          src={imageUrl(block?.image, '/nikom/services-hero.jpg')}
           alt="Услуги — NIKOM"
           className="srv-hero-img"
         />

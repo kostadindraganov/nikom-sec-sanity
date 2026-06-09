@@ -1,7 +1,7 @@
 'use client'
 
 import { StreamText } from '@/app/components/nikom/animations'
-import { dataAttr } from '@/sanity/lib/utils'
+import { dataAttr, imageUrl } from '@/sanity/lib/utils'
 
 type Props = {
   block: {
@@ -27,17 +27,10 @@ export default function ProjectsFeature({ block, index, pageId, pageType }: Prop
   const path = (field: string) =>
     `pageBuilder[_key=="${block._key ?? ''}"].${field}`
 
-  const imgSrc = block?.imageFallback ?? '/nikom/proj-tokuda.jpg'
-  const imgAlt = block?.title ?? '„Аджибадем Сити Клиник Болница Токуда" ЕАД'
-  const systems = block?.systems ?? [
-    'Пожароизвестяване Esser by Honeywell',
-    'Спринклерна пожарогасителна',
-    'Пожарни кранове',
-  ]
-  const kpis = block?.kpis ?? [
-    { label: 'Детектори', value: '2 000' },
-    { label: 'Спринклери', value: '4 800' },
-  ]
+  const imgSrc = imageUrl(block?.image, block?.imageFallback ?? '')
+  const imgAlt = block?.title
+  const systems = block?.systems ?? []
+  const kpis = block?.kpis ?? []
 
   return (
     <section className="section-pad projects-feature">
@@ -50,8 +43,8 @@ export default function ProjectsFeature({ block, index, pageId, pageType }: Prop
               data-sanity={dataAttr({ id: pageId, type: pageType, path: path('image') }).toString()}
             />
             <div className="feat-img-tag">
-              <span className="chip dark">{block?.year ?? '2010 — наст.'}</span>
-              <span className="chip solid">{block?.sectorLabel ?? 'Здравеопазване'}</span>
+              <span className="chip dark">{block?.year}</span>
+              <span className="chip solid">{block?.sectorLabel}</span>
             </div>
             <div className="feat-img-corners">
               <span className="corn tl"/><span className="corn tr"/>
@@ -63,13 +56,13 @@ export default function ProjectsFeature({ block, index, pageId, pageType }: Prop
               className="eyebrow"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: path('eyebrow') }).toString()}
             >
-              {block?.eyebrow ?? 'Избран проект · Дългосрочно партньорство'}
+              {block?.eyebrow}
             </div>
             <h2
               className="h2"
               data-sanity={dataAttr({ id: pageId, type: pageType, path: path('title') }).toString()}
             >
-              <StreamText text={block?.title ?? '„Аджибадем Сити Клиник Болница Токуда" ЕАД'}/>
+              <StreamText text={block?.title ?? ''}/>
             </h2>
             <div
               className="feat-systems"
@@ -89,7 +82,7 @@ export default function ProjectsFeature({ block, index, pageId, pageType }: Prop
               ))}
               <div>
                 <div className="meta">Период</div>
-                <div className="kpi-v">{block?.year ?? '2010 — наст.'}</div>
+                <div className="kpi-v">{block?.year}</div>
               </div>
             </div>
             <blockquote className="feat-quote">
@@ -99,18 +92,18 @@ export default function ProjectsFeature({ block, index, pageId, pageType }: Prop
               <p
                 data-sanity={dataAttr({ id: pageId, type: pageType, path: path('quoteText') }).toString()}
               >
-                {block?.quoteText ?? 'Дългогодишното успешно партньорство и съвместна работа с екипа на „НИКОМ системи за сигурност" ЕООД от 2010 г., ръководен от инж. Николай Васев, ни дава основание да ги препоръчаме като коректен, компетентен и надежден партньор.'}
+                {block?.quoteText}
               </p>
               <footer>
                 <strong
                   data-sanity={dataAttr({ id: pageId, type: pageType, path: path('quoteAuthor') }).toString()}
                 >
-                  {block?.quoteAuthor ?? 'инж. Георги Кърчев'}
+                  {block?.quoteAuthor}
                 </strong>
                 <span
                   data-sanity={dataAttr({ id: pageId, type: pageType, path: path('quoteRole') }).toString()}
                 >
-                  {block?.quoteRole ?? 'инспектор Пожарна Безопасност'}
+                  {block?.quoteRole}
                 </span>
               </footer>
             </blockquote>

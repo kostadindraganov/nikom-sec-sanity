@@ -21,31 +21,14 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_BRANDS = [
-  'Honeywell', 'Esser', 'INIM', 'Securiton', 'Panasonic', 'Bosch',
-  'Dahua', 'Paradox', 'Soyal', 'Farfisa', 'TOA', 'Suprema',
-  'Hikvision', 'Axis', 'Mobotix',
-]
-
-const DEFAULT_CERTS = [
-  'ISO 9001:2015', 'ISO 14001:2015', 'ISO 27001',
-  'ИТ–СТД-001', 'Лиценз МВР № 2436', 'EN 54',
-]
-
 export default function HomePartners({ block, index: _index, pageId, pageType }: Props) {
   const basePath = `pageBuilder[_key=="${block?._key}"]`
 
-  const row1Items: PartnerItem[] = block?.partnersRow1 && block.partnersRow1.length > 0
-    ? block.partnersRow1
-    : DEFAULT_BRANDS.map((name) => ({ name }))
+  const row1Items: PartnerItem[] = block?.partnersRow1 ?? []
 
-  const row2Items: PartnerItem[] = block?.partnersRow2 && block.partnersRow2.length > 0
-    ? block.partnersRow2
-    : [...DEFAULT_BRANDS].reverse().map((name) => ({ name }))
+  const row2Items: PartnerItem[] = block?.partnersRow2 ?? []
 
-  const certItems: CertItem[] = block?.certs && block.certs.length > 0
-    ? block.certs
-    : DEFAULT_CERTS.map((label) => ({ label }))
+  const certItems: CertItem[] = block?.certs ?? []
 
   return (
     <section className="section-pad partners">
@@ -55,13 +38,13 @@ export default function HomePartners({ block, index: _index, pageId, pageType }:
             className="eyebrow"
             data-sanity={dataAttr({ id: pageId, type: pageType, path: `${basePath}.eyebrow` }).toString()}
           >
-            {block?.eyebrow ?? 'Сертифицирани партньори'}
+            {block?.eyebrow}
           </div>
           <h2
             className="h3"
             data-sanity={dataAttr({ id: pageId, type: pageType, path: `${basePath}.heading` }).toString()}
           >
-            <StreamText text={block?.heading ?? 'Работим със световни производители — без компромиси с качеството.'} />
+            <StreamText text={block?.heading ?? ''} />
           </h2>
         </div>
 

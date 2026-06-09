@@ -148,23 +148,24 @@ export const projectBySlugQuery = defineQuery(`
     _id,
     _type,
     title,
-    sector,
-    sectorLabel,
+    "sector": coalesce(category->key.current, sector),
+    "sectorLabel": coalesce(category->title, sectorLabel),
     year,
     location,
     classified,
     heroImage,
+    heroImageFallback,
     summary,
     "systems": systems[]{_key, name},
     "facts": facts[]{_key, label, value},
     "scope": scope[]{_key, n, t, d},
     quote,
-    "gallery": gallery[]{_key, caption, image},
+    "gallery": gallery[]{_key, caption, "image": image{asset}},
     "kpis": kpis[]{_key, label, value},
     "related": related[]->{
       _id,
       title,
-      sectorLabel,
+      "sectorLabel": coalesce(category->title, sectorLabel),
       year,
       "slug": slug.current,
       heroImage
@@ -182,7 +183,7 @@ export const projectSlugPathnames = defineQuery(`
 // NIKOM listing queries — feed the Projects/Blog index pages with their CMS documents.
 export const nikomProjectsListQuery = defineQuery(`
   *[_type == "project" && defined(slug.current)] | order(_createdAt asc) {
-    _id, title, sector, sectorLabel, year, classified,
+    _id, title, "sector": coalesce(category->key.current, sector), "sectorLabel": coalesce(category->title, sectorLabel), year, classified,
     "slug": slug.current,
     heroImage,
     "systems": coalesce(scope[].title, systems, []),

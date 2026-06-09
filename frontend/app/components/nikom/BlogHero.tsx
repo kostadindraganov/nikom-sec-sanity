@@ -1,7 +1,7 @@
 'use client'
 
 import { StreamText } from '@/app/components/nikom/animations'
-import { dataAttr } from '@/sanity/lib/utils'
+import { dataAttr, imageUrl } from '@/sanity/lib/utils'
 
 type Props = {
   block?: {
@@ -17,11 +17,11 @@ type Props = {
 }
 
 export default function BlogHero({ block, index, pageId, pageType }: Props) {
-  const eyebrow = block?.eyebrow ?? 'БЛОГ · NIKOM SECURITY'
-  const heading = block?.heading ?? 'Инженерни статии за сигурност, пожарна безопасност и интеграция.'
-  const lead = block?.lead ?? 'Технически прегледи, case studies и експертни мнения от екипа на НИКОМ.'
+  const eyebrow = block?.eyebrow
+  const heading = block?.heading
+  const lead = block?.lead
 
-  const bgSrc = '/nikom/proj-tokuda.jpg'
+  const bgSrc = imageUrl(block?.backgroundImage, '/nikom/proj-tokuda.jpg')
 
   return (
     <section className="blog-hero">
@@ -47,7 +47,7 @@ export default function BlogHero({ block, index, pageId, pageType }: Props) {
         <p
           className="bh-lead"
           data-sanity={pageId && block?._key ? dataAttr({ id: pageId, type: pageType ?? '', path: `pageBuilder[_key=="${block._key}"].lead` }).toString() : undefined}
-          dangerouslySetInnerHTML={{ __html: lead }}
+          dangerouslySetInnerHTML={{ __html: lead ?? '' }}
         />
       </div>
     </section>

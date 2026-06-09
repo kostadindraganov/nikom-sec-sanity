@@ -108,7 +108,7 @@ function ArchIcon({ kind, delay = '0s' }: { kind: string; delay?: string }) {
 }
 
 /* ===== ArchNode — port from source ArchNode() ===== */
-function ArchNode({ s, i, w, h }: { s: { l: string; k: string; x: number; y: number; ic: string }; i: number; w: number; h: number }) {
+function ArchNode({ s, i, w, h }: { s: { l?: string; k?: string; x: number; y: number; ic: string }; i: number; w: number; h: number }) {
   const delay = i * 0.25 + 's';
   return (
     <g transform={`translate(${s.x} ${s.y})`} className="arch-node">
@@ -129,7 +129,7 @@ function ArchNode({ s, i, w, h }: { s: { l: string; k: string; x: number; y: num
 }
 
 /* ===== ArchitectureDiagram — port from source ===== */
-function ArchitectureDiagram({ subs }: { subs: Array<{ l: string; k: string; x: number; y: number; ic: string }> }) {
+function ArchitectureDiagram({ subs }: { subs: Array<{ l?: string; k?: string; x: number; y: number; ic: string }> }) {
   const W = 150;
   const H = 60;
 
@@ -175,7 +175,7 @@ function ArchitectureDiagram({ subs }: { subs: Array<{ l: string; k: string; x: 
 
       {/* subsystem cards */}
       {subs.map((s, i) => (
-        <ArchNode key={s.k} s={s} i={i} w={W} h={H} />
+        <ArchNode key={s.k ?? i} s={s} i={i} w={W} h={H} />
       ))}
 
       {/* signal paths with streaming dots */}
@@ -266,62 +266,39 @@ type Props = {
   pageType?: string;
 };
 
-/* Default subsystem layout — positions match source exactly */
-const DEFAULT_SUBS = [
-  { l: 'Пожароизвестяване', k: 'FIRE', x: 30,  y: 40,  ic: 'fire' },
-  { l: 'Видеонаблюдение',   k: 'CCTV', x: 30,  y: 150, ic: 'cam'  },
-  { l: 'Контрол на достъп', k: 'ACS',  x: 30,  y: 260, ic: 'key'  },
-  { l: 'Алармени системи',  k: 'INT',  x: 30,  y: 370, ic: 'bell' },
-  { l: 'Озвучаване / PA',   k: 'PA',   x: 700, y: 40,  ic: 'speaker' },
-  { l: 'Паркинг / ANPR',    k: 'PRK',  x: 700, y: 150, ic: 'bar'  },
-  { l: 'Аудио-видеодомофон',k: 'INT2', x: 700, y: 260, ic: 'intercom' },
-  { l: 'BMS / Сграда',      k: 'BMS',  x: 700, y: 370, ic: 'net'  },
-];
-
-const DEFAULT_EVENTS: EventItem[] = [
-  { _key: 'ev1', time: '14:02:11', tag: 'INFO', kind: 'info', msg: 'Heartbeat — всички подсистеми online' },
-  { _key: 'ev2', time: '14:03:48', tag: 'OK',   kind: 'ok',   msg: 'ACS-A1 · валидиран достъп (карта #2847)' },
-  { _key: 'ev3', time: '14:05:22', tag: 'INFO', kind: 'info', msg: 'CCTV-C7 · PTZ patrol cycle стартиран' },
-  { _key: 'ev4', time: '14:07:09', tag: 'WARN', kind: 'warn', msg: 'FIRE-F2 · смущение в detector loop 3' },
-  { _key: 'ev5', time: '14:07:11', tag: 'OK',   kind: 'ok',   msg: 'FIRE-F2 · self-check premium · възстановен' },
-  { _key: 'ev6', time: '14:09:34', tag: 'INFO', kind: 'info', msg: 'PA · scheduled announcement OK' },
-  { _key: 'ev7', time: '14:11:50', tag: 'OK',   kind: 'ok',   msg: 'BMS · HVAC синхронизация валидна' },
-];
-
-const DEFAULT_KPIS: KpiItem[] = [
-  { _key: 'k1', value: 248,   suffix: '',   prefix: '',  decimals: 0, label: 'активни нод-а' },
-  { _key: 'k2', value: 8,     suffix: '',   prefix: '',  decimals: 0, label: 'подсистеми' },
-  { _key: 'k3', value: 99.97, suffix: '%',  prefix: '',  decimals: 2, label: 'uptime · 90 дни' },
-  { _key: 'k4', value: 400,   suffix: 'ms', prefix: '<', decimals: 0, label: 'cross-system latency' },
-];
-
-const DEFAULT_SCENARIO: ScenarioStep[] = [
-  { _key: 'sc1', time: '+0.0s', tag: 'F2',   kind: 'alert', msg: 'Димен датчик в зона F2 · trigger' },
-  { _key: 'sc2', time: '+0.4s', tag: 'CCTV', kind: 'ok',    msg: 'PTZ pre-set към зоната · запис започва' },
-  { _key: 'sc3', time: '+0.8s', tag: 'ACS',  kind: 'ok',    msg: 'Евакуационни маршрути · отключени' },
-  { _key: 'sc4', time: '+1.2s', tag: 'PA',   kind: 'warn',  msg: 'Гласово оповестяване · евакуация' },
-  { _key: 'sc5', time: '+1.8s', tag: 'OPS',  kind: 'info',  msg: 'Дежурен инженер · push notification' },
+/* Layout-only subsystem positions and default icon keys (NOT schema content).
+   Indexed by subsystem order; text (key/label) is sourced from Sanity. */
+const SUBS_LAYOUT = [
+  { x: 30,  y: 40,  ic: 'fire' },
+  { x: 30,  y: 150, ic: 'cam'  },
+  { x: 30,  y: 260, ic: 'key'  },
+  { x: 30,  y: 370, ic: 'bell' },
+  { x: 700, y: 40,  ic: 'speaker' },
+  { x: 700, y: 150, ic: 'bar'  },
+  { x: 700, y: 260, ic: 'intercom' },
+  { x: 700, y: 370, ic: 'net'  },
 ];
 
 export default function HomeIntegration({ block, index, pageId, pageType }: Props) {
-  const eyebrow  = block?.eyebrow ?? 'Архитектура · Интеграция';
-  const heading  = block?.heading ?? 'Една централа. Всички подсистеми.';
-  const lead     = block?.lead    ?? 'Сценарий, при който димен датчик задейства CCTV запис, локално оповестяване, евакуационни маршрути и уведомяване на дежурния — за секунди.';
-  const events   = block?.events ?? DEFAULT_EVENTS;
-  const kpis     = block?.kpis   ?? DEFAULT_KPIS;
-  const scenario = block?.scenarioSteps ?? DEFAULT_SCENARIO;
+  const eyebrow  = block?.eyebrow;
+  const heading  = block?.heading;
+  const lead     = block?.lead;
+  const events   = block?.events ?? [];
+  const kpis     = block?.kpis   ?? [];
+  const scenario = block?.scenarioSteps ?? [];
 
-  /* Build subsystem layout from Sanity or fall back to fixed positions */
-  const rawSubs = block?.subsystems;
-  const subs = rawSubs && rawSubs.length === 8
-    ? rawSubs.map((s, idx) => ({
-        l: s.label ?? DEFAULT_SUBS[idx].l,
-        k: s.key   ?? DEFAULT_SUBS[idx].k,
-        x: DEFAULT_SUBS[idx].x,
-        y: DEFAULT_SUBS[idx].y,
-        ic: s.icon ?? DEFAULT_SUBS[idx].ic,
-      }))
-    : DEFAULT_SUBS;
+  /* Subsystem text comes from Sanity; x/y layout positions and the icon-key
+     mapping are layout-only (not schema content) and stay sourced from SUBS_LAYOUT. */
+  const subs = (block?.subsystems ?? []).map((s, idx) => {
+    const layout = SUBS_LAYOUT[idx] ?? SUBS_LAYOUT[SUBS_LAYOUT.length - 1];
+    return {
+      l: s.label,
+      k: s.key,
+      x: layout.x,
+      y: layout.y,
+      ic: s.icon ?? layout.ic,
+    };
+  });
 
   const blockKey = block?._key ?? '';
   const path = (field: string) =>

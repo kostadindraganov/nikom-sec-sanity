@@ -205,7 +205,7 @@ function BlueprintMap() {
 }
 
 /* ── Google Maps embed ── */
-function GoogleMapView({ embedUrl }: { embedUrl: string }) {
+function GoogleMapView({ embedUrl }: { embedUrl?: string }) {
   return (
     <div className="ctc-gmap-wrap">
       <div className="ctc-gmap-frame">
@@ -242,22 +242,16 @@ function GoogleMapView({ embedUrl }: { embedUrl: string }) {
   )
 }
 
-const DEFAULT_EMBED_URL =
-  'https://www.google.com/maps?q=%D0%B6%D0%BA.%20%D0%9C%D0%BB%D0%B0%D0%B4%D0%BE%D1%81%D1%82%204%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%20477%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F&output=embed&hl=bg&z=16'
-
-const DEFAULT_GMAPS_URL =
-  'https://www.google.com/maps/search/?api=1&query=NIKOM%20%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B8%20%D0%B7%D0%B0%20%D0%A1%D0%B8%D0%B3%D1%83%D1%80%D0%BD%D0%BE%D1%81%D1%82%2C%20%D0%B6%D0%BA.%20%D0%9C%D0%BB%D0%B0%D0%B4%D0%BE%D1%81%D1%82%204%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%20477%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F'
-
 export default function ContactMaps({ block, index, pageId, pageType }: Props) {
   const [view, setView] = useState<'city' | 'blueprint' | 'gmaps'>('city')
 
   const path = (field: string) =>
     dataAttr({ id: pageId, type: pageType, path: `pageBuilder[_key=="${block._key}"].${field}` }).toString()
 
-  const embedUrl = stegaClean(block?.embedUrl) ?? DEFAULT_EMBED_URL
-  const googleMapsUrl = stegaClean(block?.googleMapsUrl) ?? DEFAULT_GMAPS_URL
-  const wazeUrl = stegaClean(block?.wazeUrl) ?? 'https://www.waze.com/ul?ll=42.6502%2C23.3796&navigate=yes'
-  const appleMapsUrl = stegaClean(block?.appleMapsUrl) ?? 'https://maps.apple.com/?ll=42.6502,23.3796&q=NIKOM%20Security'
+  const embedUrl = stegaClean(block?.embedUrl)
+  const googleMapsUrl = stegaClean(block?.googleMapsUrl)
+  const wazeUrl = stegaClean(block?.wazeUrl)
+  const appleMapsUrl = stegaClean(block?.appleMapsUrl)
 
   return (
     <section className="section-pad ctc-maps dark-band" id="map">
@@ -265,10 +259,10 @@ export default function ContactMaps({ block, index, pageId, pageType }: Props) {
         <div className="section-head">
           <div className="left">
             <div className="eyebrow" data-sanity={path('eyebrow')}>
-              {block?.eyebrow ?? 'Локация · OBJ-NIKOM-HQ'}
+              {block?.eyebrow}
             </div>
             <h2 className="h2" data-sanity={path('heading')}>
-              <StreamText text={block?.heading ?? 'Намерете ни.'} />
+              <StreamText text={block?.heading} />
             </h2>
           </div>
 
@@ -297,14 +291,14 @@ export default function ContactMaps({ block, index, pageId, pageType }: Props) {
           <div className="ctc-map-side">
             <div className="ctc-map-meta">
               <div className="meta">КООРДИНАТИ</div>
-              <div className="ctc-coord" data-sanity={path('latitude')}>{block?.latitude ?? '42.6502° N'}</div>
-              <div className="ctc-coord" data-sanity={path('longitude')}>{block?.longitude ?? '23.3796° E'}</div>
+              <div className="ctc-coord" data-sanity={path('latitude')}>{block?.latitude}</div>
+              <div className="ctc-coord" data-sanity={path('longitude')}>{block?.longitude}</div>
               <div className="meta" style={{marginTop:16}}>СЕКТОР</div>
-              <div className="ctc-coord" data-sanity={path('sector')}>{block?.sector ?? 'Sofia · Mladost 4'}</div>
+              <div className="ctc-coord" data-sanity={path('sector')}>{block?.sector}</div>
               <div className="meta" style={{marginTop:16}}>СТАТУС</div>
               <div className="ctc-coord ctc-status-live"><span className="status-dot"/> ACTIVE · TX</div>
               <div className="meta" style={{marginTop:16}}>ОБЕКТ-ID</div>
-              <div className="ctc-coord" data-sanity={path('objectId')}>{block?.objectId ?? 'NIKOM-HQ-001'}</div>
+              <div className="ctc-coord" data-sanity={path('objectId')}>{block?.objectId}</div>
             </div>
 
             <div className="ctc-map-directions">

@@ -36,34 +36,16 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_HEADING_PARTS: HeadingPart[] = [
-  { _key: 'hp1', text: 'Системи за ', highlight: false },
-  { _key: 'hp2', text: 'сигурност', highlight: true },
-  { _key: 'hp3', text: ', ', highlight: false },
-  { _key: 'hp4', text: 'пожарна безопасност', highlight: true },
-  { _key: 'hp5', text: ' и ', highlight: false },
-  { _key: 'hp6', text: 'контрол на достъп', highlight: true },
-]
-
-const DEFAULT_TRUST_ITEMS: TrustItem[] = [
-  { _key: 'ti1', value: '20', suffix: '+', label: 'години инженерен опит', isCounter: true },
-  { _key: 'ti2', value: '800', suffix: '+', label: 'завършени обекта', isCounter: true },
-  { _key: 'ti3', value: '24/7', suffix: '', label: 'сервизна поддръжка', isCounter: false },
-  { _key: 'ti4', value: 'ISO', suffix: '', label: '9001 / 14001 / 27001', isCounter: false },
-]
-
 export default function HomeHero({ block, pageId, pageType }: Props) {
-  const eyebrow = block?.eyebrow ?? 'Инженерни системи • Сертифицирано'
-  const headingParts = block?.headingParts ?? DEFAULT_HEADING_PARTS
-  const sub =
-    block?.sub ??
-    'Проектиране, доставка, монтаж и поддръжка на сертифицирани решения за бизнес, обществени и индустриални обекти. Над две десетилетия инженерен опит, без компромис към сигурността.'
-  const ctaPrimary = block?.ctaPrimary ?? { label: 'Заявете консултация', href: '#contact' }
-  const ctaSecondary = block?.ctaSecondary ?? { label: 'Вижте проекти', href: '#projects' }
-  const trustItems = block?.trustItems ?? DEFAULT_TRUST_ITEMS
-  const stripLive = block?.stripLive ?? 'LIVE — Дежурен инженер на линия'
-  const stripLocations = block?.stripLocations ?? 'Sofia · Plovdiv · Varna · Burgas'
-  const stripLicense = block?.stripLicense ?? 'Лиценз № 2436-2017 · МВР'
+  const eyebrow = block?.eyebrow
+  const headingParts = block?.headingParts ?? []
+  const sub = block?.sub
+  const ctaPrimary = block?.ctaPrimary
+  const ctaSecondary = block?.ctaSecondary
+  const trustItems = block?.trustItems ?? []
+  const stripLive = block?.stripLive
+  const stripLocations = block?.stripLocations
+  const stripLicense = block?.stripLicense
 
   const blockKey = block?._key ?? ''
   const path = (field: string) =>
@@ -90,11 +72,11 @@ export default function HomeHero({ block, pageId, pageType }: Props) {
         <p className="hero-sub" data-sanity={path('sub')}>{sub}</p>
 
         <div className="hero-cta">
-          <a className="btn btn-primary btn-lg" href={ctaPrimary.href ?? '#contact'}>
-            {ctaPrimary.label ?? 'Заявете консултация'} <Icons.Arrow />
+          <a className="btn btn-primary btn-lg" href={ctaPrimary?.href}>
+            {ctaPrimary?.label} <Icons.Arrow />
           </a>
-          <a className="btn btn-ghost btn-lg" href={ctaSecondary.href ?? '#projects'}>
-            {ctaSecondary.label ?? 'Вижте проекти'}
+          <a className="btn btn-ghost btn-lg" href={ctaSecondary?.href}>
+            {ctaSecondary?.label}
           </a>
         </div>
 

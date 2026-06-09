@@ -1,0 +1,261 @@
+{
+  "homeHero": {
+    "eyebrow": "Инженерни системи • Сертифицирано",
+    "headingParts": [
+      { "_key": "headingParts-0", "_type": "headingPart", "text": "Системи за ", "highlight": false },
+      { "_key": "headingParts-1", "_type": "headingPart", "text": "сигурност", "highlight": true },
+      { "_key": "headingParts-2", "_type": "headingPart", "text": ", ", "highlight": false },
+      { "_key": "headingParts-3", "_type": "headingPart", "text": "пожарна безопасност", "highlight": true },
+      { "_key": "headingParts-4", "_type": "headingPart", "text": " и ", "highlight": false },
+      { "_key": "headingParts-5", "_type": "headingPart", "text": "контрол на достъп", "highlight": true }
+    ],
+    "sub": "Проектиране, доставка, монтаж и поддръжка на сертифицирани решения за бизнес, обществени и индустриални обекти. Над две десетилетия инженерен опит, без компромис към сигурността.",
+    "ctaPrimary": { "label": "Заявете консултация", "href": "#contact" },
+    "ctaSecondary": { "label": "Вижте проекти", "href": "#projects" },
+    "trustItems": [
+      { "_key": "trustItems-0", "_type": "trustItem", "value": "20", "suffix": "+", "label": "години инженерен опит", "isCounter": true },
+      { "_key": "trustItems-1", "_type": "trustItem", "value": "800", "suffix": "+", "label": "завършени обекта", "isCounter": true },
+      { "_key": "trustItems-2", "_type": "trustItem", "value": "24/7", "suffix": "", "label": "сервизна поддръжка", "isCounter": false },
+      { "_key": "trustItems-3", "_type": "trustItem", "value": "ISO", "suffix": "", "label": "9001 / 14001 / 27001", "isCounter": false }
+    ],
+    "stripLive": "LIVE — Дежурен инженер на линия",
+    "stripLocations": "Sofia · Plovdiv · Varna · Burgas",
+    "stripLicense": "Лиценз № 2436-2017 · МВР"
+  },
+  "homeTicker": {
+    "items": [
+      { "_key": "items-0", "_type": "tickerItem", "num": "800+", "text": "завършени обекта" },
+      { "_key": "items-1", "_type": "tickerItem", "num": "24/7", "text": "дежурен инженер" },
+      { "_key": "items-2", "_type": "tickerItem", "num": "< 30 мин", "text": "критична реакция" },
+      { "_key": "items-3", "_type": "tickerItem", "num": "20+ г.", "text": "инженерен опит" },
+      { "_key": "items-4", "_type": "tickerItem", "num": "ISO 27001", "text": "сертифицирано" },
+      { "_key": "items-5", "_type": "tickerItem", "num": "98.6%", "text": "SLA точност" },
+      { "_key": "items-6", "_type": "tickerItem", "num": "248", "text": "активни нод-а" },
+      { "_key": "items-7", "_type": "tickerItem", "num": "EN 54", "text": "съответствие" }
+    ],
+    "speed": 45
+  },
+  "homeSolutions": {
+    "eyebrow": "Решения · 05 категории",
+    "heading": "Един партньор за всички инженерни системи в обекта.",
+    "lead": "Проектираме, доставяме и интегрираме сертифицирани системи на водещи производители. Категориите по-долу се изграждат самостоятелно или като единна интегрирана среда.",
+    "cards": [
+      { "_key": "cards-0", "_type": "solutionCard", "icon": "Fire", "chip": "01 · Пожарна безопасност", "meta": "EN 54 · NFPA", "title": "Пожароизвестяване & пожарогасене", "desc": "", "tag": "Прегледай решения", "variant": "fire" },
+      { "_key": "cards-1", "_type": "solutionCard", "icon": "Cam", "chip": "02 · Сигурност", "meta": "", "title": "Видеонаблюдение & СОТ", "desc": "IP/PTZ камери, термовизия, VMS, охранителни централи, периметрова защита.", "tag": "Детайли", "variant": "default" },
+      { "_key": "cards-2", "_type": "solutionCard", "icon": "Panic", "chip": "03 · Реакция", "meta": "", "title": "Паник & алармени системи", "desc": "Дискретни паник бутони, моментално оповестяване, патрулна реакция.", "tag": "Детайли", "variant": "default" },
+      { "_key": "cards-3", "_type": "solutionCard", "icon": "Key", "chip": "04 · Контрол на достъп", "meta": "RFID · BIOMETRIC · ANPR", "title": "Контрол на достъп & паркинг", "desc": "Soyal, Paradox, Suprema. Биометрия, картови системи, турникети, бариери и ANPR за паркинг управление.", "tag": "Детайли", "variant": "wide" },
+      { "_key": "cards-4", "_type": "solutionCard", "icon": "Speaker", "chip": "05 · Комуникация", "meta": "", "title": "Озвучаване & оповестяване", "desc": "Bosch, TOA, Inter-M. Гласово евакуационно оповестяване EN 54-16.", "tag": "Детайли", "variant": "default" },
+      { "_key": "cards-5", "_type": "solutionCard", "icon": "Net", "chip": "06 · Инфраструктура", "meta": "", "title": "Структурни кабелни системи", "desc": "Cat6/6A, оптика, LAN/WAN, сървърни шкафове — основата на всяка система.", "tag": "Детайли", "variant": "default" },
+      { "_key": "cards-6", "_type": "solutionCard", "icon": "Shield", "chip": "07 · Интеграция", "meta": "PSIM · SCADA · BMS", "title": "Единна интегрирана среда", "desc": "Свързваме пожарна, охрана, достъп, видеонаблюдение, оповестяване и BMS в единна PSIM платформа.", "tag": "Архитектура на интеграцията", "variant": "dark-wide" }
+    ]
+  },
+  "homeProcess": {
+    "eyebrow": "Процес · End-to-End инженеринг",
+    "heading": "Един екип. Един проект. От консултация до поддръжка.",
+    "lead": "Не работим с подизпълнители на ключови етапи. Всеки проект се води от назначен инженер-ръководител.",
+    "steps": [
+      { "_key": "steps-0", "_type": "processStep", "num": "01", "title": "Консултация", "desc": "Оглед, нормативни изисквания, бюджетна рамка." },
+      { "_key": "steps-1", "_type": "processStep", "num": "02", "title": "Проектиране", "desc": "Работен проект, спецификация, съгласувания." },
+      { "_key": "steps-2", "_type": "processStep", "num": "03", "title": "Доставка", "desc": "Сертифицирана техника от водещи производители." },
+      { "_key": "steps-3", "_type": "processStep", "num": "04", "title": "Монтаж", "desc": "Лицензиран екип, инсталация по график." },
+      { "_key": "steps-4", "_type": "processStep", "num": "05", "title": "Тестване", "desc": "72-часов приемен тест, протоколи." },
+      { "_key": "steps-5", "_type": "processStep", "num": "06", "title": "Обучение", "desc": "Инструктаж на операторите." },
+      { "_key": "steps-6", "_type": "processStep", "num": "07", "title": "Поддръжка", "desc": "Абонаментен сервиз 24/7." }
+    ]
+  },
+  "homeWhy": {
+    "eyebrow": "Защо NIKOM",
+    "heading": "Инженерен партньор, не доставчик на оборудване.",
+    "lead": "Над 20 години изграждаме критични системи за болници, посолства, индустрия и търговски вериги. Останалото е въпрос на стандарт.",
+    "stats": [
+      { "_key": "stats-0", "_type": "stat", "value": 98.6, "decimals": 1, "suffix": "%", "label": "точност на SLA реакции", "isCounter": true },
+      { "_key": "stats-1", "_type": "stat", "value": 30, "prefix": "<", "label": "мин средно време за критична реакция", "isCounter": true }
+    ],
+    "pillars": [
+      { "_key": "pillars-0", "_type": "pillar", "title": "Инженерен подход", "desc": "Решения, проектирани от инженери. Всеки проект минава през работно проектиране и съгласуване." },
+      { "_key": "pillars-1", "_type": "pillar", "title": "Сертифицирана апаратура", "desc": "Esser, Honeywell, INIM, Securiton, Bosch, Soyal, Paradox — само сертифицирани производители." },
+      { "_key": "pillars-2", "_type": "pillar", "title": "Прецизно изпълнение", "desc": "Лицензирани монтажни екипи, доказана методика, документиране и 72-часов приемен тест." },
+      { "_key": "pillars-3", "_type": "pillar", "title": "Дългосрочна поддръжка", "desc": "Абонаментен сервиз 24/7, профилактика, резервни части, договорно SLA." }
+    ]
+  },
+  "homeIndustries": {
+    "eyebrow": "Сектори · 06 индустрии",
+    "heading": "Системи, изпитани в най-критични среди.",
+    "lead": "Всеки сектор има специфични нормативни изисквания и риск-профил. Подходът ни е адаптиран към всеки от тях.",
+    "sectors": [
+      { "_key": "sectors-0", "_type": "sector", "name": "Болници и лечебни заведения", "k": "hospital", "code": "H+", "kpi": 187, "kpiLabel": "ЗОНИ", "events": ["Зона 12 · OK", "Достъп · Кардиология", "ASD · норма", "Камера 47 · активна", "Газ-гасене · armed"] },
+      { "_key": "sectors-1", "_type": "sector", "name": "Търговски вериги & ритейл", "k": "retail", "code": "R", "kpi": 640, "kpiLabel": "КАМЕРИ", "events": ["EAS · Каса 04", "POS-CCTV синхрон", "Зона 03 · норма", "Видеоанализ · OK", "Склад · вход 2"] },
+      { "_key": "sectors-2", "_type": "sector", "name": "Хотели и жилищни комплекси", "k": "hotel", "code": "HSP", "kpi": 248, "kpiLabel": "СТАИ", "events": ["Карта · етаж 7", "Лоби · OK", "Паркинг · вход 2", "Пожар · норма", "SPA зона · OK"] },
+      { "_key": "sectors-3", "_type": "sector", "name": "Индустриални и складови бази", "k": "ind", "code": "IND", "kpi": 412, "kpiLabel": "СЕНЗОРИ", "events": ["Периметър · OK", "Радар · сектор B", "Бариера · вход 2", "VESDA · норма", "ATEX зона · OK"] },
+      { "_key": "sectors-4", "_type": "sector", "name": "Офис и административни сгради", "k": "office", "code": "OFF", "kpi": 16, "kpiLabel": "ЕТАЖА", "events": ["Турникет · вход юг", "BMS · норма", "Зона 4 · OK", "Лифт · сервиз", "Дата-център · OK"] },
+      { "_key": "sectors-5", "_type": "sector", "name": "Държавни и институционални", "k": "gov", "code": "GOV", "kpi": 92, "kpiLabel": "ЗОНИ", "events": ["Бариера · вход 1", "ID-контрол · активен", "Периметър · OK", "Архив · заключен", "Sally-port · clear"] }
+    ]
+  },
+  "homeProjectsFeatured": {
+    "eyebrow": "Проекти · Избрани",
+    "heading": "Доказани решения в обекти с висока критичност.",
+    "projects": [
+      {
+        "_key": "projects-0",
+        "_type": "featuredProject",
+        "title": "Аджибадем Сити Клиник · Болница Токуда",
+        "sector": "Здравеопазване",
+        "year": "2022",
+        "imageFallback": "proj-tokuda.jpg",
+        "systems": ["Пожароизвестяване", "Видеонаблюдение", "Контрол на достъп", "Гласово оповестяване", "Структурно окабеляване"],
+        "kpis": [
+          { "_key": "kpis-0", "_type": "kpiItem", "label": "Обекта", "value": 3, "suffix": "" },
+          { "_key": "kpis-1", "_type": "kpiItem", "label": "Камери", "value": 312, "suffix": "" },
+          { "_key": "kpis-2", "_type": "kpiItem", "label": "Сензори", "value": 1850, "suffix": "+" }
+        ],
+        "href": "#",
+        "featured": true
+      },
+      {
+        "_key": "projects-1",
+        "_type": "featuredProject",
+        "title": "Верига магазини ХИПОЛЕНД",
+        "sector": "Ритейл",
+        "year": "2019—2025",
+        "imageFallback": "proj-hipoland.jpg",
+        "systems": ["Пожароизвестяване", "CCTV", "СОТ", "Озвучаване"],
+        "kpis": [
+          { "_key": "kpis-0", "_type": "kpiItem", "label": "Обекта", "value": 28, "suffix": "" },
+          { "_key": "kpis-1", "_type": "kpiItem", "label": "Камери", "value": 640, "suffix": "+" },
+          { "_key": "kpis-2", "_type": "kpiItem", "label": "Сензори", "value": 1240, "suffix": "+" }
+        ],
+        "href": "#",
+        "featured": false
+      },
+      {
+        "_key": "projects-2",
+        "_type": "featuredProject",
+        "title": "Болница по хематология",
+        "sector": "Здравеопазване",
+        "year": "2021",
+        "imageFallback": "proj-onkobolnitsa.jpg",
+        "systems": ["Газово пожарогасене", "ASD", "Контрол на достъп"],
+        "kpis": [
+          { "_key": "kpis-0", "_type": "kpiItem", "label": "Обекта", "value": 1, "suffix": "" },
+          { "_key": "kpis-1", "_type": "kpiItem", "label": "Камери", "value": 96, "suffix": "" },
+          { "_key": "kpis-2", "_type": "kpiItem", "label": "Сензори", "value": 210, "suffix": "" }
+        ],
+        "href": "#",
+        "featured": false
+      },
+      {
+        "_key": "projects-3",
+        "_type": "featuredProject",
+        "title": "Посолство и резиденция · Република Полша",
+        "sector": "Държавни обекти",
+        "year": "2020",
+        "imageFallback": "proj-poland.jpg",
+        "systems": ["Периметрова защита", "CCTV", "ACS", "PA"],
+        "kpis": [
+          { "_key": "kpis-0", "_type": "kpiItem", "label": "Обекта", "value": 2, "suffix": "" },
+          { "_key": "kpis-1", "_type": "kpiItem", "label": "Камери", "value": 84, "suffix": "" },
+          { "_key": "kpis-2", "_type": "kpiItem", "label": "Сензори", "value": 156, "suffix": "" }
+        ],
+        "href": "#",
+        "featured": false
+      }
+    ]
+  },
+  "homeIntegration": {
+    "eyebrow": "Архитектура · Интеграция",
+    "heading": "Една централа. Всички подсистеми.",
+    "lead": "Сценарий, при който димен датчик задейства CCTV запис, локално оповестяване, евакуационни маршрути и уведомяване на дежурния — за секунди.",
+    "subsystems": [
+      { "_key": "subsystems-0", "_type": "subsystem", "key": "FIRE", "label": "Пожароизвестяване", "icon": "fire" },
+      { "_key": "subsystems-1", "_type": "subsystem", "key": "CCTV", "label": "Видеонаблюдение", "icon": "cam" },
+      { "_key": "subsystems-2", "_type": "subsystem", "key": "ACS", "label": "Контрол на достъп", "icon": "key" },
+      { "_key": "subsystems-3", "_type": "subsystem", "key": "INT", "label": "Алармени системи", "icon": "bell" },
+      { "_key": "subsystems-4", "_type": "subsystem", "key": "PA", "label": "Озвучаване / PA", "icon": "speaker" },
+      { "_key": "subsystems-5", "_type": "subsystem", "key": "PRK", "label": "Паркинг / ANPR", "icon": "bar" },
+      { "_key": "subsystems-6", "_type": "subsystem", "key": "INT2", "label": "Аудио-видеодомофон", "icon": "intercom" },
+      { "_key": "subsystems-7", "_type": "subsystem", "key": "BMS", "label": "BMS / Сграда", "icon": "net" }
+    ],
+    "events": [
+      { "_key": "events-0", "_type": "eventItem", "time": "14:02:11", "tag": "INFO", "kind": "info", "msg": "Heartbeat — всички подсистеми online" },
+      { "_key": "events-1", "_type": "eventItem", "time": "14:03:48", "tag": "OK", "kind": "ok", "msg": "ACS-A1 · валидиран достъп (карта #2847)" },
+      { "_key": "events-2", "_type": "eventItem", "time": "14:05:22", "tag": "INFO", "kind": "info", "msg": "CCTV-C7 · PTZ patrol cycle стартиран" },
+      { "_key": "events-3", "_type": "eventItem", "time": "14:07:09", "tag": "WARN", "kind": "warn", "msg": "FIRE-F2 · смущение в detector loop 3" },
+      { "_key": "events-4", "_type": "eventItem", "time": "14:07:11", "tag": "OK", "kind": "ok", "msg": "FIRE-F2 · self-check premium · възстановен" },
+      { "_key": "events-5", "_type": "eventItem", "time": "14:09:34", "tag": "INFO", "kind": "info", "msg": "PA · scheduled announcement OK" },
+      { "_key": "events-6", "_type": "eventItem", "time": "14:11:50", "tag": "OK", "kind": "ok", "msg": "BMS · HVAC синхронизация валидна" }
+    ],
+    "kpis": [
+      { "_key": "kpis-0", "_type": "archKpi", "value": 248, "suffix": "", "prefix": "", "decimals": 0, "label": "активни нод-а" },
+      { "_key": "kpis-1", "_type": "archKpi", "value": 8, "suffix": "", "prefix": "", "decimals": 0, "label": "подсистеми" },
+      { "_key": "kpis-2", "_type": "archKpi", "value": 99.97, "suffix": "%", "prefix": "", "decimals": 2, "label": "uptime · 90 дни" },
+      { "_key": "kpis-3", "_type": "archKpi", "value": 400, "suffix": "ms", "prefix": "<", "decimals": 0, "label": "cross-system latency" }
+    ],
+    "scenarioSteps": [
+      { "_key": "scenarioSteps-0", "_type": "scenarioStep", "time": "+0.0s", "tag": "F2", "kind": "alert", "msg": "Димен датчик в зона F2 · trigger" },
+      { "_key": "scenarioSteps-1", "_type": "scenarioStep", "time": "+0.4s", "tag": "CCTV", "kind": "ok", "msg": "PTZ pre-set към зоната · запис започва" },
+      { "_key": "scenarioSteps-2", "_type": "scenarioStep", "time": "+0.8s", "tag": "ACS", "kind": "ok", "msg": "Евакуационни маршрути · отключени" },
+      { "_key": "scenarioSteps-3", "_type": "scenarioStep", "time": "+1.2s", "tag": "PA", "kind": "warn", "msg": "Гласово оповестяване · евакуация" },
+      { "_key": "scenarioSteps-4", "_type": "scenarioStep", "time": "+1.8s", "tag": "OPS", "kind": "info", "msg": "Дежурен инженер · push notification" }
+    ]
+  },
+  "homePartners": {
+    "eyebrow": "Сертифицирани партньори",
+    "heading": "Работим със световни производители — без компромиси с качеството.",
+    "partnersRow1": [
+      { "_key": "partnersRow1-0", "_type": "partnerItem", "name": "Honeywell" },
+      { "_key": "partnersRow1-1", "_type": "partnerItem", "name": "Esser" },
+      { "_key": "partnersRow1-2", "_type": "partnerItem", "name": "INIM" },
+      { "_key": "partnersRow1-3", "_type": "partnerItem", "name": "Securiton" },
+      { "_key": "partnersRow1-4", "_type": "partnerItem", "name": "Panasonic" },
+      { "_key": "partnersRow1-5", "_type": "partnerItem", "name": "Bosch" },
+      { "_key": "partnersRow1-6", "_type": "partnerItem", "name": "Dahua" },
+      { "_key": "partnersRow1-7", "_type": "partnerItem", "name": "Paradox" },
+      { "_key": "partnersRow1-8", "_type": "partnerItem", "name": "Soyal" },
+      { "_key": "partnersRow1-9", "_type": "partnerItem", "name": "Farfisa" },
+      { "_key": "partnersRow1-10", "_type": "partnerItem", "name": "TOA" },
+      { "_key": "partnersRow1-11", "_type": "partnerItem", "name": "Suprema" },
+      { "_key": "partnersRow1-12", "_type": "partnerItem", "name": "Hikvision" },
+      { "_key": "partnersRow1-13", "_type": "partnerItem", "name": "Axis" },
+      { "_key": "partnersRow1-14", "_type": "partnerItem", "name": "Mobotix" }
+    ],
+    "partnersRow2": [
+      { "_key": "partnersRow2-0", "_type": "partnerItem2", "name": "Mobotix" },
+      { "_key": "partnersRow2-1", "_type": "partnerItem2", "name": "Axis" },
+      { "_key": "partnersRow2-2", "_type": "partnerItem2", "name": "Hikvision" },
+      { "_key": "partnersRow2-3", "_type": "partnerItem2", "name": "Suprema" },
+      { "_key": "partnersRow2-4", "_type": "partnerItem2", "name": "TOA" },
+      { "_key": "partnersRow2-5", "_type": "partnerItem2", "name": "Farfisa" },
+      { "_key": "partnersRow2-6", "_type": "partnerItem2", "name": "Soyal" },
+      { "_key": "partnersRow2-7", "_type": "partnerItem2", "name": "Paradox" },
+      { "_key": "partnersRow2-8", "_type": "partnerItem2", "name": "Dahua" },
+      { "_key": "partnersRow2-9", "_type": "partnerItem2", "name": "Bosch" },
+      { "_key": "partnersRow2-10", "_type": "partnerItem2", "name": "Panasonic" },
+      { "_key": "partnersRow2-11", "_type": "partnerItem2", "name": "Securiton" },
+      { "_key": "partnersRow2-12", "_type": "partnerItem2", "name": "INIM" },
+      { "_key": "partnersRow2-13", "_type": "partnerItem2", "name": "Esser" },
+      { "_key": "partnersRow2-14", "_type": "partnerItem2", "name": "Honeywell" }
+    ],
+    "certs": [
+      { "_key": "certs-0", "_type": "certItem", "label": "ISO 9001:2015" },
+      { "_key": "certs-1", "_type": "certItem", "label": "ISO 14001:2015" },
+      { "_key": "certs-2", "_type": "certItem", "label": "ISO 27001" },
+      { "_key": "certs-3", "_type": "certItem", "label": "ИТ–СТД-001" },
+      { "_key": "certs-4", "_type": "certItem", "label": "Лиценз МВР № 2436" },
+      { "_key": "certs-5", "_type": "certItem", "label": "EN 54" }
+    ]
+  },
+  "homeContact": {
+    "eyebrow": "Контакт · Инженер на линия",
+    "heading": "Обсъдете Вашия проект с инженер.",
+    "copy": "Получавате обратна връзка до 4 работни часа в работни дни. За спешни случаи на действащи обекти — директен телефон към дежурен инженер.",
+    "contactItems": [
+      { "_key": "contactItems-0", "_type": "contactItem", "icon": "Phone", "label": "Телефон", "value": "+359 89 45 23 970" },
+      { "_key": "contactItems-1", "_type": "contactItem", "icon": "Net", "label": "Имейл", "value": "office@nikom-security.com" },
+      { "_key": "contactItems-2", "_type": "contactItem", "icon": "Key", "label": "Централа", "value": "гр. София, ул. Инженерна 14, ет. 3" },
+      { "_key": "contactItems-3", "_type": "contactItem", "icon": "Shield", "label": "Работно време", "value": "Пн–Пт · 09:00—18:00 | Сервиз · 24/7" }
+    ],
+    "formSubmitLabel": "Изпрати заявката",
+    "formSuccessHeading": "Получихме заявката Ви.",
+    "formSuccessBody": "Инженер от екипа ще се свърже с Вас в рамките на 4 работни часа."
+  }
+}

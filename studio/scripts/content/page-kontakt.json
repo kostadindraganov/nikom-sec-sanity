@@ -1,0 +1,104 @@
+{
+  "contactHero": {
+    "eyebrow": "Контакт · Инженер на линия",
+    "heading": "Свържете се с нас за нов или съществуващ проект.",
+    "lead": "Дискретността и конфиденциалността са гарантирани. Ще споделим нашия опит накратко или в обширна консултация — както Ви е удобно.",
+    "phone": "+359894523970",
+    "phoneDisplay": "+359 89 45 23 970",
+    "email": "office@nikom-security.com"
+  },
+  "contactInfo": {
+    "eyebrow": "Координати · 04 канала за връзка",
+    "heading": "Как можем да Ви бъдем полезни.",
+    "lead": "Ако желаете да направим среща или консултация, изпратете запитване чрез формата по-долу или ни звъннете директно.",
+    "offices": [
+      {
+        "_key": "offices-0",
+        "_type": "officeCard",
+        "num": "01",
+        "city": "Адрес офис и склад",
+        "address": "жк. Младост 4, блок 477, вх. 1, офис 1\nСофия, 1715\nБългария",
+        "linkLabel": "Виж на картата",
+        "linkHref": "#map"
+      },
+      {
+        "_key": "offices-1",
+        "_type": "officeCard",
+        "num": "02",
+        "city": "Работно време",
+        "hours": "Пн – Пт · 09:00 — 18:00\nСб & Нд — неработни\nСервиз — 24 / 7 / 365",
+        "linkLabel": "Активен статус ⓘ"
+      },
+      {
+        "_key": "offices-2",
+        "_type": "officeCard",
+        "num": "03",
+        "city": "Данни на фирмата",
+        "address": "„Ником Системи за Сигурност\" ЕООД\nЕИК 131294795\nЛиценз ГД ПБЗН-МВР № 743/07.07.2017 г.",
+        "linkLabel": "Документи на запитване ⓘ"
+      },
+      {
+        "_key": "offices-3",
+        "_type": "officeCard",
+        "num": "04",
+        "city": "Време за реакция"
+      }
+    ]
+  },
+  "contactMaps": {
+    "eyebrow": "Локация · OBJ-NIKOM-HQ",
+    "heading": "Намерете ни.",
+    "latitude": "42.6502° N",
+    "longitude": "23.3796° E",
+    "sector": "Sofia · Mladost 4",
+    "objectId": "NIKOM-HQ-001",
+    "googleMapsUrl": "https://www.google.com/maps/search/?api=1&query=NIKOM%20%D0%A1%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B8%20%D0%B7%D0%B0%20%D0%A1%D0%B8%D0%B3%D1%83%D1%80%D0%BD%D0%BE%D1%81%D1%82%2C%20%D0%B6%D0%BA.%20%D0%9C%D0%BB%D0%B0%D0%B4%D0%BE%D1%81%D1%82%204%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%20477%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F",
+    "wazeUrl": "https://www.waze.com/ul?ll=42.6502%2C23.3796&navigate=yes",
+    "appleMapsUrl": "https://maps.apple.com/?ll=42.6502,23.3796&q=NIKOM%20Security",
+    "embedUrl": "https://www.google.com/maps?q=%D0%B6%D0%BA.%20%D0%9C%D0%BB%D0%B0%D0%B4%D0%BE%D1%81%D1%82%204%2C%20%D0%B1%D0%BB%D0%BE%D0%BA%20477%2C%20%D0%A1%D0%BE%D1%84%D0%B8%D1%8F&output=embed&hl=bg&z=16"
+  },
+  "contactForm": {
+    "eyebrow": "Запитване · Форма",
+    "heading": "Изпратете запитване — отговор до 4 работни часа.",
+    "lead": "Получавате обратна връзка от инженер до 4 работни часа. За спешни случаи на действащи обекти — директен телефон към дежурен инженер.",
+    "departments": [
+      {
+        "_key": "departments-0",
+        "_type": "department",
+        "id": "consultation",
+        "label": "Консултация"
+      },
+      {
+        "_key": "departments-1",
+        "_type": "department",
+        "id": "project",
+        "label": "Нов проект"
+      },
+      {
+        "_key": "departments-2",
+        "_type": "department",
+        "id": "service",
+        "label": "Сервиз"
+      },
+      {
+        "_key": "departments-3",
+        "_type": "department",
+        "id": "other",
+        "label": "Друго"
+      }
+    ],
+    "fieldLabelName": "Име",
+    "fieldLabelSurname": "Фамилия",
+    "fieldLabelEmail": "Имейл",
+    "fieldLabelPhone": "Телефон",
+    "fieldLabelCompany": "Фирма / Организация",
+    "fieldLabelAddress": "Адрес на обекта",
+    "fieldLabelMessage": "Кратко описание или въпрос",
+    "submitText": "Изпрати запитване",
+    "trustTitle": "Вашата информация е защитена",
+    "trustText": "Обработваме конфиденциално и не споделяме с трети страни.",
+    "successHeading": "Получихме запитването Ви.",
+    "successText": "Инженер от екипа ще се свърже с Вас в рамките на 4 работни часа.",
+    "avgResponseTime": "~3ч 12мин"
+  }
+}

@@ -1,7 +1,7 @@
 'use client';
 
 import { Counter, StreamText } from '@/app/components/nikom/animations';
-import { dataAttr } from '@/sanity/lib/utils';
+import { dataAttr, imageUrl } from '@/sanity/lib/utils';
 
 type Stat = {
   _key: string;
@@ -28,14 +28,9 @@ type Props = {
 export default function AboutHero({ block, index, pageId, pageType }: Props) {
   const path = `pageBuilder[_key=="${block?._key}"]`;
 
-  const stats: Stat[] = block?.stats ?? [
-    { _key: 'stat1', value: '20', animated: true, suffix: '+', label: 'години опит' },
-    { _key: 'stat2', value: '2005', animated: false, suffix: '', label: 'година на основаване' },
-    { _key: 'stat3', value: '12', animated: false, suffix: '', label: 'категории системи' },
-    { _key: 'stat4', value: '№ 743', animated: false, suffix: '', label: 'лиценз ГД ПБЗН-МВР' },
-  ];
+  const stats: Stat[] = block?.stats ?? [];
 
-  const imageSrc = block?.image?.asset ? undefined : '/nikom/about-hero.jpg';
+  const imageSrc = imageUrl(block?.image, '/nikom/about-hero.jpg');
 
   return (
     <section className="about-hero">
@@ -54,21 +49,21 @@ export default function AboutHero({ block, index, pageId, pageType }: Props) {
             className="eyebrow"
             data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.eyebrow` }).toString()}
           >
-            {block?.eyebrow ?? 'За нас · Инженерна компания от 2005'}
+            {block?.eyebrow}
           </div>
           <h1
             className="h1 about-h1"
             data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.heading` }).toString()}
           >
             <StreamText
-              text={block?.heading ?? 'Над 20 години инженеринг в системите за сигурност, контрол и пожарна безопасност.'}
+              text={block?.heading}
             />
           </h1>
           <p
             className="about-lead"
             data-sanity={dataAttr({ id: pageId, type: pageType, path: `${path}.lead` }).toString()}
           >
-            {block?.lead ?? '„НИКОМ Системи за Сигурност" ЕООД е инженерингова компания, създадена през 2005 г. от инженери с отлична професионална квалификация и дългогодишен опит в предоставянето на цялостни решения в сигурността. Свидетели сме на бързите промени в продуктите и услугите — и развълнувани от възможностите, които те дават на нашите клиенти.'}
+            {block?.lead}
           </p>
           <div
             className="about-stats"
@@ -81,7 +76,7 @@ export default function AboutHero({ block, index, pageId, pageType }: Props) {
               >
                 <div className="trust-n">
                   {s.animated
-                    ? <><Counter to={Number(s.value) || 0} /><span>{s.suffix ?? '+'}</span></>
+                    ? <><Counter to={Number(s.value) || 0} /><span>{s.suffix}</span></>
                     : <>{s.value ?? ''}{s.suffix ? <span>{s.suffix}</span> : null}</>
                   }
                 </div>

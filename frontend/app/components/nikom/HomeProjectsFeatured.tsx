@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { Counter, StreamText } from '@/app/components/nikom/animations';
 import { Icons } from '@/app/components/nikom/icons';
-import { dataAttr } from '@/sanity/lib/utils';
+import { dataAttr, imageUrl } from '@/sanity/lib/utils';
 import Image from 'next/image';
 
 type KpiItem = {
@@ -38,73 +38,10 @@ type Props = {
   pageType?: string;
 };
 
-const DEFAULT_PROJECTS: Project[] = [
-  {
-    _key: 'proj-tokuda',
-    title: 'Аджибадем Сити Клиник · Болница Токуда',
-    sector: 'Здравеопазване',
-    year: '2022',
-    imageFallback: 'proj-tokuda.jpg',
-    systems: ['Пожароизвестяване', 'Видеонаблюдение', 'Контрол на достъп', 'Гласово оповестяване', 'Структурно окабеляване'],
-    kpis: [
-      { _key: 'k1', label: 'Обекта', value: 3, suffix: '' },
-      { _key: 'k2', label: 'Камери', value: 312, suffix: '' },
-      { _key: 'k3', label: 'Сензори', value: 1850, suffix: '+' },
-    ],
-    href: '#',
-    featured: true,
-  },
-  {
-    _key: 'proj-hipoland',
-    title: 'Верига магазини ХИПОЛЕНД',
-    sector: 'Ритейл',
-    year: '2019—2025',
-    imageFallback: 'proj-hipoland.jpg',
-    systems: ['Пожароизвестяване', 'CCTV', 'СОТ', 'Озвучаване'],
-    kpis: [
-      { _key: 'k1', label: 'Обекта', value: 28, suffix: '' },
-      { _key: 'k2', label: 'Камери', value: 640, suffix: '+' },
-      { _key: 'k3', label: 'Сензори', value: 1240, suffix: '+' },
-    ],
-    href: '#',
-    featured: false,
-  },
-  {
-    _key: 'proj-onko',
-    title: 'Болница по хематология',
-    sector: 'Здравеопазване',
-    year: '2021',
-    imageFallback: 'proj-onkobolnitsa.jpg',
-    systems: ['Газово пожарогасене', 'ASD', 'Контрол на достъп'],
-    kpis: [
-      { _key: 'k1', label: 'Обекта', value: 1, suffix: '' },
-      { _key: 'k2', label: 'Камери', value: 96, suffix: '' },
-      { _key: 'k3', label: 'Сензори', value: 210, suffix: '' },
-    ],
-    href: '#',
-    featured: false,
-  },
-  {
-    _key: 'proj-poland',
-    title: 'Посолство и резиденция · Република Полша',
-    sector: 'Държавни обекти',
-    year: '2020',
-    imageFallback: 'proj-poland.jpg',
-    systems: ['Периметрова защита', 'CCTV', 'ACS', 'PA'],
-    kpis: [
-      { _key: 'k1', label: 'Обекта', value: 2, suffix: '' },
-      { _key: 'k2', label: 'Камери', value: 84, suffix: '' },
-      { _key: 'k3', label: 'Сензори', value: 156, suffix: '' },
-    ],
-    href: '#',
-    featured: false,
-  },
-];
-
 export default function HomeProjectsFeatured({ block, index, pageId, pageType }: Props) {
-  const eyebrow = block?.eyebrow ?? 'Проекти · Избрани';
-  const heading = block?.heading ?? 'Доказани решения в обекти с висока критичност.';
-  const projects = block?.projects ?? DEFAULT_PROJECTS;
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const projects = block?.projects ?? [];
 
   const blockKey = block?._key ?? '';
   const path = (field: string) =>
@@ -137,7 +74,7 @@ export default function HomeProjectsFeatured({ block, index, pageId, pageType }:
         <div className="proj-grid" data-sanity={projArrayPath}>
           {projects.map((p, i) => {
             const itemKey = p._key ?? String(i);
-            const imgSrc = p.imageFallback ? `/nikom/${p.imageFallback}` : '/nikom/proj-tokuda.jpg';
+            const imgSrc = imageUrl(p.image, p.imageFallback ? `/nikom/${p.imageFallback}` : '/nikom/proj-tokuda.jpg');
 
             return (
               <article

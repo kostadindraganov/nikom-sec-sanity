@@ -20,19 +20,8 @@ type Props = {
   pageType: string
 }
 
-const DEFAULT_ITEMS: TickerItem[] = [
-  { _key: 'tk1', num: '800+', text: 'завършени обекта' },
-  { _key: 'tk2', num: '24/7', text: 'дежурен инженер' },
-  { _key: 'tk3', num: '< 30 мин', text: 'критична реакция' },
-  { _key: 'tk4', num: '20+ г.', text: 'инженерен опит' },
-  { _key: 'tk5', num: 'ISO 27001', text: 'сертифицирано' },
-  { _key: 'tk6', num: '98.6%', text: 'SLA точност' },
-  { _key: 'tk7', num: '248', text: 'активни нод-а' },
-  { _key: 'tk8', num: 'EN 54', text: 'съответствие' },
-]
-
 export default function HomeTicker({ block, pageId, pageType }: Props) {
-  const items = block?.items ?? DEFAULT_ITEMS
+  const items = block?.items ?? []
   const speed = block?.speed ?? 45
   const blockKey = block?._key ?? ''
 

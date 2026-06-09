@@ -1,0 +1,23 @@
+{
+  "blogHero": {
+    "eyebrow": "БЛОГ · NIKOM SECURITY",
+    "heading": "Инженерни статии за сигурност, пожарна безопасност и интеграция.",
+    "lead": "Технически прегледи, case studies и експертни мнения от екипа на НИКОМ."
+  },
+  "blogFeatured": {
+    "eyebrow": "Избрана статия",
+    "fallbackTitle": "Какво е EN 54 и защо имаме нужда от сертифицирани системи",
+    "fallbackExcerpt": "Подробно обяснение на европейския стандарт за пожароизвестителни системи и какво трябва да знае всеки управител на сграда.",
+    "fallbackAuthor": "инж. Николай Васев",
+    "fallbackDate": "2026-04-12",
+    "fallbackReadMin": 8,
+    "fallbackTags": ["EN 54", "Пожароизвестяване", "Сертификати"],
+    "fallbackCategory": "Стандарти",
+    "fallbackSlug": "kakvo-e-en54-i-zashto-imame-nuzhda"
+  },
+  "blogList": {
+    "eyebrow": "Архив · 10 статии",
+    "heading": "Намерете точно това, което Ви интересува.",
+    "initialCount": 4
+  }
+}

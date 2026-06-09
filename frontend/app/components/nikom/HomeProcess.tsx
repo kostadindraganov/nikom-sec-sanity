@@ -23,21 +23,11 @@ type Props = {
   pageType?: string;
 };
 
-const DEFAULT_STEPS: Step[] = [
-  { _key: 's01', num: '01', title: 'Консултация', desc: 'Оглед, нормативни изисквания, бюджетна рамка.' },
-  { _key: 's02', num: '02', title: 'Проектиране', desc: 'Работен проект, спецификация, съгласувания.' },
-  { _key: 's03', num: '03', title: 'Доставка', desc: 'Сертифицирана техника от водещи производители.' },
-  { _key: 's04', num: '04', title: 'Монтаж', desc: 'Лицензиран екип, инсталация по график.' },
-  { _key: 's05', num: '05', title: 'Тестване', desc: '72-часов приемен тест, протоколи.' },
-  { _key: 's06', num: '06', title: 'Обучение', desc: 'Инструктаж на операторите.' },
-  { _key: 's07', num: '07', title: 'Поддръжка', desc: 'Абонаментен сервиз 24/7.' },
-];
-
 export default function HomeProcess({ block, index, pageId, pageType }: Props) {
-  const eyebrow = block?.eyebrow ?? 'Процес · End-to-End инженеринг';
-  const heading = block?.heading ?? 'Един екип. Един проект. От консултация до поддръжка.';
-  const lead = block?.lead ?? 'Не работим с подизпълнители на ключови етапи. Всеки проект се води от назначен инженер-ръководител.';
-  const steps = (block?.steps && block.steps.length > 0) ? block.steps : DEFAULT_STEPS;
+  const eyebrow = block?.eyebrow;
+  const heading = block?.heading;
+  const lead = block?.lead;
+  const steps = block?.steps ?? [];
   const blockKey = block?._key ?? '';
 
   const fieldPath = (field: string) =>
