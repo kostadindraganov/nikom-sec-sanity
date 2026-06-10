@@ -75,6 +75,13 @@ export const getPageQuery = defineQuery(`
           ${linkFields}
         }
       },
+      _type == "homeSolutions" => {
+        ...,
+        cards[]{
+          ...,
+          ${linkFields}
+        }
+      },
       _type == "infoSection" => {
         content[]{
           ...,

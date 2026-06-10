@@ -635,6 +635,7 @@ export type HomeSolutions = {
     title?: string;
     desc?: string;
     tag?: string;
+    link?: Link;
     variant?: "default" | "fire" | "wide" | "dark-wide";
     _type: "solutionCard";
     _key: string;
@@ -1527,7 +1528,7 @@ export type SettingsQueryResult = {
 
 // Source: sanity/lib/queries.ts
 // Variable: getPageQuery
-// Query: *[_type == 'page' && pathname.current == $pathname][0]{    _id,    _type,    name,    pathname,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "projectsHero" => {        ...,        "videoLightUrl": videoLight.asset->url,        "videoDarkUrl": videoDark.asset->url,        "posterUrl": backgroundImage.asset->url      },      _type == "callToAction" => {        ...,        button {          ...,            link {      ...,        _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }      }        }      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }          }        }      },      _type == "homeProjectsFeatured" => {        ...,        "projects": *[_type == "project" && featured == true] | order(coalesce(featuredOrder, 999) asc, _createdAt asc) {          _id,          title,          "sector": coalesce(category->key.current, sector),          "sectorLabel": coalesce(category->title, sectorLabel),          year,          "image": heroImage,          "imageFallback": heroImageFallback,          "systems": coalesce(scope[].title, []),          "kpis": kpis[]{ _key, label, value, suffix },          "href": "/bg/proekti/" + slug.current,          featured        }      },    },  }
+// Query: *[_type == 'page' && pathname.current == $pathname][0]{    _id,    _type,    name,    pathname,    heading,    subheading,    "pageBuilder": pageBuilder[]{      ...,      _type == "projectsHero" => {        ...,        "videoLightUrl": videoLight.asset->url,        "videoDarkUrl": videoDark.asset->url,        "posterUrl": backgroundImage.asset->url      },      _type == "callToAction" => {        ...,        button {          ...,            link {      ...,        _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }      }        }      },      _type == "homeSolutions" => {        ...,        cards[]{          ...,            link {      ...,        _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }      }        }      },      _type == "infoSection" => {        content[]{          ...,          markDefs[]{            ...,              _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }          }        }      },      _type == "homeProjectsFeatured" => {        ...,        "projects": *[_type == "project" && featured == true] | order(coalesce(featuredOrder, 999) asc, _createdAt asc) {          _id,          title,          "sector": coalesce(category->key.current, sector),          "sectorLabel": coalesce(category->title, sectorLabel),          year,          "image": heroImage,          "imageFallback": heroImageFallback,          "systems": coalesce(scope[].title, []),          "kpis": kpis[]{ _key, label, value, suffix },          "href": "/bg/proekti/" + slug.current,          featured        }      },    },  }
 export type GetPageQueryResult = {
   _id: string;
   _type: "page";
@@ -1921,17 +1922,25 @@ export type GetPageQueryResult = {
     eyebrow?: string;
     heading?: string;
     lead?: string;
-    cards?: Array<{
+    cards: Array<{
       icon?: string;
       chip?: string;
       meta?: string;
       title?: string;
       desc?: string;
       tag?: string;
+      link: {
+        _type: "link";
+        linkType?: "href" | "page" | "post";
+        href?: string;
+        page: string | null;
+        post: string | null;
+        openInNewTab?: boolean;
+      } | null;
       variant?: "dark-wide" | "default" | "fire" | "wide";
       _type: "solutionCard";
       _key: string;
-    }>;
+    }> | null;
   } | {
     _key: string;
     _type: "homeTicker";
@@ -2651,7 +2660,7 @@ import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
     "\n  *[_type == \"settings\"][0]{\n    title,\n    description,\n    ogImage,\n    siteName,\n    headerNav[]{label, href},\n    phone,\n    phoneDisplay,\n    ctaText,\n    licenseText,\n    locations,\n    liveText,\n    footerTagline,\n    footerGhostText,\n    footerGhostSub,\n    social[]{label, href},\n    footerColumns[]{\n      title,\n      links[]{label, href}\n    },\n    contactEmail,\n    contactFromName,\n  }\n": SettingsQueryResult;
-    "\n  *[_type == 'page' && pathname.current == $pathname][0]{\n    _id,\n    _type,\n    name,\n    pathname,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"projectsHero\" => {\n        ...,\n        \"videoLightUrl\": videoLight.asset->url,\n        \"videoDarkUrl\": videoDark.asset->url,\n        \"posterUrl\": backgroundImage.asset->url\n      },\n      _type == \"callToAction\" => {\n        ...,\n        button {\n          ...,\n          \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n\n        }\n      },\n      _type == \"infoSection\" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n          }\n        }\n      },\n      _type == \"homeProjectsFeatured\" => {\n        ...,\n        \"projects\": *[_type == \"project\" && featured == true] | order(coalesce(featuredOrder, 999) asc, _createdAt asc) {\n          _id,\n          title,\n          \"sector\": coalesce(category->key.current, sector),\n          \"sectorLabel\": coalesce(category->title, sectorLabel),\n          year,\n          \"image\": heroImage,\n          \"imageFallback\": heroImageFallback,\n          \"systems\": coalesce(scope[].title, []),\n          \"kpis\": kpis[]{ _key, label, value, suffix },\n          \"href\": \"/bg/proekti/\" + slug.current,\n          featured\n        }\n      },\n    },\n  }\n": GetPageQueryResult;
+    "\n  *[_type == 'page' && pathname.current == $pathname][0]{\n    _id,\n    _type,\n    name,\n    pathname,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"projectsHero\" => {\n        ...,\n        \"videoLightUrl\": videoLight.asset->url,\n        \"videoDarkUrl\": videoDark.asset->url,\n        \"posterUrl\": backgroundImage.asset->url\n      },\n      _type == \"callToAction\" => {\n        ...,\n        button {\n          ...,\n          \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n\n        }\n      },\n      _type == \"homeSolutions\" => {\n        ...,\n        cards[]{\n          ...,\n          \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n\n        }\n      },\n      _type == \"infoSection\" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n          }\n        }\n      },\n      _type == \"homeProjectsFeatured\" => {\n        ...,\n        \"projects\": *[_type == \"project\" && featured == true] | order(coalesce(featuredOrder, 999) asc, _createdAt asc) {\n          _id,\n          title,\n          \"sector\": coalesce(category->key.current, sector),\n          \"sectorLabel\": coalesce(category->title, sectorLabel),\n          year,\n          \"image\": heroImage,\n          \"imageFallback\": heroImageFallback,\n          \"systems\": coalesce(scope[].title, []),\n          \"kpis\": kpis[]{ _key, label, value, suffix },\n          \"href\": \"/bg/proekti/\" + slug.current,\n          featured\n        }\n      },\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && defined(pathname.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && _id != $skip && defined(pathname.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": MorePostsQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && pathname.current == $pathname][0] {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n    },\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n    authorName,\n    coverImageUrl,\n    \"category\": coalesce(category->key.current, category),\n    \"categoryLabel\": coalesce(category->title, categoryLabel),\n    tags,\n    readTime,\n    \"seoTitle\": coalesce(seo.title, title),\n    \"seoDescription\": coalesce(seo.description, excerpt),\n    \"seoImage\": coalesce(seo.image, coverImage),\n    \"noIndex\": seo.noIndex == true,\n    \"translations\": *[_type == \"translation.metadata\" && references(^._id)][0]{\n      \"list\": translations[]{ \"locale\": value->locale, \"pathname\": value->pathname.current }\n    }.list\n  }\n": PostQueryResult;

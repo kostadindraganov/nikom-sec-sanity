@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { Link } from '@/i18n/navigation';
 import { Icons } from '@/app/components/nikom/icons';
 import { Counter, StreamText } from '@/app/components/nikom/animations';
-import { dataAttr } from '@/sanity/lib/utils';
+import { dataAttr, linkResolver } from '@/sanity/lib/utils';
+import { DereferencedLink } from '@/sanity/lib/types';
 import { stegaClean } from 'next-sanity';
 
 type Card = {
@@ -15,7 +17,35 @@ type Card = {
   desc?: string;
   tag?: string;
   variant?: string;
+  link?: DereferencedLink;
 };
+
+// Renders the "Детайли" button. When the card has a resolvable link, it navigates
+// there (locale-aware, honoring openInNewTab); otherwise it stays inert (href="#").
+function CardLink({ card, className, style }: { card: Card; className: string; style?: React.CSSProperties }) {
+  const href = linkResolver(card.link);
+  const label = (
+    <>
+      {card.tag} <Icons.Arrow />
+    </>
+  );
+
+  if (!href) {
+    return <a className={className} href="#" style={style}>{label}</a>;
+  }
+
+  return (
+    <Link
+      className={className}
+      href={href}
+      style={style}
+      target={card.link?.openInNewTab ? '_blank' : undefined}
+      rel={card.link?.openInNewTab ? 'noopener noreferrer' : undefined}
+    >
+      {label}
+    </Link>
+  );
+}
 
 type Props = {
   block?: {
@@ -291,9 +321,7 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
           </div>
         </div>
 
-        <a className="card-link" href="#" style={{ position: 'relative', zIndex: 2 }}>
-          {card.tag} <Icons.Arrow />
-        </a>
+        <CardLink card={card} className="card-link" style={{ position: 'relative', zIndex: 2 }} />
         <CornerTicks />
       </div>
     );
@@ -337,9 +365,7 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
             <IntegrationMini />
           </div>
         </div>
-        <a className="card-link light" href="#">
-          {card.tag} <Icons.Arrow />
-        </a>
+        <CardLink card={card} className="card-link light" />
       </div>
     );
   }
@@ -354,7 +380,7 @@ function BentoCard({ card, pageId, pageType, blockKey, arrayPath }: {
       <div className="card-icon anim"><ResolveIcon name={card.icon} /></div>
       <h3 className="h4">{card.title}</h3>
       <p>{card.desc ?? ''}</p>
-      <a className="card-link" href="#">{card.tag} <Icons.Arrow /></a>
+      <CardLink card={card} className="card-link" />
       <CornerTicks />
     </div>
   );

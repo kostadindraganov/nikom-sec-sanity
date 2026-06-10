@@ -44,6 +44,12 @@ export const homeSolutions = defineType({
             defineField({ name: 'desc', title: 'Card description', type: 'text', rows: 3 }),
             defineField({ name: 'tag', title: 'Tag text (for card-link)', type: 'string', initialValue: 'Детайли' }),
             defineField({
+              name: 'link',
+              title: 'Линк за бутона (напр. "Детайли")',
+              description: 'Накъде да води бутончето при натискане. Остане ли празно, бутонът не води никъде.',
+              type: 'link',
+            }),
+            defineField({
               name: 'variant',
               title: 'Card variant',
               type: 'string',
