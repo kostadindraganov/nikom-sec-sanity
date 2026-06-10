@@ -87,10 +87,6 @@ function ProjectCard({ p, cardIndex }: { p: CardItem; cardIndex: number }) {
       <div className="prj-scan-overlay" aria-hidden="true">
         <span className="prj-scan-line"/>
       </div>
-      <div className="prj-corners" aria-hidden="true">
-        <span className="corn tl"/><span className="corn tr"/>
-        <span className="corn bl"/><span className="corn br"/>
-      </div>
       <div className="prj-content">
         <div className="prj-img-wrap">
           <img src={imgSrc} alt={p.title ?? ''} />

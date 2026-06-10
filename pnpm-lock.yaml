@@ -50,6 +50,9 @@ importers:
       autoprefixer:
         specifier: ^10.4.22
         version: 10.4.27(postcss@8.5.6)
+      css-houdini-ringparticles:
+        specifier: ^1.1.0
+        version: 1.1.0
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -6437,6 +6440,9 @@ packages:
   css-color-keywords@1.0.0:
     resolution: {integrity: sha512-FyyrDHZKEjXDpNJYvVsV960FiqQyXc/LlYmsxl2BcdMb2WPx0OGRVgTg55rPSyLSNMqP52R9r8geSp7apN3Ofg==}
     engines: {node: '>=4'}
+
+  css-houdini-ringparticles@1.1.0:
+    resolution: {integrity: sha512-t+xBCqaW1QgZ9d/dTVXWN4KmS1Uo1nfddO+u+bL4jY1sqCj+tFRLLCSp9qk1PLd2xb2nTcTIb4krJp+ohKc2qA==}
 
   css-select@5.2.2:
     resolution: {integrity: sha512-TizTzUddG/xYLA3NXodFM0fSbNizXjOKhqiQQwvhlspadZokn1KDy0NZFS0wuEubIYAV5/c1/lAr0TaaFXEXzw==}
@@ -18557,6 +18563,8 @@ snapshots:
       tiny-invariant: 1.3.3
 
   css-color-keywords@1.0.0: {}
+
+  css-houdini-ringparticles@1.1.0: {}
 
   css-select@5.2.2:
     dependencies:

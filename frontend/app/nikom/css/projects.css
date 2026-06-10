@@ -1,72 +1,94 @@
 /* ===== Проекти page ===== */
 
-/* ===== Video-style hero (Projects only) ===== */
+/* ===== Video hero (Projects) — video background + Houdini dot-ring ===== */
+/* Theme-aware: video source, scrim, text colour and dot colour all swap with
+   the active [data-theme]. Stacking (bottom -> top): video, scrim, dots, content. */
+
+/* @property registrations let the dot-ring animate (driven by --animation-tick)
+   and let the pointer-follow ring transition smoothly. Ported from Antigravity. */
+@property --animation-tick { syntax: '<number>'; inherits: false; initial-value: 0; }
+@property --ring-radius { syntax: '<number> | auto'; inherits: false; initial-value: auto; }
+@property --ring-x { syntax: '<number>'; inherits: false; initial-value: 50; }
+@property --ring-y { syntax: '<number>'; inherits: false; initial-value: 50; }
+@keyframes ripple { 0% { --animation-tick: 0; } 100% { --animation-tick: 1; } }
+@keyframes ring { 0% { --ring-radius: 150; } 100% { --ring-radius: 250; } }
+
 .prj-video-hero {
   position: relative;
   width: 100%;
   min-height: clamp(620px, 84vh, 880px);
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at center, #1F242C 0%, #0D1015 55%, #050609 100%);
   display: flex; align-items: center;
   isolation: isolate;
+
+  /* theme tokens — light defaults */
+  --hero-overlay: linear-gradient(180deg, rgba(255,255,255,.45) 0%, rgba(255,255,255,.72) 100%);
+  --hero-text: #0B0D10;
+  --hero-text-inverse: #ffffff;
+  --hero-text-dim: rgba(11,13,16,.62);
+  --particle-color: #000000;
+
+  /* fallback background when no video is uploaded yet */
+  background: radial-gradient(ellipse at center, #EAEDF2 0%, #D7DCE4 60%, #C7CDD8 100%);
 }
 
-/* particles */
-.vid-particles { position: absolute; inset: 0; pointer-events: none; }
-.vid-dust {
-  position: absolute;
-  border-radius: 50%;
-  background: #fff;
-  filter: blur(.3px);
-  animation: vid-drift 12s linear infinite;
-  will-change: transform;
-}
-@keyframes vid-drift {
-  0%   { transform: translate3d(0, 0, 0) scale(1); }
-  50%  { transform: translate3d(20px, -30px, 0) scale(1.1); }
-  100% { transform: translate3d(-10px, 10px, 0) scale(1); }
+[data-theme="dark"] .prj-video-hero {
+  --hero-overlay: linear-gradient(180deg, rgba(13,16,21,.5) 0%, rgba(13,16,21,.82) 100%);
+  --hero-text: #ffffff;
+  --hero-text-inverse: #0B0D10;
+  --hero-text-dim: rgba(255,255,255,.68);
+  --particle-color: #ffffff;
+  background: radial-gradient(ellipse at center, #1F242C 0%, #0D1015 55%, #050609 100%);
 }
 
-/* camera stage */
-.vid-stage {
-  position: absolute;
-  inset: 0;
-  display: grid; place-items: center;
-  pointer-events: none;
-}
-.vid-glow {
-  position: absolute;
-  width: 720px; height: 720px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(140,160,200,.18) 0%, transparent 60%);
-  filter: blur(20px);
-  z-index: 0;
-}
-.vid-cam {
-  position: relative;
-  z-index: 1;
-  width: clamp(360px, 60vw, 720px);
-  max-width: 96%;
-  opacity: 0.95;
-  animation: vid-float 7s ease-in-out infinite;
-  filter:
-    drop-shadow(0 30px 60px rgba(0,0,0,.5))
-    drop-shadow(0 0 80px rgba(247,215,36,.15));
-}
-.vid-cam-svg { width: 100%; height: auto; display: block; }
-@keyframes vid-float {
-  0%, 100% { transform: translateY(0) rotate(-0.3deg); }
-  50%      { transform: translateY(-14px) rotate(0.3deg); }
-}
-
-/* bottom fade to page bg */
-.vid-vignette {
+/* layer 0 — theme video */
+.vid-bg-video {
   position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 50% 65%, transparent 0%, rgba(0,0,0,.35) 100%),
-    linear-gradient(to bottom, transparent 50%, var(--bg) 100%);
+  width: 100%; height: 100%;
+  object-fit: cover;
+  z-index: 0;
   pointer-events: none;
+}
+
+/* layer 1 — theme scrim */
+.vid-overlay {
+  position: absolute; inset: 0;
   z-index: 1;
+  background: var(--hero-overlay);
+  transition: background .3s ease;
+  pointer-events: none;
+}
+
+/* layer 2 — Houdini dot-ring */
+.vid-particles {
+  position: absolute; inset: 0;
+  z-index: 2;
+  pointer-events: none;
+
+  --ring-thickness: 600;
+  --particle-count: 64;
+  --particle-rows: 16;
+  --particle-size: 2;
+  --particle-min-alpha: 0.1;
+  --particle-max-alpha: 1;
+  --seed: 200;
+  --ring-radius: 100;
+  --ring-x: 50;
+  --ring-y: 50;
+
+  transition: --ring-x 3s ease, --ring-y 3s ease;
+}
+@supports (background: paint(something)) {
+  .vid-particles {
+    background-image: paint(ring-particles);
+    animation: ripple 6s linear infinite, ring 6s ease-in-out infinite alternate;
+  }
+}
+/* Performance: stop repainting when the hero is scrolled out of view
+   (toggled from JS via IntersectionObserver) or when motion is reduced. */
+.vid-particles.is-paused { animation: none; }
+@media (prefers-reduced-motion: reduce) {
+  .vid-particles { animation: none; }
 }
 
 /* foreground content */
@@ -79,13 +101,13 @@
 .vid-eyebrow {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 8px 14px;
-  background: rgba(255,255,255,.05);
+  background: color-mix(in srgb, var(--hero-text) 6%, transparent);
   backdrop-filter: blur(8px);
-  border: 1px solid rgba(255,255,255,.10);
+  border: 1px solid color-mix(in srgb, var(--hero-text) 14%, transparent);
   border-radius: 999px;
   font-family: 'JetBrains Mono';
   font-size: 11.5px; letter-spacing: 0.14em;
-  color: rgba(255,255,255,.85);
+  color: var(--hero-text);
   margin-bottom: 32px;
 }
 .vid-h1 {
@@ -94,15 +116,14 @@
   font-size: clamp(40px, 6vw, 86px);
   line-height: 1.06;
   letter-spacing: -0.02em;
-  color: #fff;
+  color: var(--hero-text);
   margin: 0;
   text-wrap: balance;
-  text-shadow: 0 4px 30px rgba(0,0,0,.4);
 }
-.vid-h1 .stream-word { color: #fff; }
-.vid-h1 br + .stream-text { color: rgba(255,255,255,.65); }
+.vid-h1 .stream-word { color: var(--hero-text); }
+.vid-h1 br + .stream-text { color: var(--hero-text-dim); }
 .vid-lead {
-  color: rgba(255,255,255,.7);
+  color: var(--hero-text-dim);
   font-size: clamp(15px, 1.3vw, 19px);
   max-width: 580px;
   margin: 28px auto 40px;
@@ -121,27 +142,29 @@
   backdrop-filter: blur(8px);
 }
 .vid-btn-primary {
-  background: #fff;
-  color: #0B0D10;
+  background: var(--hero-text);
+  color: var(--hero-text-inverse);
 }
 .vid-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -8px rgba(0,0,0,.4); }
 .vid-btn-ghost {
-  background: rgba(255,255,255,.08);
-  color: #fff;
-  border-color: rgba(255,255,255,.15);
+  background: color-mix(in srgb, var(--hero-text) 8%, transparent);
+  color: var(--hero-text);
+  border-color: color-mix(in srgb, var(--hero-text) 16%, transparent);
 }
-.vid-btn-ghost:hover { background: rgba(255,255,255,.14); border-color: rgba(255,255,255,.25); }
+.vid-btn-ghost:hover {
+  background: color-mix(in srgb, var(--hero-text) 14%, transparent);
+  border-color: color-mix(in srgb, var(--hero-text) 26%, transparent);
+}
 .vid-kbd {
   display: inline-grid; place-items: center;
   width: 22px; height: 22px;
-  border: 1px solid rgba(11,13,16,.16);
+  border: 1px solid color-mix(in srgb, currentColor 22%, transparent);
   border-radius: 6px;
   font-family: 'JetBrains Mono'; font-size: 12px;
-  background: rgba(11,13,16,.05);
+  background: color-mix(in srgb, currentColor 8%, transparent);
 }
 @media (max-width: 640px) {
-  .vid-cam { width: 90%; }
-  .vid-glow { width: 100%; height: 100%; }
+  .prj-video-hero { min-height: clamp(560px, 90vh, 720px); }
 }
 
 /* ===== Featured case study ===== */

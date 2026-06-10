@@ -62,6 +62,12 @@ export const getPageQuery = defineQuery(`
     subheading,
     "pageBuilder": pageBuilder[]{
       ...,
+      _type == "projectsHero" => {
+        ...,
+        "videoLightUrl": videoLight.asset->url,
+        "videoDarkUrl": videoDark.asset->url,
+        "posterUrl": backgroundImage.asset->url
+      },
       _type == "callToAction" => {
         ...,
         button {
