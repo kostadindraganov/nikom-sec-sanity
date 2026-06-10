@@ -216,7 +216,6 @@ Listing pages (`/[locale]/posts`) only show posts that have a translation for th
 - [Cloudflare Workers docs](https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/)
 - [next-intl docs](https://next-intl.dev/docs/getting-started/app-router)
 - [Sanity Localizations docs](https://www.sanity.io/docs/studio/localization)
-- [Sanity Localizations docs](https://www.sanity.io/docs/studio/localization)
 - [Tinloof Sanity Document i18n docs](https://www.npmjs.com/package/@tinloof/sanity-document-i18n)
 - [Sanity Document Internationalization docs](https://www.npmjs.com/package/@sanity/document-internationalization)
 - [GitHub repository](https://github.com/pedroduke/sanity-nextjs-cloudflare-i18n-starter)
