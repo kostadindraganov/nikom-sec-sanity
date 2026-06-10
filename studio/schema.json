@@ -8462,6 +8462,13 @@
         },
         "optional": true
       },
+      "categoryLabel": {
+        "type": "objectAttribute",
+        "value": {
+          "type": "string"
+        },
+        "optional": true
+      },
       "seo": {
         "type": "objectAttribute",
         "value": {

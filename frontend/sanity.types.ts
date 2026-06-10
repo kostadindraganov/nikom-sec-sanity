@@ -1286,6 +1286,7 @@ export type Post = {
   readTime?: number;
   featured?: boolean;
   content?: BlockContent;
+  categoryLabel?: string;
   seo?: Seo;
 };
 

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { PortableTextBlock } from 'next-sanity'
 import { setRequestLocale } from 'next-intl/server'
 import { notFound } from 'next/navigation'
 
@@ -73,6 +74,7 @@ export default async function ProjectSinglePage(props: Props) {
   // Build index for project number display (fallback to 0)
   const doc = {
     ...project,
+    body: project.body as PortableTextBlock[] | null | undefined,
     index: 0,
   }
 
