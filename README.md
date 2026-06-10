@@ -102,6 +102,20 @@ To preview locally using the Cloudflare runtime before deploying:
 pnpm --filter frontend preview
 ```
 
+### Automatic deploys (Cloudflare Workers Builds)
+
+The Worker is connected to this Git repository via [Workers Builds](https://developers.cloudflare.com/workers/ci-cd/builds/), so every push to `main` rebuilds and deploys the site automatically — no manual `wrangler`.
+
+Build settings (Cloudflare dashboard → Worker → Settings → Build):
+
+| Setting        | Value                                       |
+| -------------- | ------------------------------------------- |
+| Root directory | `/` (repo root)                             |
+| Build command  | `cd frontend && npx opennextjs-cloudflare build` |
+| Deploy command | `cd frontend && npx wrangler deploy`        |
+
+Build-time variables must be configured there too: the `NEXT_PUBLIC_*` vars plus `SANITY_API_READ_TOKEN` (required — `sanity/lib/token.ts` throws at build if missing). Runtime secrets set via `wrangler secret put` persist across deploys.
+
 ### Invite collaborators
 
 Open [Sanity Manage](https://www.sanity.io/manage), select your project, and click **Invite project members**.
