@@ -49,6 +49,17 @@
   padding: 0 2px;
   border-radius: 2px;
   white-space: nowrap;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+@media (max-width: 560px) {
+  .hero-h1 {
+    font-size: clamp(25px, 7.4vw, 34px);
+    max-width: 100%;
+    overflow-wrap: break-word;
+  }
+  .hero-h1 .hl { white-space: normal; }
 }
 
 .hero-sub {

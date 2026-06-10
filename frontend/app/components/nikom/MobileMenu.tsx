@@ -33,6 +33,11 @@ export function MobileMenu({
 }: MobileMenuProps) {
   return (
     <div className={'mobile-menu ' + (open ? 'open' : '')}>
+      <div className="mm-top">
+        <button className="theme-toggle mm-close" onClick={onClose} aria-label="Затвори менюто">
+          <Icons.Close />
+        </button>
+      </div>
       <nav>
         {nav.map(({ label, href }) => (
           <Link key={label} href={href as '/'} onClick={onClose}>
