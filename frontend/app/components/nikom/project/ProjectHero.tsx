@@ -8,6 +8,7 @@ type Props = {
     _id?: string
     _key?: string
     title?: string | null
+    summary?: string | null
     sector?: string | null
     sectorLabel?: string | null
     year?: string | null
@@ -61,6 +62,14 @@ export function ProjectHero({ doc, pageId }: Props) {
         >
           <StreamText text={title} />
         </h1>
+        {doc?.summary && (
+          <p
+            className="sh-summary"
+            data-sanity={dataAttr({ id: pageId, type: 'project', path: 'summary' }).toString()}
+          >
+            {doc.summary}
+          </p>
+        )}
         <div className="sh-meta-row">
           <span
             className="chip solid"

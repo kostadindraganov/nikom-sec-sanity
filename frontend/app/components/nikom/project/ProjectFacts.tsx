@@ -28,7 +28,6 @@ export function ProjectFacts({ doc, pageId }: Props) {
   const facts = doc?.facts ?? []
   const year = doc?.year ?? '2024'
   const sectorLabel = doc?.sectorLabel ?? 'Сигурност'
-
   return (
     <section className="section-pad single-facts">
       <div className="container">
@@ -90,12 +89,6 @@ export function ProjectFacts({ doc, pageId }: Props) {
                     <span className="sf-fact-v">{f.value ?? '—'}</span>
                   </div>
                 ))}
-                <div className="sf-fact-row">
-                  <span className="sf-fact-l">Статус</span>
-                  <span className="sf-fact-v sf-status-live">
-                    <span className="status-dot" /> Активна поддръжка
-                  </span>
-                </div>
               </div>
             </div>
           </aside>

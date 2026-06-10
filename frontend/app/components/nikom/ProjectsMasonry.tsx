@@ -42,7 +42,7 @@ const CATEGORIES = [
 ]
 
 function ProjectCard({ p, cardIndex }: { p: CardItem; cardIndex: number }) {
-  const ref = useRef<HTMLElement>(null)
+  const ref = useRef<HTMLAnchorElement>(null)
   const [phase, setPhase] = useState<'idle' | 'scanning' | 'done'>('idle')
 
   useEffect(() => {
@@ -79,10 +79,10 @@ function ProjectCard({ p, cardIndex }: { p: CardItem; cardIndex: number }) {
   const href = p.href ?? '#'
 
   return (
-    <article
+    <a
       ref={ref}
+      href={href}
       className={`prj-card phase-${phase} sector-${p.sector ?? 'other'}`}
-      data-sanity={undefined}
     >
       <div className="prj-scan-overlay" aria-hidden="true">
         <span className="prj-scan-line"/>
@@ -118,12 +118,12 @@ function ProjectCard({ p, cardIndex }: { p: CardItem; cardIndex: number }) {
               ))}
             </div>
           )}
-          <a className="prj-link" href={href}>
+          <span className="prj-link">
             Виж проекта <Icons.Arrow/>
-          </a>
+          </span>
         </div>
       </div>
-    </article>
+    </a>
   )
 }
 

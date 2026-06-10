@@ -1,14 +1,14 @@
 'use client'
 
 import React from 'react'
-import { StreamText } from '@/app/components/nikom/animations'
 import { dataAttr } from '@/sanity/lib/utils'
 
 type GalleryItem = {
   _key: string
   caption?: string | null
-  image?: { asset?: { _ref?: string }; alt?: string } | null
+  image?: { asset?: { _ref?: string } | null; alt?: string } | null
   fallbackSrc?: string | null
+  videoUrl?: string | null
 }
 
 type Props = {
@@ -22,7 +22,18 @@ type Props = {
   pageId: string
 }
 
+function extractYouTubeId(url: string): string | null {
+  const match = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&?/\s]{11})/)
+  return match?.[1] ?? null
+}
+
 function getImgSrc(item: GalleryItem, fallback: string): string {
+  if (item.videoUrl) {
+    const ytId = extractYouTubeId(item.videoUrl)
+    return ytId
+      ? `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`
+      : fallback
+  }
   if (item.image?.asset?._ref) {
     const ref = item.image.asset._ref
     return `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/production/${ref.replace('image-', '').replace(/-(\w+)$/, '.$1')}`
@@ -30,12 +41,18 @@ function getImgSrc(item: GalleryItem, fallback: string): string {
   return item.fallbackSrc ?? fallback
 }
 
+type LightboxItem = {
+  src: string
+  caption: string
+  videoUrl?: string | null
+}
+
 function Lightbox({
-  images,
+  items,
   startIndex,
   onClose,
 }: {
-  images: { src: string; caption: string }[]
+  items: LightboxItem[]
   startIndex: number
   onClose: () => void
 }) {
@@ -46,17 +63,15 @@ function Lightbox({
   const go = React.useCallback(
     (dir: number) => {
       setDirection(dir)
-      setIdx((i) => (i + dir + images.length) % images.length)
+      setIdx((i) => (i + dir + items.length) % items.length)
     },
-    [images.length]
+    [items.length]
   )
 
   React.useEffect(() => {
     const prev = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    return () => {
-      document.body.style.overflow = prev
-    }
+    return () => { document.body.style.overflow = prev }
   }, [])
 
   React.useEffect(() => {
@@ -71,13 +86,16 @@ function Lightbox({
 
   React.useEffect(() => {
     ;[-1, 1].forEach((d) => {
-      const i = (idx + d + images.length) % images.length
-      const im = new window.Image()
-      im.src = images[i].src
+      const i = (idx + d + items.length) % items.length
+      if (!items[i].videoUrl) {
+        const im = new window.Image()
+        im.src = items[i].src
+      }
     })
-  }, [idx, images])
+  }, [idx, items])
 
-  const cur = images[idx]
+  const cur = items[idx]
+  const ytId = cur.videoUrl ? extractYouTubeId(cur.videoUrl) : null
 
   return (
     <div
@@ -91,69 +109,49 @@ function Lightbox({
         const t = e.changedTouches[0]
         const dx = t.clientX - touchRef.current.x
         const dy = t.clientY - touchRef.current.y
-        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
-          go(dx < 0 ? 1 : -1)
-        }
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) go(dx < 0 ? 1 : -1)
       }}
     >
       <div className="lb-topbar">
         <div className="lb-counter meta">
           <span className="status-dot" />
           <span>
-            {String(idx + 1).padStart(2, '0')} / {String(images.length).padStart(2, '00')}
+            {String(idx + 1).padStart(2, '0')} / {String(items.length).padStart(2, '00')}
           </span>
         </div>
         <button className="lb-close" onClick={onClose} aria-label="Затвори">
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
             <path d="M6 6l12 12M18 6 6 18" />
           </svg>
         </button>
       </div>
 
       <button className="lb-nav lb-prev" onClick={() => go(-1)} aria-label="Предишен">
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="15 18 9 12 15 6" />
         </svg>
       </button>
       <button className="lb-nav lb-next" onClick={() => go(1)} aria-label="Следващ">
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
           <polyline points="9 18 15 12 9 6" />
         </svg>
       </button>
 
       <div className="lb-stage">
-        <div
-          key={idx}
-          className={'lb-image-wrap lb-dir-' + (direction >= 0 ? 'next' : 'prev')}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={cur.src} alt={cur.caption} className="lb-image" />
+        <div key={idx} className={'lb-image-wrap lb-dir-' + (direction >= 0 ? 'next' : 'prev')}>
+          {ytId ? (
+            <div className="lb-video-wrap">
+              <iframe
+                src={`https://www.youtube.com/embed/${ytId}?autoplay=1`}
+                className="lb-video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          ) : (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={cur.src} alt={cur.caption} className="lb-image" />
+          )}
         </div>
       </div>
 
@@ -163,18 +161,18 @@ function Lightbox({
           <span className="lb-cap-text">{cur.caption}</span>
         </div>
         <div className="lb-thumbs">
-          {images.map((img, i) => (
+          {items.map((item, i) => (
             <button
               key={i}
               className={'lb-thumb ' + (i === idx ? 'active' : '')}
-              onClick={() => {
-                setDirection(i > idx ? 1 : -1)
-                setIdx(i)
-              }}
+              onClick={() => { setDirection(i > idx ? 1 : -1); setIdx(i) }}
               aria-label={`Кадър ${i + 1}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img.src} alt="" />
+              <img src={item.src} alt="" />
+              {item.videoUrl && (
+                <span className="lb-thumb-play">▶</span>
+              )}
             </button>
           ))}
         </div>
@@ -189,11 +187,12 @@ export function ProjectGallery({ doc, pageId }: Props) {
   const fallbackSrc = doc?.heroImageFallback ?? '/nikom/proj-tokuda.jpg'
   const rawGallery = doc?.gallery ?? []
 
-  const images =
+  const items: LightboxItem[] =
     rawGallery.length > 0
       ? rawGallery.map((item, i) => ({
           src: getImgSrc(item, fallbackSrc),
           caption: item.caption ?? `Кадър ${i + 1}`,
+          videoUrl: item.videoUrl,
         }))
       : [
           { src: fallbackSrc, caption: 'Изглед към обекта' },
@@ -207,28 +206,21 @@ export function ProjectGallery({ doc, pageId }: Props) {
   return (
     <section className="section-pad single-gallery">
       <div className="container">
-        <div className="section-head">
-          <div className="left">
-            <div className="eyebrow">Галерия · {images.length} кадри</div>
-            <h2 className="h2">
-              <StreamText text="Документация от обекта." />
-            </h2>
-          </div>
-          <p className="section-lead">
-            Кликнете върху&nbsp;кадър за&nbsp;fullscreen изглед. Навигация с&nbsp;←&nbsp;→ или докоснете отстрани.
-          </p>
+        <div className="sg-eyebrow-row">
+          <div className="eyebrow">Галерия · {items.length} кадри</div>
+          <p className="sg-nav-hint meta">Кликнете за fullscreen · навигация с ← → или swipe</p>
         </div>
         <div
           className="sg-grid"
           data-sanity={dataAttr({ id: pageId, type: 'project', path: 'gallery' }).toString()}
         >
-          {images.map((img, i) => (
+          {items.map((item, i) => (
             <button
               type="button"
               className={'sg-tile ' + (i === 0 ? 'sg-tile-wide' : '')}
               key={rawGallery[i]?._key ?? i}
               onClick={() => setOpen(i)}
-              aria-label={`Отвори кадър ${i + 1}: ${img.caption}`}
+              aria-label={`Отвори кадър ${i + 1}: ${item.caption}`}
               data-sanity={
                 rawGallery[i]?._key
                   ? dataAttr({
@@ -240,28 +232,29 @@ export function ProjectGallery({ doc, pageId }: Props) {
               }
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={img.src} alt={img.caption} />
+              <img src={item.src} alt={item.caption} />
+              {item.videoUrl && (
+                <div className="sg-tile-play" aria-hidden="true">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
+                    <circle cx="12" cy="12" r="11" fill="rgba(0,0,0,0.55)" />
+                    <polygon points="10,8 18,12 10,16" fill="white" />
+                  </svg>
+                </div>
+              )}
               <div className="sg-tile-tag meta">KADR-{String(i + 1).padStart(3, '0')}</div>
               <div className="sg-tile-zoom" aria-hidden="true">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <circle cx="11" cy="11" r="7" />
-                  <line x1="16" y1="16" x2="22" y2="22" />
-                  <line x1="8" y1="11" x2="14" y2="11" />
-                  <line x1="11" y1="8" x2="11" y2="14" />
-                </svg>
-              </div>
-              <div className="sg-corners">
-                <span className="corn tl" />
-                <span className="corn tr" />
-                <span className="corn bl" />
-                <span className="corn br" />
+                {item.videoUrl ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <polygon points="5 3 19 12 5 21 5 3" />
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="16" y1="16" x2="22" y2="22" />
+                    <line x1="8" y1="11" x2="14" y2="11" />
+                    <line x1="11" y1="8" x2="11" y2="14" />
+                  </svg>
+                )}
               </div>
             </button>
           ))}
@@ -269,7 +262,7 @@ export function ProjectGallery({ doc, pageId }: Props) {
       </div>
 
       {open !== null && (
-        <Lightbox images={images} startIndex={open} onClose={() => setOpen(null)} />
+        <Lightbox items={items} startIndex={open} onClose={() => setOpen(null)} />
       )}
     </section>
   )

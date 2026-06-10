@@ -126,6 +126,13 @@ export const project = defineType({
       group: 'content',
     }),
     defineField({
+      name: 'body',
+      title: 'Описание (редактор)',
+      type: 'blockContent',
+      group: 'content',
+      description: 'Богат текст, показван под списъка с реализирани системи на страницата на проекта.',
+    }),
+    defineField({
       name: 'facts',
       title: 'Fact sheet items',
       type: 'array',
@@ -184,20 +191,26 @@ export const project = defineType({
     }),
     defineField({
       name: 'gallery',
-      title: 'Gallery images',
+      title: 'Gallery images & videos',
       type: 'array',
       group: 'media',
       of: [
         {
           type: 'object',
           name: 'galleryItem',
-          title: 'Gallery image',
+          title: 'Gallery item',
           fields: [
             defineField({
               name: 'image',
               type: 'image',
-              title: 'Image',
+              title: 'Снимка',
               options: { hotspot: true },
+            }),
+            defineField({
+              name: 'videoUrl',
+              title: 'YouTube URL (вместо снимка)',
+              type: 'url',
+              description: 'Въведете YouTube линк. Ако е попълнено, снимката се игнорира.',
             }),
             defineField({
               name: 'caption',
@@ -206,8 +219,9 @@ export const project = defineType({
             }),
           ],
           preview: {
-            select: { media: 'image', title: 'caption' },
-            prepare({ media, title }: { media: unknown; title?: string }) {
+            select: { media: 'image', title: 'caption', videoUrl: 'videoUrl' },
+            prepare({ media, title, videoUrl }: { media: unknown; title?: string; videoUrl?: string }) {
+              if (videoUrl) return { title: `▶ ${title ?? 'Video'}`, subtitle: videoUrl }
               return { title: title ?? 'Gallery image', media }
             },
           },

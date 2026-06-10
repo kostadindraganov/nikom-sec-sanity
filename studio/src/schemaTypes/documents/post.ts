@@ -183,6 +183,13 @@ export const post = defineType({
       group: 'content',
     }),
     defineField({
+      name: 'categoryLabel',
+      title: 'Category Label (legacy)',
+      type: 'string',
+      group: 'meta',
+      hidden: true,
+    }),
+    defineField({
       name: 'seo',
       title: 'SEO & Social',
       type: 'seo',

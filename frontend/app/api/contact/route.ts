@@ -18,7 +18,7 @@ export async function POST(req: Request) {
   const body = await req.json()
   const { name, surname, email, phone, company, address, message, type } = body
 
-  if (!name || !surname || !email) {
+  if (!name || !email) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
   }
 
@@ -26,7 +26,7 @@ export async function POST(req: Request) {
 
   const rows = [
     ['Тип', type || '—'],
-    ['Имена', `${name} ${surname}`],
+    ['Имена', surname ? `${name} ${surname}` : name],
     ['Имейл', email],
     ['Телефон', phone || '—'],
     ['Фирма', company || '—'],

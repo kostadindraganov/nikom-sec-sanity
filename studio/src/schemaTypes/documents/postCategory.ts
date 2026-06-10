@@ -21,6 +21,12 @@ export const postCategory = defineType({
       options: { source: 'title' },
       validation: Rule => Rule.required(),
     }),
+    defineField({
+      name: 'categoryLabel',
+      title: 'Category Label (legacy)',
+      type: 'string',
+      hidden: true,
+    }),
   ],
   preview: {
     select: { title: 'title', key: 'key' },

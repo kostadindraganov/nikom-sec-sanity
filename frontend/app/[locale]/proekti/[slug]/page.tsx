@@ -10,6 +10,7 @@ import { ProjectFacts } from '@/app/components/nikom/project/ProjectFacts'
 import { ProjectScope } from '@/app/components/nikom/project/ProjectScope'
 import { ProjectQuote } from '@/app/components/nikom/project/ProjectQuote'
 import { ProjectGallery } from '@/app/components/nikom/project/ProjectGallery'
+import { ProjectDocs } from '@/app/components/nikom/project/ProjectDocs'
 import { ProjectRelated } from '@/app/components/nikom/project/ProjectRelated'
 import { ProjectCta } from '@/app/components/nikom/project/ProjectCta'
 
@@ -82,6 +83,7 @@ export default async function ProjectSinglePage(props: Props) {
       <ProjectScope doc={doc} pageId={pageId} />
       <ProjectQuote doc={doc} pageId={pageId} />
       <ProjectGallery doc={doc} pageId={pageId} />
+      <ProjectDocs doc={doc} pageId={pageId} />
       <ProjectRelated doc={doc} pageId={pageId} />
       <ProjectCta />
     </>

@@ -35,6 +35,20 @@ export type CtaSecondary = {
   href?: string;
 };
 
+export type SanityFileAssetReference = {
+  _ref: string;
+  _type: "reference";
+  _weak?: boolean;
+  [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+};
+
+export type FileAttachmentFile = {
+  asset?: SanityFileAssetReference;
+  media?: unknown // Unable to locate the referenced type "file.media" in schema
+;
+  _type: "file";
+};
+
 export type SanityImageAssetReference = {
   _ref: string;
   _type: "reference";
@@ -738,7 +752,46 @@ export type BlockContent = Array<{
   media?: unknown;
   hotspot?: SanityImageHotspot;
   crop?: SanityImageCrop;
+  alt?: string;
+  caption?: string;
   _type: "image";
+  _key: string;
+} | {
+  _key: string;
+} & Code | {
+  url: string;
+  caption?: string;
+  _type: "videoEmbed";
+  _key: string;
+} | {
+  file: FileAttachmentFile;
+  label?: string;
+  _type: "fileAttachment";
+  _key: string;
+} | {
+  variant?: "info" | "warning" | "danger" | "success";
+  body: string;
+  _type: "callout";
+  _key: string;
+} | {
+  caption?: string;
+  rows?: Array<{
+    cells?: Array<string>;
+    _type: "tableRow";
+    _key: string;
+  }>;
+  _type: "table";
+  _key: string;
+} | {
+  label: string;
+  href: string;
+  variant?: "primary" | "secondary" | "outline";
+  openInNewTab?: boolean;
+  _type: "ctaButton";
+  _key: string;
+} | {
+  style?: "line" | "space";
+  _type: "divider";
   _key: string;
 }>;
 
@@ -954,6 +1007,7 @@ export type Project = {
   };
   heroImageFallback?: string;
   summary?: string;
+  body?: BlockContent;
   facts?: Array<{
     label?: string;
     value?: string;
@@ -979,6 +1033,7 @@ export type Project = {
       crop?: SanityImageCrop;
       _type: "image";
     };
+    videoUrl?: string;
     caption?: string;
     _type: "galleryItem";
     _key: string;
@@ -1020,6 +1075,7 @@ export type ProjectCategory = {
   _rev: string;
   title: string;
   key: Slug;
+  categoryLabel?: string;
 };
 
 export type Slug = {
@@ -1241,6 +1297,7 @@ export type PostCategory = {
   _rev: string;
   title: string;
   key: Slug;
+  categoryLabel?: string;
 };
 
 export type Person = {
@@ -1390,7 +1447,7 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type AllSanitySchemaTypes = ButtonPrimary | ButtonSecondary | CtaPrimary | CtaSecondary | SanityImageAssetReference | Logo | ProjectCardImage | NikomCta | ContactForm | ContactMaps | ContactInfo | ContactHero | BlogList | PostReference | BlogFeatured | BlogHero | ProjectsSectorStats | ProjectsMasonry | ProjectsFeature | ProjectsHero | ServicesFaq | ServicesProcess | ServicesProject | ServicesArchitecture | ServicesCatalog | ServicesHero | AboutCerts | AboutManufacturers | AboutSectors | AboutEngagement | AboutManifest | AboutHero | HomeContact | HomePartners | HomeIntegration | HomeProjectsFeatured | HomeIndustries | HomeWhy | HomeProcess | HomeSolutions | HomeTicker | HomeHero | PageReference | Link | CallToAction | InfoSection | BlockContentTextOnly | BlockContent | Button | Seo | Code | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | AssistInstructionContextReference | SanityAssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | NewsletterSubscriber | ProjectCategoryReference | ProjectReference | Project | SanityImageCrop | SanityImageHotspot | ProjectCategory | Slug | Settings | Page | PersonReference | PostCategoryReference | Post | PostCategory | Person | MediaTag | AssistInstructionContext | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
+export type AllSanitySchemaTypes = ButtonPrimary | ButtonSecondary | CtaPrimary | CtaSecondary | SanityFileAssetReference | FileAttachmentFile | SanityImageAssetReference | Logo | ProjectCardImage | NikomCta | ContactForm | ContactMaps | ContactInfo | ContactHero | BlogList | PostReference | BlogFeatured | BlogHero | ProjectsSectorStats | ProjectsMasonry | ProjectsFeature | ProjectsHero | ServicesFaq | ServicesProcess | ServicesProject | ServicesArchitecture | ServicesCatalog | ServicesHero | AboutCerts | AboutManufacturers | AboutSectors | AboutEngagement | AboutManifest | AboutHero | HomeContact | HomePartners | HomeIntegration | HomeProjectsFeatured | HomeIndustries | HomeWhy | HomeProcess | HomeSolutions | HomeTicker | HomeHero | PageReference | Link | CallToAction | InfoSection | BlockContentTextOnly | BlockContent | Button | Seo | Code | Color | RgbaColor | HsvaColor | HslaColor | SanityAssistInstructionTask | SanityAssistTaskStatus | SanityAssistSchemaTypeAnnotations | SanityAssistOutputType | SanityAssistOutputField | AssistInstructionContextReference | SanityAssistInstructionContext | SanityAssistInstructionUserInput | SanityAssistInstructionPrompt | SanityAssistInstructionFieldRef | SanityAssistInstruction | SanityAssistSchemaTypeField | NewsletterSubscriber | ProjectCategoryReference | ProjectReference | Project | SanityImageCrop | SanityImageHotspot | ProjectCategory | Slug | Settings | Page | PersonReference | PostCategoryReference | Post | PostCategory | Person | MediaTag | AssistInstructionContext | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 
 // Source: sanity/lib/queries.ts
 // Variable: settingsQuery
@@ -1924,11 +1981,62 @@ export type GetPageQueryResult = {
       _type: "block";
       _key: string;
     } | {
+      variant?: "danger" | "info" | "success" | "warning";
+      body: string;
+      _type: "callout";
+      _key: string;
+      markDefs: null;
+    } | {
+      _key: string;
+      _type: "code";
+      language?: string;
+      filename?: string;
+      code?: string;
+      highlightedLines?: Array<number>;
+      markDefs: null;
+    } | {
+      label: string;
+      href: string;
+      variant?: "outline" | "primary" | "secondary";
+      openInNewTab?: boolean;
+      _type: "ctaButton";
+      _key: string;
+      markDefs: null;
+    } | {
+      style?: "line" | "space";
+      _type: "divider";
+      _key: string;
+      markDefs: null;
+    } | {
+      file: FileAttachmentFile;
+      label?: string;
+      _type: "fileAttachment";
+      _key: string;
+      markDefs: null;
+    } | {
       asset?: SanityImageAssetReference;
       media?: unknown;
       hotspot?: SanityImageHotspot;
       crop?: SanityImageCrop;
+      alt?: string;
+      caption?: string;
       _type: "image";
+      _key: string;
+      markDefs: null;
+    } | {
+      caption?: string;
+      rows?: Array<{
+        cells?: Array<string>;
+        _type: "tableRow";
+        _key: string;
+      }>;
+      _type: "table";
+      _key: string;
+      markDefs: null;
+    } | {
+      url: string;
+      caption?: string;
+      _type: "videoEmbed";
       _key: string;
       markDefs: null;
     }> | null;
@@ -2177,7 +2285,7 @@ export type MorePostsQueryResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: postQuery
-// Query: *[_type == "post" && locale == $locale && pathname.current == $pathname][0] {    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }      }    },      _id,  locale,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "pathname": pathname.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},    authorName,    coverImageUrl,    "category": coalesce(category->key.current, category),    "categoryLabel": coalesce(category->title, categoryLabel),    tags,    readTime,    "translations": *[_type == "translation.metadata" && references(^._id)][0]{      "list": translations[]{ "locale": value->locale, "pathname": value->pathname.current }    }.list  }
+// Query: *[_type == "post" && locale == $locale && pathname.current == $pathname][0] {    content[]{      ...,      markDefs[]{        ...,          _type == "link" => {    "page": page->pathname.current,    "post": post->pathname.current  }      }    },      _id,  locale,  "status": select(_originalId in path("drafts.**") => "draft", "published"),  "title": coalesce(title, "Untitled"),  "pathname": pathname.current,  excerpt,  coverImage,  "date": coalesce(date, _updatedAt),  "author": author->{firstName, lastName, picture},    authorName,    coverImageUrl,    "category": coalesce(category->key.current, category),    "categoryLabel": coalesce(category->title, categoryLabel),    tags,    readTime,    "seoTitle": coalesce(seo.title, title),    "seoDescription": coalesce(seo.description, excerpt),    "seoImage": coalesce(seo.image, coverImage),    "noIndex": seo.noIndex == true,    "translations": *[_type == "translation.metadata" && references(^._id)][0]{      "list": translations[]{ "locale": value->locale, "pathname": value->pathname.current }    }.list  }
 export type PostQueryResult = {
   content: Array<{
     children?: Array<{
@@ -2201,11 +2309,62 @@ export type PostQueryResult = {
     _type: "block";
     _key: string;
   } | {
+    variant?: "danger" | "info" | "success" | "warning";
+    body: string;
+    _type: "callout";
+    _key: string;
+    markDefs: null;
+  } | {
+    _key: string;
+    _type: "code";
+    language?: string;
+    filename?: string;
+    code?: string;
+    highlightedLines?: Array<number>;
+    markDefs: null;
+  } | {
+    label: string;
+    href: string;
+    variant?: "outline" | "primary" | "secondary";
+    openInNewTab?: boolean;
+    _type: "ctaButton";
+    _key: string;
+    markDefs: null;
+  } | {
+    style?: "line" | "space";
+    _type: "divider";
+    _key: string;
+    markDefs: null;
+  } | {
+    file: FileAttachmentFile;
+    label?: string;
+    _type: "fileAttachment";
+    _key: string;
+    markDefs: null;
+  } | {
     asset?: SanityImageAssetReference;
     media?: unknown;
     hotspot?: SanityImageHotspot;
     crop?: SanityImageCrop;
+    alt?: string;
+    caption?: string;
     _type: "image";
+    _key: string;
+    markDefs: null;
+  } | {
+    caption?: string;
+    rows?: Array<{
+      cells?: Array<string>;
+      _type: "tableRow";
+      _key: string;
+    }>;
+    _type: "table";
+    _key: string;
+    markDefs: null;
+  } | {
+    url: string;
+    caption?: string;
+    _type: "videoEmbed";
     _key: string;
     markDefs: null;
   }> | null;
@@ -2242,6 +2401,17 @@ export type PostQueryResult = {
   categoryLabel: string | null;
   tags: Array<string> | null;
   readTime: number | null;
+  seoTitle: string;
+  seoDescription: string | null;
+  seoImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  noIndex: boolean | false;
   translations: null;
 } | null;
 
@@ -2284,7 +2454,7 @@ export type PagesPathnamesResult = Array<{
 
 // Source: sanity/lib/queries.ts
 // Variable: projectBySlugQuery
-// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    _type,    title,    "sector": coalesce(category->key.current, sector),    "sectorLabel": coalesce(category->title, sectorLabel),    year,    location,    classified,    heroImage,    heroImageFallback,    summary,    "systems": systems[]{_key, name},    "facts": facts[]{_key, label, value},    "scope": scope[]{_key, n, t, d},    quote,    "gallery": gallery[]{_key, caption, "image": image{asset}},    "kpis": kpis[]{_key, label, value},    "related": related[]->{      _id,      title,      "sectorLabel": coalesce(category->title, sectorLabel),      year,      "slug": slug.current,      heroImage    },    "slug": slug.current  }
+// Query: *[_type == "project" && slug.current == $slug][0]{    _id,    _type,    title,    "sector": coalesce(category->key.current, sector),    "sectorLabel": coalesce(category->title, sectorLabel),    year,    location,    classified,    heroImage,    heroImageFallback,    summary,    "seoTitle": coalesce(seo.title, title),    "seoDescription": coalesce(seo.description, summary),    "seoImage": coalesce(seo.image, heroImage),    "noIndex": seo.noIndex == true,    "systems": scope[]{_key, "name": title},    "facts": facts[]{_key, label, value},    body,    quote,    "gallery": gallery[]{_key, caption, videoUrl, "image": image{asset}},    "kpis": kpis[]{_key, label, value},    "related": related[]->{      _id,      title,      "sectorLabel": coalesce(category->title, sectorLabel),      year,      "slug": slug.current,      heroImage    },    "slug": slug.current  }
 export type ProjectBySlugQueryResult = {
   _id: string;
   _type: "project";
@@ -2304,18 +2474,27 @@ export type ProjectBySlugQueryResult = {
   } | null;
   heroImageFallback: string | null;
   summary: string | null;
-  systems: null;
+  seoTitle: string;
+  seoDescription: string | null;
+  seoImage: {
+    asset?: SanityImageAssetReference;
+    media?: unknown;
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    alt?: string;
+    _type: "image";
+  } | null;
+  noIndex: boolean | false;
+  systems: Array<{
+    _key: string;
+    name: string | null;
+  }> | null;
   facts: Array<{
     _key: string;
     label: string | null;
     value: string | null;
   }> | null;
-  scope: Array<{
-    _key: string;
-    n: null;
-    t: null;
-    d: null;
-  }> | null;
+  body: BlockContent | null;
   quote: {
     text?: string;
     author?: string;
@@ -2324,6 +2503,7 @@ export type ProjectBySlugQueryResult = {
   gallery: Array<{
     _key: string;
     caption: string | null;
+    videoUrl: string | null;
     image: {
       asset: SanityImageAssetReference | null;
     } | null;
@@ -2450,11 +2630,11 @@ declare module "@sanity/client" {
     "\n  *[_type == 'page' && pathname.current == $pathname][0]{\n    _id,\n    _type,\n    name,\n    pathname,\n    heading,\n    subheading,\n    \"pageBuilder\": pageBuilder[]{\n      ...,\n      _type == \"callToAction\" => {\n        ...,\n        button {\n          ...,\n          \n  link {\n      ...,\n      \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n\n        }\n      },\n      _type == \"infoSection\" => {\n        content[]{\n          ...,\n          markDefs[]{\n            ...,\n            \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n          }\n        }\n      },\n      _type == \"homeProjectsFeatured\" => {\n        ...,\n        \"projects\": *[_type == \"project\" && featured == true] | order(coalesce(featuredOrder, 999) asc, _createdAt asc) {\n          _id,\n          title,\n          \"sector\": coalesce(category->key.current, sector),\n          \"sectorLabel\": coalesce(category->title, sectorLabel),\n          year,\n          \"image\": heroImage,\n          \"imageFallback\": heroImageFallback,\n          \"systems\": coalesce(scope[].title, []),\n          \"kpis\": kpis[]{ _key, label, value, suffix },\n          \"href\": \"/bg/proekti/\" + slug.current,\n          featured\n        }\n      },\n    },\n  }\n": GetPageQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && defined(pathname.current)] | order(date desc, _updatedAt desc) {\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": AllPostsQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && _id != $skip && defined(pathname.current)] | order(date desc, _updatedAt desc) [0...$limit] {\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n  }\n": MorePostsQueryResult;
-    "\n  *[_type == \"post\" && locale == $locale && pathname.current == $pathname][0] {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n    },\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n    authorName,\n    coverImageUrl,\n    \"category\": coalesce(category->key.current, category),\n    \"categoryLabel\": coalesce(category->title, categoryLabel),\n    tags,\n    readTime,\n    \"translations\": *[_type == \"translation.metadata\" && references(^._id)][0]{\n      \"list\": translations[]{ \"locale\": value->locale, \"pathname\": value->pathname.current }\n    }.list\n  }\n": PostQueryResult;
+    "\n  *[_type == \"post\" && locale == $locale && pathname.current == $pathname][0] {\n    content[]{\n      ...,\n      markDefs[]{\n        ...,\n        \n  _type == \"link\" => {\n    \"page\": page->pathname.current,\n    \"post\": post->pathname.current\n  }\n\n      }\n    },\n    \n  _id,\n  locale,\n  \"status\": select(_originalId in path(\"drafts.**\") => \"draft\", \"published\"),\n  \"title\": coalesce(title, \"Untitled\"),\n  \"pathname\": pathname.current,\n  excerpt,\n  coverImage,\n  \"date\": coalesce(date, _updatedAt),\n  \"author\": author->{firstName, lastName, picture},\n\n    authorName,\n    coverImageUrl,\n    \"category\": coalesce(category->key.current, category),\n    \"categoryLabel\": coalesce(category->title, categoryLabel),\n    tags,\n    readTime,\n    \"seoTitle\": coalesce(seo.title, title),\n    \"seoDescription\": coalesce(seo.description, excerpt),\n    \"seoImage\": coalesce(seo.image, coverImage),\n    \"noIndex\": seo.noIndex == true,\n    \"translations\": *[_type == \"translation.metadata\" && references(^._id)][0]{\n      \"list\": translations[]{ \"locale\": value->locale, \"pathname\": value->pathname.current }\n    }.list\n  }\n": PostQueryResult;
     "\n  *[_type == \"post\" && locale == $locale && _id != $skip && defined(pathname.current)] | order(date desc, _updatedAt desc) [0...3] {\n    _id,\n    \"title\": coalesce(title, \"Untitled\"),\n    \"pathname\": pathname.current,\n    \"categoryLabel\": coalesce(category->title, categoryLabel),\n    coverImage,\n    coverImageUrl,\n    \"date\": coalesce(date, _updatedAt),\n    readTime\n  }\n": RelatedPostsQueryResult;
     "\n  *[_type == \"post\" && defined(pathname.current)] {\n    locale,\n    \"pathname\": pathname.current,\n    \"slug\": string::split(pathname.current, \"/\")[-1]\n  }\n": PostPathnamesResult;
     "\n  *[_type == \"page\" && defined(pathname.current)]\n  { \"path\": string::split(pathname.current, \"/\")[@ != \"\"] }\n": PagesPathnamesResult;
-    "\n  *[_type == \"project\" && slug.current == $slug][0]{\n    _id,\n    _type,\n    title,\n    \"sector\": coalesce(category->key.current, sector),\n    \"sectorLabel\": coalesce(category->title, sectorLabel),\n    year,\n    location,\n    classified,\n    heroImage,\n    heroImageFallback,\n    summary,\n    \"systems\": systems[]{_key, name},\n    \"facts\": facts[]{_key, label, value},\n    \"scope\": scope[]{_key, n, t, d},\n    quote,\n    \"gallery\": gallery[]{_key, caption, \"image\": image{asset}},\n    \"kpis\": kpis[]{_key, label, value},\n    \"related\": related[]->{\n      _id,\n      title,\n      \"sectorLabel\": coalesce(category->title, sectorLabel),\n      year,\n      \"slug\": slug.current,\n      heroImage\n    },\n    \"slug\": slug.current\n  }\n": ProjectBySlugQueryResult;
+    "\n  *[_type == \"project\" && slug.current == $slug][0]{\n    _id,\n    _type,\n    title,\n    \"sector\": coalesce(category->key.current, sector),\n    \"sectorLabel\": coalesce(category->title, sectorLabel),\n    year,\n    location,\n    classified,\n    heroImage,\n    heroImageFallback,\n    summary,\n    \"seoTitle\": coalesce(seo.title, title),\n    \"seoDescription\": coalesce(seo.description, summary),\n    \"seoImage\": coalesce(seo.image, heroImage),\n    \"noIndex\": seo.noIndex == true,\n    \"systems\": scope[]{_key, \"name\": title},\n    \"facts\": facts[]{_key, label, value},\n    body,\n    quote,\n    \"gallery\": gallery[]{_key, caption, videoUrl, \"image\": image{asset}},\n    \"kpis\": kpis[]{_key, label, value},\n    \"related\": related[]->{\n      _id,\n      title,\n      \"sectorLabel\": coalesce(category->title, sectorLabel),\n      year,\n      \"slug\": slug.current,\n      heroImage\n    },\n    \"slug\": slug.current\n  }\n": ProjectBySlugQueryResult;
     "\n  *[_type == \"project\" && defined(slug.current)]{\n    \"slug\": slug.current\n  }\n": ProjectSlugPathnamesResult;
     "\n  *[_type == \"project\" && defined(slug.current)] | order(_createdAt asc) {\n    _id, title, \"sector\": coalesce(category->key.current, sector), \"sectorLabel\": coalesce(category->title, sectorLabel), year, classified,\n    \"slug\": slug.current,\n    heroImage,\n    \"systems\": coalesce(scope[].title, systems, []),\n    kpis[]{ _key, label, value }\n  }\n": NikomProjectsListQueryResult;
     "\n  *[_type == \"post\" && defined(slug.current)] | order(coalesce(date, _updatedAt) desc) {\n    _id, title, excerpt, authorName,\n    \"date\": coalesce(date, _updatedAt),\n    readTime, tags,\n    \"category\": coalesce(category->key.current, category),\n    \"categoryLabel\": coalesce(category->title, categoryLabel),\n    featured,\n    \"slug\": slug.current,\n    coverImage\n  }\n": NikomPostsListQueryResult;

@@ -294,7 +294,8 @@
   --dot-radius: 14px;
   transition: border-color .25s, transform .35s;
 }
-.prj-card:hover { border-color: var(--border-strong); transform: translateY(-3px); }
+.prj-card { cursor: pointer; text-decoration: none; color: inherit; }
+.prj-card:hover { border-color: var(--accent); transform: translateY(-4px); }
 
 /* Content starts clipped at top — reveals downward in sync with scan line */
 .prj-content {
@@ -411,10 +412,13 @@
   color: var(--fg);
   padding-top: 6px;
 }
-.prj-link:hover { color: var(--accent-strong); }
-[data-theme="dark"] .prj-link:hover { color: var(--accent); }
+.prj-link:hover,
+.prj-card:hover .prj-link { color: var(--accent-strong); }
+[data-theme="dark"] .prj-link:hover,
+[data-theme="dark"] .prj-card:hover .prj-link { color: var(--accent); }
 .prj-link .arrow { transition: transform .25s; }
-.prj-link:hover .arrow { transform: translateX(4px); }
+.prj-link:hover .arrow,
+.prj-card:hover .prj-link .arrow { transform: translateX(4px); }
 
 /* ===== Infinite-scroll sentinel ===== */
 .prj-sentinel {

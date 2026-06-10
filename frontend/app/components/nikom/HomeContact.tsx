@@ -23,29 +23,33 @@ type Props = {
   pageType: string
 }
 
-function Field({ label, placeholder, required }: { label: string; placeholder: string; required?: boolean }) {
+function Field({ label, placeholder, required, name, type }: { label: string; placeholder: string; required?: boolean; name: string; type?: string }) {
   return (
     <div className="field">
       <label>{label}{required && <span className="req">*</span>}</label>
-      <input type="text" placeholder={placeholder} required={required} />
+      <input name={name} type={type ?? 'text'} placeholder={placeholder} required={required} />
     </div>
   )
 }
 
-function SelectField({ label, options }: { label: string; options: string[] }) {
+function SelectField({ label, name, options }: { label: string; name: string; options: string[] }) {
   return (
     <div className="field">
       <label>{label}</label>
-      <select>{options.map((o) => <option key={o}>{o}</option>)}</select>
+      <select name={name}>{options.map((o) => <option key={o}>{o}</option>)}</select>
     </div>
   )
 }
 
 export default function HomeContact({ block, index: _index, pageId, pageType }: Props) {
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   const basePath = `pageBuilder[_key=="${block?._key}"]`
 
   const contactItems: ContactItem[] = block?.contactItems ?? []
+
+  const successRef = `REQ-${Math.floor(Math.random() * 99999).toString().padStart(5, '0')}`
 
   return (
     <section className="section-pad contact" id="contact">
@@ -96,11 +100,40 @@ export default function HomeContact({ block, index: _index, pageId, pageType }: 
             </div>
 
             <div className="privacy">
-              <Icons.Shield /> Вашата информация се обработва конфиденциално и не се споделя с трети страни.
+              <Icons.Shield /> Вашата информация се обработва конфиденциално и не се споделя с трети страни.
             </div>
           </div>
 
-          <form className="contact-form" onSubmit={(e) => { e.preventDefault(); setSent(true) }}>
+          <form
+            className="contact-form"
+            onSubmit={async (e) => {
+              e.preventDefault()
+              setSending(true)
+              setError(null)
+              const form = e.currentTarget
+              const data = {
+                type: (form.elements.namedItem('type') as HTMLSelectElement)?.value,
+                name: (form.elements.namedItem('name') as HTMLInputElement)?.value,
+                email: (form.elements.namedItem('email') as HTMLInputElement)?.value,
+                phone: (form.elements.namedItem('phone') as HTMLInputElement)?.value,
+                company: (form.elements.namedItem('company') as HTMLInputElement)?.value,
+                message: (form.elements.namedItem('message') as HTMLTextAreaElement)?.value,
+              }
+              try {
+                const res = await fetch('/api/contact', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify(data),
+                })
+                if (!res.ok) throw new Error()
+                setSent(true)
+              } catch {
+                setError('Грешка при изпращане. Моля опитайте отново.')
+              } finally {
+                setSending(false)
+              }
+            }}
+          >
             <div className="form-head">
               <span className="chip solid">Заявка за консултация</span>
               <span className="meta">FORM · 06 fields</span>
@@ -119,30 +152,35 @@ export default function HomeContact({ block, index: _index, pageId, pageType }: 
                 >
                   {block?.formSuccessBody}
                 </p>
+                <div className="meta" style={{ marginTop: 24 }}>
+                  Референция: {successRef}
+                </div>
               </div>
             ) : (
               <>
                 <div className="row-2">
-                  <Field label="Име" placeholder="Иван Иванов" />
-                  <Field label="Фирма" placeholder="Опционално" />
+                  <Field label="Ime" placeholder="Иван Иванов" name="name" required />
+                  <Field label="Фирма" placeholder="Опционално" name="company" />
                 </div>
                 <div className="row-2">
-                  <Field label="Телефон" placeholder="+359 ..." required />
-                  <Field label="Имейл" placeholder="email@firma.bg" required />
+                  <Field label="Телефон" placeholder="+359 ..." name="phone" required />
+                  <Field label="Имейл" placeholder="email@firma.bg" name="email" type="email" required />
                 </div>
                 <SelectField
                   label="Тип обект"
+                  name="type"
                   options={['Изберете…', 'Офис сграда', 'Болница', 'Хотел / резиденция', 'Ритейл / магазин', 'Индустриален обект', 'Държавна институция', 'Жилищен комплекс', 'Друго']}
                 />
                 <div className="field">
                   <label>Кратко описание <span className="opt">опционално</span></label>
-                  <textarea rows={4} placeholder="Брой етажи, площ, системи от интерес, срокове…" />
+                  <textarea name="message" rows={4} placeholder="Брой етажи, площ, системи от интерес, срокове…" />
                 </div>
-                <button className="btn btn-primary btn-lg" type="submit">
-                  {block?.formSubmitLabel} <Icons.Arrow />
+                {error && <p style={{ color: 'red', marginBottom: 8 }}>{error}</p>}
+                <button className="btn btn-primary btn-lg" type="submit" disabled={sending}>
+                  {sending ? 'Изпращане...' : <>{block?.formSubmitLabel} <Icons.Arrow /></>}
                 </button>
                 <div className="form-foot">
-                  <span className="meta">Средно време за отговор: ~3ч 12мин</span>
+                  <span className="meta">Средно време за отговор: ~3ч 12мин</span>
                 </div>
               </>
             )}
